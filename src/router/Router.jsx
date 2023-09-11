@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { getUserActionFromCollection } from "../redux/store/auth/authActions";
 import Profile from "../pages/profile/Profile";
+import Home from "../pages/home/Home";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,8 @@ const Router = () => {
         <Route path="/">
           <Route element={<PublicRouter isAuthenticate={isLogged} />}>
             {/* <Route index element={<Welcome (?) />} /> */}
-            <Route index element={<Login />} />
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             {/* <Route path="login" element={<Login />} /> */}
           </Route>

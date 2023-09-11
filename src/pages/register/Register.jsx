@@ -9,7 +9,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate('/')
+    navigate('/login')
   }
 
   return (
