@@ -15,10 +15,10 @@ const Products = () => {
     }
 
     return (
-        <div className="products m-14 flex flex-col gap-20" >
+        <div className="products my-8 mx-14 flex flex-col gap-20" >
 
             <div className="flex justify-between items-center">
-                <img onClick={goBack} className="w-4 object-contain" src={back} alt="" />
+                <img onClick={goBack} className="w-4 object-contain cursor-pointer" src={back} alt="" />
 
                 <ul className="flex gap-5">
                     <li className="products__li">Mujer</li>
@@ -33,8 +33,8 @@ const Products = () => {
                 </div>
 
                 <div className="flex gap-6">
-                    <img className="w-7 object-contain" src={like} alt="" />
-                    <img className="w-5 object-contain" src={bag} alt="" />
+                    <img className="w-7 object-contain cursor-pointer" src={like} alt="" />
+                    <img className="w-5 object-contain cursor-pointer" src={bag} alt="" />
                 </div>
 
             </div>
