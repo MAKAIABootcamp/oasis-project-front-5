@@ -11,6 +11,7 @@ import { getUserActionFromCollection } from "../redux/store/auth/authActions";
 import Profile from "../pages/profile/Profile";
 import Home from "../pages/home/Home";
 import Products from "../pages/products/Products";
+import Details from "../pages/details/Details";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Router = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="products" element={<Products />} />
+            <Route path="details" element={<Details />} />
             {/* <Route path="login" element={<Login />} /> */}
           </Route>
           <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
