@@ -2,7 +2,7 @@ import React from 'react'
 import back from '../../assets/back.png'
 import search from '../../assets/search.png'
 import bag from '../../assets/bag.png'
-import like from '../../assets/like.png'
+import heart from '../../assets/heart.png'
 import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
@@ -30,7 +30,7 @@ const Header = () => {
       </div>
 
       <div className="flex gap-6">
-        <img className="w-7 object-contain cursor-pointer" src={like} alt="" />
+        <img className="w-7 object-contain cursor-pointer" src={heart} alt="" />
         <img className="w-5 object-contain cursor-pointer" src={bag} alt="" />
       </div>
     </div>

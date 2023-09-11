@@ -1,5 +1,5 @@
 import React from "react";
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.jpeg'
 import back from '../../assets/back.png'
 import './register.scss'
 import { useNavigate } from "react-router-dom";
@@ -16,9 +16,9 @@ const Register = () => {
     <div className="register flex flex-col items-center text-[14px] relative">
       <img className="w-4 absolute top-10 left-20 cursor-pointer" onClick={goBack} src={back} alt="" />
       <div className="container__login flex flex-col items-center my-[5%] w-[20%] gap-8 py-10 rounded-2xl bg-white">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-2">
           <h1 className="text-[20px]">CREAR CUENTA</h1>
-          <img src={logo} alt="" />
+          <img className="w-[26%]" src={logo} alt="" />
         </div>
         <form className="w-[80%]">
           <div className="flex flex-col gap-6">
