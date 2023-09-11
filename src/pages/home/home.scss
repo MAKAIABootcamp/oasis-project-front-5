@@ -1,18 +1,18 @@
 .home {
     color: black;
+
+    &__image {
+        cursor: pointer;
+        object-fit: cover;
+    }
+
+    &__image:hover {
+        transform: scale(1.05);
+    }
 }
 
 span{
     font-size: 30px;
     position: absolute;
     bottom:5px;
-}
-
-img {
-    cursor: pointer;
-    object-fit: cover;
-}
-
-img:hover {
-    transform: scale(1.05);
 }
