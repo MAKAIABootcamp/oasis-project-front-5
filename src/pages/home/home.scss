@@ -1,0 +1,18 @@
+.home {
+    color: black;
+}
+
+span{
+    font-size: 30px;
+    position: absolute;
+    bottom:5px;
+}
+
+img {
+    cursor: pointer;
+    object-fit: cover;
+}
+
+img:hover {
+    transform: scale(1.05);
+}
