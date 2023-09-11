@@ -23,3 +23,10 @@
 .container__login {
     border: solid 1px #288e7c;
 }
+
+.button__page {
+    background-color: #9acdc1;
+    border-radius: 50px;
+    font-size: 14px;
+    color: white;
+}
