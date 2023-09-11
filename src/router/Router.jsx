@@ -10,6 +10,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getUserActionFromCollection } from "../redux/store/auth/authActions";
 import Profile from "../pages/profile/Profile";
 import Home from "../pages/home/Home";
+import Products from "../pages/products/Products";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Router = () => {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="products" element={<Products />} />
             {/* <Route path="login" element={<Login />} /> */}
           </Route>
           <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
