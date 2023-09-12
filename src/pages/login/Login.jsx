@@ -15,10 +15,6 @@ const Login = () => {
     const { register, handleSubmit } = useForm();
     const { error } = useSelector((store) => store.auth);
 
-    const goBack = () => {
-        navigate('/')
-    }
-
     const signIn = (data) => {
         dispatch(loginWithEmailAndPassword(data));
     }
@@ -35,7 +31,7 @@ const Login = () => {
 
     return (
         <div className='login flex flex-col items-center text-[14px]'>
-            <img className="w-4 absolute top-10 left-20 cursor-pointer" onClick={goBack} src={back} alt="" />
+            <img className="w-4 absolute top-10 left-20 cursor-pointer" onClick={() => navigate(-1)} src={back} alt="" />
             <div className='container__login flex flex-col items-center my-[5%] w-[20%] gap-3 py-10 rounded-2xl bg-white'>
                 <div className='flex flex-col items-center gap-2'>
                     <h1 className='text-[20px]'>OASIS</h1>

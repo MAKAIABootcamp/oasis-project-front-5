@@ -9,13 +9,9 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  const goBack = () => {
-    navigate(-1)
-  }
-
   return (
     <div className="flex justify-between items-center">
-      <img className="w-4 object-contain cursor-pointer" onClick={goBack} src={back} alt="" />
+      <img className="w-4 object-contain cursor-pointer" onClick={() => navigate(-1)} src={back} alt="" />
 
       <ul className="flex gap-5">
         <li className="products__li selected">Mujer</li>
