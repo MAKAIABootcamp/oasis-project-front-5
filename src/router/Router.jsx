@@ -18,6 +18,7 @@ import Cart from "../pages/cart/Cart";
 import Payment from "../pages/payment/Payment";
 import Confirmation from "../pages/confirmation/Confirmation";
 import Favorites from "../pages/favorites/Favorites";
+import Blog from "../pages/blog/Blog";
 
 const Router = () => {
   // const dispatch = useDispatch();
@@ -53,6 +54,7 @@ const Router = () => {
             <Route path="payment" element={<Payment />} />
             <Route path="confirmation" element={<Confirmation />} />
             <Route path="favorites" element={<Favorites />} />
+            <Route path="blog" element={<Blog />} />
             {/* <Route path="login" element={<Login />} /> */}
           {/* </Route>
           {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>

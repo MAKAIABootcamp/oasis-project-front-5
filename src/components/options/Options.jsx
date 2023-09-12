@@ -10,7 +10,7 @@ const Options = () => {
         <div className='flex gap-4'>
             <img className='w-5 object-contain cursor-pointer' onClick={() => navigate('/')} src={home} alt="" />
             <img className='w-5 object-contain cursor-pointer' onClick={() => navigate('/login')} src={user} alt="" />
-            <img className='w-7 object-contain cursor-pointer' src={comunity} alt="" />
+            <img className='w-7 object-contain cursor-pointer' onClick={() => navigate('/blog')} src={comunity} alt="" />
         </div>
     )
 }
