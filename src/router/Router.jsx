@@ -29,6 +29,7 @@ const Router = () => {
       }
     });
   }, [dispatch, userLogged]);
+  console.log("en este momento el usuario está: ",isLogged);
   return (
     <BrowserRouter>
       <Routes>
