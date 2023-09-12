@@ -7,10 +7,6 @@ const Products = () => {
 
     const navigate = useNavigate();
 
-    const goDetails = () => {
-        navigate('/details')
-    }
-
     return (
         <div className="products my-8 mx-14 flex flex-col gap-20" >
             <Header/>
@@ -27,7 +23,7 @@ const Products = () => {
                 </div>
                 <div className="flex gap-10">
                     <div className="flex flex-col gap-2">
-                        <img onClick={goDetails} className="w-80 rounded-md cursor-pointer" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_1_1.jpg?ts=1689584553276" alt="" />
+                        <img onClick={() => navigate('/details')} className="w-80 rounded-md cursor-pointer" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_1_1.jpg?ts=1689584553276" alt="" />
                         <div>
                             <p>Blusa casual azul</p>
                             <p>$ 15.000</p>

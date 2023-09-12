@@ -15,10 +15,6 @@ const Login = () => {
     const { register, handleSubmit } = useForm();
     const { error } = useSelector((store) => store.auth);
 
-    const goBack = () => {
-        navigate('/')
-      }
-
     const signIn = (data) => {
         dispatch(loginWithEmailAndPassword(data));
     }
@@ -26,7 +22,7 @@ const Login = () => {
         Swal.fire("Oops!", "Ha occurrido un error en el inicio de sesión", "error");
     }
     if (error === false) {
-        Swal.fire("Excelente", "Haz iniciado sesión correctamente", "success").then(() => navigate("/profile"));
+        Swal.fire("Excelente", "Haz iniciado sesión correctamente", "success").then(() => navigate("/"));
     }
 
     const loginWithGoogle = () => {
@@ -35,13 +31,13 @@ const Login = () => {
 
     return (
         <div className='login flex flex-col items-center text-[14px]'>
-            <img className="w-4 absolute top-10 left-20 cursor-pointer" onClick={goBack} src={back} alt="" />
-            <div className='container__login flex flex-col items-center my-[5%] w-[20%] gap-16 py-10 rounded-2xl bg-white'>
+            <img className="w-4 absolute top-10 left-20 cursor-pointer" onClick={() => navigate(-1)} src={back} alt="" />
+            <div className='container__login flex flex-col items-center my-[5%] w-[20%] gap-3 py-10 rounded-2xl bg-white'>
                 <div className='flex flex-col items-center gap-2'>
                     <h1 className='text-[20px]'>OASIS</h1>
                     <img className="w-[26%]" src={logo} alt="" />
                 </div>
-                <form className='w-[80%]' onSubmit={handleSubmit(signIn)}>
+                <form className='w-[80%] flex flex-col gap-10' onSubmit={handleSubmit(signIn)}>
                     <div className='flex flex-col gap-6'>
                         <div className='flex flex-col'>
                             <label className='text-gray-400 login__label'>Correo</label>
@@ -52,11 +48,13 @@ const Login = () => {
                             <input className='border-b border-gray-300 mb-2 outline-none' {...register("password")} />
                         </div>
                     </div>
-                    <button className='button__login' type="submit">Acceder</button>
+
+                    <div className='flex items-center'>
+                        <button className='button__login' type="submit">Acceder</button>
+                    </div>
                 </form>
 
-                <div className='flex flex-col w-[100%] gap-3 items-center'>
-                  
+                <div className='flex flex-col w-[100%] gap-3 items-center mb-10'>
                     <button type='button' onClick={loginWithGoogle} className='button__login'>Continuar con google</button>
                     <button className='button__login' onClick={() => navigate('/register')}>Registrarse</button>
                 </div>

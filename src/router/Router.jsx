@@ -12,6 +12,7 @@ import Home from "../pages/home/Home";
 import Products from "../pages/products/Products";
 import Details from "../pages/details/Details";
 import Profile from "../pages/profile/Profile";
+import PersonalData from "../pages/personalData/PersonalData";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -33,20 +34,22 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route element={<PublicRouter isAuthenticate={isLogged} />}>
+        {/* <Route path="/">
+          <Route element={<PublicRouter />}> */}
             {/* <Route index element={<Welcome (?) />} /> */}
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="products" element={<Products />} />
             <Route path="details" element={<Details />} />
-            {/* <Route path="login" element={<Login />} /> */}
-          </Route>
-          <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
             <Route path="profile" element={<Profile />} />
-          </Route>
-        </Route>
+            <Route path="personal" element={<PersonalData />} />
+            {/* <Route path="login" element={<Login />} /> */}
+          {/* </Route>
+          {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
+            <Route path="profile" element={<Profile />} />
+        //   </Route> */}
+        // {/* </Route> */} 
       </Routes>
     </BrowserRouter>
   );
