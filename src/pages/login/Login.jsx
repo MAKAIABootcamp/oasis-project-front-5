@@ -22,7 +22,6 @@ const Login = () => {
     const signIn = (data) => {
         dispatch(loginWithEmailAndPassword(data));
     }
-
     if (error) {
         Swal.fire("Oops!", "Ha occurrido un error en el inicio de sesión", "error");
     }
@@ -53,11 +52,11 @@ const Login = () => {
                             <input className='border-b border-gray-300 mb-2 outline-none' {...register("password")} />
                         </div>
                     </div>
-
+                    <button className='button__login' type="submit">Acceder</button>
                 </form>
 
                 <div className='flex flex-col w-[100%] gap-3 items-center'>
-                    <button className='button__login' type="submit">Acceder</button>
+                  
                     <button type='button' onClick={loginWithGoogle} className='button__login'>Continuar con google</button>
                     <button className='button__login' onClick={() => navigate('/register')}>Registrarse</button>
                 </div>

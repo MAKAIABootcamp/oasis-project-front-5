@@ -8,10 +8,10 @@ import { auth } from "../firebase/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { getUserActionFromCollection } from "../redux/store/auth/authActions";
-import Profile from "../pages/profile/Profile";
 import Home from "../pages/home/Home";
 import Products from "../pages/products/Products";
 import Details from "../pages/details/Details";
+import Profile from "../pages/profile/Profile";
 
 const Router = () => {
   const dispatch = useDispatch();
