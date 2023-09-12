@@ -11,10 +11,6 @@ const Home = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const goProfile = () => {
-        navigate('/profile')
-    }
-
     const goProducts = (category) => {
 
         console.log('Categoría en Home:', category);
@@ -25,7 +21,7 @@ const Home = () => {
 
     return (
         <div className='home flex flex-col items-center my-4 mx-10 gap-4 relative'>
-            <img className="w-6 absolute right-10 top-8 cursor-pointer" onClick={goProfile} src={user} alt="" />
+            <img className="w-6 absolute right-10 top-8 cursor-pointer" onClick={() => navigate('/login')} src={user} alt="" />
             <h1 className='text-[70px] font-bold'>OASIS</h1>
             <div className='flex gap-8 w-full'>
                 <div onClick={() => goProducts('Mujer')} className='w-[23%] relative flex justify-center'>
