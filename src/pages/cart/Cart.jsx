@@ -23,7 +23,7 @@ const Cart = () => {
                         <div className='flex flex-col gap-4'>
                             <div className='flex justify-between'>
                                 <p className='font-semibold'>$ 15.000</p>
-                                <img className='w-5 object-contain' src={del} alt="" />
+                                <img className='w-5 object-contain cursor-pointer' src={del} alt="" />
                             </div>
                             <p className='font-semibold'>Blusa blanca de tela suave</p>
                             <p>Talla M</p>

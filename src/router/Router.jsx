@@ -21,6 +21,7 @@ import Favorites from "../pages/favorites/Favorites";
 import Blog from "../pages/blog/Blog";
 import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
+import Admin from "../pages/admin/Admin";
 
 
 const Router = () => {
@@ -100,6 +101,7 @@ const Router = () => {
           <Route path="confirmation" element={<Confirmation />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
       </Route>
     </Routes>

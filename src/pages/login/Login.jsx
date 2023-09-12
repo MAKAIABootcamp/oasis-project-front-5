@@ -1,10 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import {
-  login,
-  loginWithEmailAndPassword,
-} from "../../redux/store/auth/authActions";
+import { login, loginWithEmailAndPassword } from "../../redux/store/auth/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../assets/logo.jpeg";
 import back from "../../assets/back.png";
