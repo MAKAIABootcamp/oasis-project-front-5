@@ -16,6 +16,7 @@ import Profile from "../pages/profile/Profile";
 import PersonalData from "../pages/personalData/PersonalData";
 import Cart from "../pages/cart/Cart";
 import Payment from "../pages/payment/Payment";
+import Confirmation from "../pages/confirmation/Confirmation";
 
 const Router = () => {
   // const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const Router = () => {
             <Route path="cart" element={<Cart />} />
             <Route path="location" element={<Location />} />
             <Route path="payment" element={<Payment />} />
+            <Route path="confirmation" element={<Confirmation />} />
             {/* <Route path="login" element={<Login />} /> */}
           {/* </Route>
           {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>

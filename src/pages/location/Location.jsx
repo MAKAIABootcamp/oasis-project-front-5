@@ -40,9 +40,9 @@ const Location = () => {
                     <div className='container__login p-5 rounded-md cursor-pointer flex gap-2'>
                         <img className='w-4' src={credit} alt="" />Tarjeta débito</div> */}
                     <div className='container__login p-5 rounded-md cursor-pointer flex gap-2'>
-                        <img className='w-4' src={transfer} alt="" />Transferencia</div>
+                        <img className='w-4 object-contain' src={transfer} alt="" />Transferencia</div>
                     <div className='container__login p-5 rounded-md cursor-pointer flex gap-2'>
-                        <img className='w-4' src={cash} alt="" />Efectivo</div>
+                        <img className='w-4 object-contain' src={cash} alt="" />Efectivo</div>
                 </div>
 
                 <div className='flex flex-col gap-20'>
@@ -58,7 +58,7 @@ const Location = () => {
                             <p>20.000</p>
                         </div>
                     </div>
-                    <button className="button__page px-6 py-1.5 w-[100%]" onClick={() => navigate('/payment')}>Confirmar pedido</button>
+                    <button className="button__page px-6 py-1.5 w-[100%]" onClick={() => navigate('/confirmation')}>Confirmar pedido</button>
                 </div>
 
             </div>
