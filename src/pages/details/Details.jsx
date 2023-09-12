@@ -30,15 +30,15 @@ const Details = () => {
                 <div className="flex flex-col justify-between w-[30%]">
 
                     <div>
-                        <h2>Blusa casual azul</h2>
+                        <h2 className='font-semibold'>Blusa casual azul</h2>
 
                         <div className="flex justify-between">
-                            <p>$ 15.000</p>
+                            <p className='details__price'>$ 15.000</p>
                             <img className="w-5 object-contain cursor-pointer" src={heart} alt="" />
                         </div>
                     </div>
 
-                    <p>Ideal para una salida casual, para estar fresca y cómoda</p>
+                    <p className='font-semibold'>Ideal para una salida casual, para estar fresca y cómoda</p>
 
                     <p>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus saepe laudantium voluptatum quos culpa soluta quisquam hic, inventore quo nemo! Nihil omnis dolorem quis? Qui harum doloremque nemo quae eligendi!
