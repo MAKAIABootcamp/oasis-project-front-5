@@ -2,7 +2,6 @@ import React from 'react'
 import './admin.scss'
 import { useNavigate } from 'react-router-dom';
 import back from "../../assets/back.png";
-import { logout } from "../../redux/store/auth/authActions";
 import next from "../../assets/next.png";
 import bag from "../../assets/bag.png";
 import out from "../../assets/logout.png";

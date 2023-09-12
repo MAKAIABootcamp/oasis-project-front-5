@@ -4,7 +4,6 @@ import back from '../../assets/back.png'
 import location from '../../assets/location.png'
 import add from '../../assets/add.png'
 import Options from '../../components/options/Options'
-import credit from '../../assets/credit.png'
 import transfer from '../../assets/transfer.png'
 import cash from '../../assets/cash.png'
 
@@ -22,12 +21,12 @@ const Location = () => {
 
                 <div className='flex flex-col gap-8'>
                     <h2 className='font-semibold'>Elige la dirección de entrega</h2>
-                    <div className='container__login p-5 rounded-md flex gap-2 cursor-pointer'>
+                    <div className='container__login py-2 px-5 rounded-md flex gap-2 cursor-pointer'>
                         <img className='w-4 object-contain' src={location} alt="" />
                         Cra 47 # 16-12
                         Medellín, Antioquia
                     </div>
-                    <div className='container__login p-5 rounded-md flex gap-2 cursor-pointer'>
+                    <div className='container__login py-2 px-5 rounded-md flex gap-2 cursor-pointer'>
                         <img className='w-4 object-contain' src={add} alt="" />
                         Agregar otra dirección
                     </div>
@@ -35,13 +34,13 @@ const Location = () => {
 
                 <div className='flex flex-col gap-8'>
                     <h2 className='font-semibold'>Elige un medio de pago</h2>
-                    {/* <div className='container__login p-5 rounded-md cursor-pointer flex gap-2'>
+                    {/* <div className='container__login py-2 px-5 rounded-md cursor-pointer flex gap-2'>
                         <img className='w-4' src={credit} alt="" />Tarjeta de crédito</div>
-                    <div className='container__login p-5 rounded-md cursor-pointer flex gap-2'>
+                    <div className='container__login py-2 px-5 rounded-md cursor-pointer flex gap-2'>
                         <img className='w-4' src={credit} alt="" />Tarjeta débito</div> */}
-                    <div className='container__login p-5 rounded-md cursor-pointer flex gap-2'>
+                    <div className='container__login py-2 px-5 rounded-md cursor-pointer flex gap-2'>
                         <img className='w-4 object-contain' src={transfer} alt="" />Transferencia</div>
-                    <div className='container__login p-5 rounded-md cursor-pointer flex gap-2'>
+                    <div className='container__login py-2 px-5 rounded-md cursor-pointer flex gap-2'>
                         <img className='w-4 object-contain' src={cash} alt="" />Efectivo</div>
                 </div>
 
