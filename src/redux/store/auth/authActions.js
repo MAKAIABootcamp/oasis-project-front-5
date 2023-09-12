@@ -33,7 +33,8 @@ export const loginWithCode = (code) => {
             dispatch(setError({
                 error: true,
                 code: error.code,
-                message: error.message
+                message: error.message,
+                login: 'en el inicio de sesión'
             }))
         }
     }
@@ -55,6 +56,7 @@ export const login = () => {
             } else {
                 dispatch(setError({
                     error: true,
+                    login: 'en el inicio de sesión',
                     ...error
                 }))
             }
@@ -63,6 +65,7 @@ export const login = () => {
             dispatch(setError({
                 error: true,
                 code: error.code,
+                login: 'en el inicio de sesión',
                 message: error.message
             }))
         }
@@ -75,9 +78,17 @@ export const logout = () => {
             await signOut(auth)
             dispatch(setUserLogged(null));
             dispatch(setIsLogged(false));
-            dispatch(setError(false));
+            dispatch(setError(null));
         } catch (error) {
             console.log("error", error.error);
+            dispatch(
+              setError({
+                error: true,
+                code: error.code,
+                login: "en el cierre de sesión",
+                message: error.message,
+              })
+            );
         }
     };
 }
@@ -89,7 +100,7 @@ export const createAnUser = (newUser) => {
             await updateProfile(auth.currentUser, {
                 displayName: newUser.displayName, photoURL: newUser.photoURL,
             });
-            const createdUser = await createAnUserInCollection(user.uid, newUser);
+            const createdUser = await createAnUserInCollection(user.uid, {...newUser, role:'client'});
             console.log("respuesta firebase", user);
             console.log("respuesta firestore", createdUser);
             dispatch(setUserLogged(createdUser.user));
@@ -100,7 +111,8 @@ export const createAnUser = (newUser) => {
             dispatch(setError({
                 error: true,
                 code: error.code,
-                message: error.message
+                message: error.message,
+                login: 'en el inicio de sesión'
             }))
         }
     }
@@ -113,15 +125,16 @@ export const loginWithEmailAndPassword = (loggedUser) => {
             const foundUser = await getUserFromCollection(user.uid);
             console.log("respuesta firebase", user);
             console.log("respuesta firestore", foundUser);
+            dispatch(setError(false));
             dispatch(setUserLogged(foundUser));
             dispatch(setIsLogged(true));
-            dispatch(setError(false));
         } catch (error) {
             console.log(error);
             dispatch(setError({
                 error: true,
                 code: error.code,
-                message: error.message
+                message: error.message,
+                login: 'en el inicio de sesión'
             }))
         }
     }
@@ -134,7 +147,7 @@ export const getUserActionFromCollection = (uid) => {
             console.log(userLogged);
             dispatch(setUserLogged(userLogged));
             dispatch(setIsLogged(true));
-            dispatch(setError(false));
+            dispatch(setError(null));
         } catch (error) {
             console.log(error);
             dispatch(setError({
