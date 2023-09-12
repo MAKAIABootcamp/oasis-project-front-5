@@ -26,7 +26,7 @@ const Header = () => {
       </div>
 
       <div className="flex gap-6">
-        <img className="w-7 object-contain cursor-pointer" src={heart} alt="" />
+        <img className="w-7 object-contain cursor-pointer" onClick={() => navigate('/favorites')} src={heart} alt="" />
         <img className="w-5 object-contain cursor-pointer" onClick={() => navigate('/cart')} src={bag} alt="" />
       </div>
     </div>
