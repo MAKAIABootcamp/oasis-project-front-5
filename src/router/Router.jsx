@@ -14,38 +14,39 @@ import Details from "../pages/details/Details";
 import Profile from "../pages/profile/Profile";
 
 const Router = () => {
-  const dispatch = useDispatch();
-  const { isLogged, userLogged } = useSelector((store) => store.auth);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        console.log(user);
-        if (!userLogged?.id) {
-          dispatch(getUserActionFromCollection(uid));
-        }
-      } else {
-        console.log("No hay sesión activa");
-      }
-    });
-  }, [dispatch, userLogged]);
+  // const dispatch = useDispatch();
+  // const { isLogged, userLogged } = useSelector((store) => store.auth);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       const uid = user.uid;
+  //       console.log(user);
+  //       if (!userLogged?.id) {
+  //         dispatch(getUserActionFromCollection(uid));
+  //       }
+  //     } else {
+  //       console.log("No hay sesión activa");
+  //     }
+  //   });
+  // }, [dispatch, userLogged]);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route element={<PublicRouter isAuthenticate={isLogged} />}>
+        {/* <Route path="/">
+          <Route element={<PublicRouter />}> */}
             {/* <Route index element={<Welcome (?) />} /> */}
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="products" element={<Products />} />
             <Route path="details" element={<Details />} />
-            {/* <Route path="login" element={<Login />} /> */}
-          </Route>
-          <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
             <Route path="profile" element={<Profile />} />
-          </Route>
-        </Route>
+            {/* <Route path="login" element={<Login />} /> */}
+          {/* </Route>
+          {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
+            <Route path="profile" element={<Profile />} />
+        //   </Route> */}
+        // {/* </Route> */} 
       </Routes>
     </BrowserRouter>
   );
