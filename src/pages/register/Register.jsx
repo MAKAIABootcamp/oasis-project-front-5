@@ -39,16 +39,12 @@ const Register = () => {
       navigate("/profile")
     );
   }
-  
-  const goBack = () => {
-    navigate("/login");
-  };
 
   return (
     <div className="register flex flex-col items-center text-[14px] relative">
       <img
         className="w-4 absolute top-10 left-20 cursor-pointer"
-        onClick={goBack}
+        onClick={() => navigate(-1)}
         src={back}
         alt=""
       />
