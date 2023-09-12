@@ -13,7 +13,7 @@ const Header = () => {
     <div className="flex justify-between items-center">
       <img className="w-4 object-contain cursor-pointer" onClick={() => navigate(-1)} src={back} alt="" />
 
-      <ul className="flex gap-5">
+      <ul className="flex gap-5 font-semibold">
         <li className="products__li selected">Mujer</li>
         <li className="products__li">Hombre</li>
         <li className="products__li">Niños</li>
@@ -27,7 +27,7 @@ const Header = () => {
 
       <div className="flex gap-6">
         <img className="w-7 object-contain cursor-pointer" src={heart} alt="" />
-        <img className="w-5 object-contain cursor-pointer" src={bag} alt="" />
+        <img className="w-5 object-contain cursor-pointer" onClick={() => navigate('/cart')} src={bag} alt="" />
       </div>
     </div>
   )
