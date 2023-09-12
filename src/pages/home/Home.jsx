@@ -7,8 +7,8 @@ const Home = () => {
 
     const navigate = useNavigate();
 
-    const goLogin = () => {
-        navigate('/login')
+    const goProfile = () => {
+        navigate('/profile')
     }
 
     const goProducts = () => {
@@ -16,7 +16,7 @@ const Home = () => {
     }
     return (
         <div className='home flex flex-col items-center my-4 mx-10 gap-4 relative'>
-            <img className="w-6 absolute right-10 top-8 cursor-pointer" onClick={goLogin} src={user} alt="" />
+            <img className="w-6 absolute right-10 top-8 cursor-pointer" onClick={goProfile} src={user} alt="" />
             <h1 className='text-[70px] font-bold'>OASIS</h1>
             <div className='flex gap-8 w-full'>
                 <div onClick={goProducts} className='w-[23%] relative flex justify-center'>
