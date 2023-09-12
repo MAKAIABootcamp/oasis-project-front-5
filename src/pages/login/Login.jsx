@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { login, loginWithEmailAndPassword } from '../../redux/store/auth/authActions';
 import { useDispatch, useSelector } from "react-redux";
 import Swal from 'sweetalert2';
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.jpeg'
 import back from '../../assets/back.png'
 import './login.scss'
 
@@ -37,9 +37,9 @@ const Login = () => {
         <div className='login flex flex-col items-center text-[14px]'>
             <img className="w-4 absolute top-10 left-20 cursor-pointer" onClick={goBack} src={back} alt="" />
             <div className='container__login flex flex-col items-center my-[5%] w-[20%] gap-16 py-10 rounded-2xl bg-white'>
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col items-center gap-2'>
                     <h1 className='text-[20px]'>OASIS</h1>
-                    <img src={logo} alt="" />
+                    <img className="w-[26%]" src={logo} alt="" />
                 </div>
                 <form className='w-[80%]' onSubmit={handleSubmit(signIn)}>
                     <div className='flex flex-col gap-6'>
