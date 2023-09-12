@@ -4,6 +4,7 @@ import back from '../../assets/back.png'
 import Options from '../../components/options/Options'
 
 const Blog = () => {
+    const navigate = useNavigate();
     return (
         <div className='mx-20 my-12 flex flex-col'>
             <div className='flex justify-between'>

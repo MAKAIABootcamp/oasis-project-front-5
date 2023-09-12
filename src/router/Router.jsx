@@ -26,7 +26,7 @@ import Swal from "sweetalert2";
 const Router = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLogged, userLogged, error} = useSelector((store) => store.auth);
+  const { isLogged, userLogged, error } = useSelector((store) => store.auth);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -47,22 +47,22 @@ const Router = () => {
   );
 
   if (error) {
-      Swal.fire(
-        "Oops!",
-        "Ha occurrido un error "+error.login,
-        "error"
-      );
-    }
-    if (error === false) {
-      Swal.fire(
-        "Excelente",
-        "Haz iniciado sesión correctamente",
-        "success"
-      ).then(() => {
-        dispatch(setError(null));
-        navigate("/profile");
-      });
-    }
+    Swal.fire(
+      "Oops!",
+      "Ha occurrido un error " + error.login,
+      "error"
+    );
+  }
+  if (error === false) {
+    Swal.fire(
+      "Excelente",
+      "Haz iniciado sesión correctamente",
+      "success"
+    ).then(() => {
+      dispatch(setError(null));
+      navigate("/profile");
+    });
+  }
 
 
   return (
@@ -82,26 +82,25 @@ const Router = () => {
             <Route path="register" element={<Register />} />
           </Route>
         )}
-        {/* <Route element={<PublicRouter isAuthenticate={isLogged} />}> */}
-        {/* <Route index element={<Welcome (?) />} /> */}
-        {/* <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="products" element={<Products />} />
-            <Route path="details" element={<Details />} /> */}
-        {/* <Route path="profile" element={<Profile />} /> */}
-        {/* <Route path="login" element={<Login />} /> */}
-        {/* </Route> */}
-        {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
-            <Route path="profile" element={<Profile />} />
-            <Route path="personal" element={<PersonalData />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="location" element={<Location />} />
-            <Route path="payment" element={<Payment />} />
-            <Route path="confirmation" element={<Confirmation />} />
-            <Route path="favorites" element={<Favorites />} />
-            <Route path="blog" element={<Blog />} />
-          </Route> */}
+        <Route element={<PublicRouter isAuthenticate={isLogged} />}>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="products" element={<Products />} />
+          <Route path="details" element={<Details />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+        <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
+          <Route path="profile" element={<Profile />} />
+          <Route path="personal" element={<PersonalData />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="location" element={<Location />} />
+          <Route path="payment" element={<Payment />} />
+          <Route path="confirmation" element={<Confirmation />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="blog" element={<Blog />} />
+        </Route>
       </Route>
     </Routes>
   );
