@@ -10,9 +10,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getUserActionFromCollection } from "../redux/store/auth/authActions";
 import Home from "../pages/home/Home";
 import Products from "../pages/products/Products";
+import Location from "../pages/location/Location";
 import Details from "../pages/details/Details";
 import Profile from "../pages/profile/Profile";
 import PersonalData from "../pages/personalData/PersonalData";
+import Cart from "../pages/cart/Cart";
+import Payment from "../pages/payment/Payment";
+import Confirmation from "../pages/confirmation/Confirmation";
+import Favorites from "../pages/favorites/Favorites";
 import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
 
@@ -89,6 +94,11 @@ const Router = () => {
         {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
             <Route path="profile" element={<Profile />} />
             <Route path="personal" element={<PersonalData />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="location" element={<Location />} />
+            <Route path="payment" element={<Payment />} />
+            <Route path="confirmation" element={<Confirmation />} />
+            <Route path="favorites" element={<Favorites />} />
           </Route> */}
       </Route>
     </Routes>
