@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import PublicRouter from "./PrivateRouter";
@@ -13,10 +13,14 @@ import Products from "../pages/products/Products";
 import Details from "../pages/details/Details";
 import Profile from "../pages/profile/Profile";
 import PersonalData from "../pages/personalData/PersonalData";
+import { setError } from "../redux/store/auth/authReducer";
+import Swal from "sweetalert2";
+
 
 const Router = () => {
   const dispatch = useDispatch();
-  const { isLogged, userLogged } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
+  const { isLogged, userLogged, error} = useSelector((store) => store.auth);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -30,28 +34,64 @@ const Router = () => {
       }
     });
   }, [dispatch, userLogged]);
-  console.log("en este momento el usuario está: ",isLogged);
+  console.log("en este momento el usuario está: ", isLogged);
+  console.log(
+    "en este momento este usuario es el que esta logeado: ",
+    userLogged
+  );
+
+  if (error) {
+      Swal.fire(
+        "Oops!",
+        "Ha occurrido un error "+error.login,
+        "error"
+      );
+    }
+    if (error === false) {
+      Swal.fire(
+        "Excelente",
+        "Haz iniciado sesión correctamente",
+        "success"
+      ).then(() => {
+        dispatch(setError(null));
+        navigate("/profile");
+      });
+    }
+
+
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* <Route path="/">
-          <Route element={<PublicRouter />}> */}
-            {/* <Route index element={<Welcome (?) />} /> */}
-            <Route index element={<Home />} />
+    <Routes>
+      <Route path="/">
+        <Route index element={<Home />} />
+        <Route path="products" element={<Products />} />
+        <Route path="details" element={<Details />} />
+        {isLogged ? (
+          <Route>
+            <Route path="profile" element={<Profile />} />
+            <Route path="personal" element={<PersonalData />} />
+          </Route>
+        ) : (
+          <Route>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+        )}
+        {/* <Route element={<PublicRouter isAuthenticate={isLogged} />}> */}
+        {/* <Route index element={<Welcome (?) />} /> */}
+        {/* <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="products" element={<Products />} />
-            <Route path="details" element={<Details />} />
+            <Route path="details" element={<Details />} /> */}
+        {/* <Route path="profile" element={<Profile />} /> */}
+        {/* <Route path="login" element={<Login />} /> */}
+        {/* </Route> */}
+        {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
             <Route path="profile" element={<Profile />} />
             <Route path="personal" element={<PersonalData />} />
-            {/* <Route path="login" element={<Login />} /> */}
-          {/* </Route>
-          {/* <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
-            <Route path="profile" element={<Profile />} />
-        //   </Route> */}
-        // {/* </Route> */} 
-      </Routes>
-    </BrowserRouter>
+          </Route> */}
+      </Route>
+    </Routes>
   );
 };
 

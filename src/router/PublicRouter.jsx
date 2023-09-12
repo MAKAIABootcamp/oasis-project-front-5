@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PublicRouter = ({ isAuthenticate }) => {
     return (
-        <div>{isAuthenticate ? <Navigate to={"/"} /> : <Outlet />}</div>
+        <div>{isAuthenticate ? <Navigate to={"/profile"} /> : <Outlet />}</div>
     )
 }
 

@@ -15,6 +15,7 @@ const Register = () => {
   const { register, handleSubmit } = useForm();
   const { error } = useSelector((store) => store.auth);
 
+
   const userRegister = async (data) => {
     try {
       const imageFile = data.photoURL[0];
@@ -30,15 +31,6 @@ const Register = () => {
       //Swal.fire("Oops!", "Hubo un error en la creación de tu cuenta", "error");
     }
   };
-
-  if (error) {
-    Swal.fire("Oops!", "Hubo un error en la creación de tu cuenta", "error");
-  }
-  if (error === false) {
-    Swal.fire("Excelente!", "Haz creado tu cuenta!", "success").then(() =>
-      navigate("/profile")
-    );
-  }
 
   return (
     <div className="register flex flex-col items-center text-[14px] relative">
