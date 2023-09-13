@@ -1,0 +1,19 @@
+.options {
+    width: 20px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.comunity {
+    width: 25px;
+}
+
+@media (max-width:650px) { 
+    .options {
+        width: 15px;
+    }
+
+    .comunity {
+        width: 19px;
+    }
+}
