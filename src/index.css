@@ -31,6 +31,10 @@
     background-color: white;
 }
 
+.container__options {
+    border: solid 1px #288e7c;
+}
+
 .button__page {
     background-color: #9acdc1;
     border-radius: 50px;

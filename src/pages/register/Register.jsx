@@ -96,7 +96,7 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col w-[100%] gap-3 items-center">
+          <div className="flex flex-col w-[100%] mt-8 items-center">
             <button type="submit" className="button__login">
               Crear cuenta
             </button>
