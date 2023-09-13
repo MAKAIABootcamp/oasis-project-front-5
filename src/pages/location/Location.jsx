@@ -6,18 +6,19 @@ import add from '../../assets/add.png'
 import Options from '../../components/options/Options'
 import transfer from '../../assets/transfer.png'
 import cash from '../../assets/cash.png'
+import './location.scss'
 
 const Location = () => {
     const navigate = useNavigate();
     return (
-        <div className='mx-20 my-12 flex flex-col'>
+        <div className='location flex flex-col'>
             <div className='flex justify-between'>
                 <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='font-semibold'>CONFIRMAR PEDIDO</h1>
+                <h1 className='title'>CONFIRMAR PEDIDO</h1>
                 <Options />
             </div>
 
-            <div className='flex justify-between mx-20 my-[120px]'>
+            <div className='location__container'>
 
                 <div className='flex flex-col gap-8'>
                     <h2 className='font-semibold'>Elige la dirección de entrega</h2>

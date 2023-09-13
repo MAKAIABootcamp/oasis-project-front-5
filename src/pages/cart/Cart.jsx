@@ -12,7 +12,7 @@ const Cart = () => {
         <div className='cart flex flex-col'>
             <div className='flex justify-between'>
                 <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='title font-semibold'>CARRITO</h1>
+                <h1 className='title'>CARRITO</h1>
                 <Options/>
             </div>
 

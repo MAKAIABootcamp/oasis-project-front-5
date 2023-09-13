@@ -7,6 +7,7 @@ import location from '../../assets/location.png'
 import happy from '../../assets/happy.png'
 import ok from '../../assets/ok.png'
 import blue from '../../assets/blue.jpg'
+import './confirmation.scss'
 
 const Confirmation = () => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Confirmation = () => {
                 <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
                 <div className='flex gap-4'>
                     <img className='w-5 object-contain' src={happy} alt="" />
-                    <h1 className='font-semibold'>PEDIDO REALIZADO CON EXITO</h1>
+                    <h1 className='title'>PEDIDO REALIZADO CON EXITO</h1>
                     <img className='w-5 object-contain' src={ok} alt="" />
                 </div>
                 <Options />
