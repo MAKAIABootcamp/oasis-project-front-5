@@ -21,6 +21,14 @@
 
 .container__login {
     border: solid 1px #288e7c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    gap: 1rem;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: white;
 }
 
 .button__page {
@@ -49,5 +57,10 @@
 
     .title {
         font-size: 16px;
+    }
+
+    .container__login {
+        border: none;
+        margin-top: 3rem;
     }
 }

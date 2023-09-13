@@ -24,12 +24,12 @@ const Login = () => {
   return (
     <div className="login flex flex-col items-center text-[14px]">
       <img
-        className="w-4 absolute top-10 left-20 cursor-pointer"
+        className="backArrow login__back"
         onClick={() => navigate(-1)}
         src={back}
         alt=""
       />
-      <div className="container__login flex flex-col items-center my-[5%] w-[20%] gap-3 py-10 rounded-2xl bg-white">
+      <div className="container__login">
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-[20px]">OASIS</h1>
           <img className="w-[26%]" src={logo} alt="" />
@@ -64,7 +64,7 @@ const Login = () => {
           </div>
         </form>
 
-        <div className="flex flex-col w-[100%] gap-3 items-center mb-10">
+        <div className="flex flex-col w-[100%] gap-4 items-center mb-10">
           <button
             type="button"
             onClick={loginWithGoogle}
