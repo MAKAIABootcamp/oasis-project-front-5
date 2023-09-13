@@ -12,18 +12,18 @@ import './confirmation.scss'
 const Confirmation = () => {
     const navigate = useNavigate();
     return (
-        <div className='mx-20 my-12 flex flex-col'>
-            <div className='flex justify-between'>
-                <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
+        <div className='confirmation flex flex-col'>
+            <div className='confirmation__header flex justify-between'>
+                <img className='backArrow confirmation__back' onClick={() => navigate(-1)} src={back} alt="" />
                 <div className='flex gap-4'>
                     <img className='w-5 object-contain' src={happy} alt="" />
                     <h1 className='title'>PEDIDO REALIZADO CON EXITO</h1>
                     <img className='w-5 object-contain' src={ok} alt="" />
                 </div>
-                <Options />
+                <Options className='options' />
             </div>
 
-            <div className='flex mx-40 my-20 justify-between'>
+            <div className='confirmation__container'>
 
                 <div className='flex flex-col gap-8'>
                     <div className='flex flex-col gap-4'>
@@ -50,7 +50,7 @@ const Confirmation = () => {
                     </div>
                 </div>
 
-                <div className='flex flex-col justify-between'>
+                <div className='confirmation__info flex flex-col justify-between'>
 
                     <div className='flex flex-col gap-8'>
                         <div className='flex gap-4'>

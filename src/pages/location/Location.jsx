@@ -13,7 +13,7 @@ const Location = () => {
     return (
         <div className='location flex flex-col'>
             <div className='flex justify-between'>
-                <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
+                <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
                 <h1 className='title'>CONFIRMAR PEDIDO</h1>
                 <Options />
             </div>
