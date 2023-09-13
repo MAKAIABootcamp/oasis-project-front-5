@@ -1,0 +1,22 @@
+.cart {
+    margin: 40px;
+
+    &__container {
+        margin: 60px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width:650px) { 
+    .cart {
+        margin: 20px;
+
+        &__container {
+            margin: 40px 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+    }
+}

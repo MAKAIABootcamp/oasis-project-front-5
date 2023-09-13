@@ -2,4 +2,18 @@
     background-image: url('../../assets/background.png');
     height: 100vh;
     background-size: cover;
+
+    &__name {
+        padding-top: 2rem;
+    }
+}
+
+@media (max-width:650px) {
+    .profile {
+        background-image: none;
+
+        &__name {
+            padding-top: 0;
+        }
+    }
 }

@@ -35,12 +35,12 @@ const Register = () => {
   return (
     <div className="register flex flex-col items-center text-[14px] relative">
       <img
-        className="w-4 absolute top-10 left-20 cursor-pointer"
+        className="backArrow register__back"
         onClick={() => navigate(-1)}
         src={back}
         alt=""
       />
-      <div className="container__login flex flex-col items-center my-[5%] w-[20%] gap-8 py-10 rounded-2xl bg-white">
+      <div className="container__login">
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-[20px]">CREAR CUENTA</h1>
           <img className="w-[26%]" src={logo} alt="" />
@@ -96,7 +96,7 @@ const Register = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col w-[100%] gap-3 items-center">
+          <div className="flex flex-col w-[100%] mt-8 items-center">
             <button type="submit" className="button__login">
               Crear cuenta
             </button>

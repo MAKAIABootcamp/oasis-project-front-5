@@ -4,18 +4,19 @@ import del from '../../assets/delete.png'
 import blue from '../../assets/blue.jpg'
 import { useNavigate } from 'react-router';
 import Options from '../../components/options/Options'
+import './cart.scss'
 
 const Cart = () => {
     const navigate = useNavigate();
     return (
-        <div className='mx-20 my-12 flex flex-col'>
+        <div className='cart flex flex-col'>
             <div className='flex justify-between'>
-                <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='text-[20px] font-semibold'>CARRITO</h1>
+                <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
+                <h1 className='title'>CARRITO</h1>
                 <Options/>
             </div>
 
-            <div className='mx-60 my-20 flex justify-between'>
+            <div className='cart__container'>
 
                 <div className='flex gap-8'>
                     <img className='w-40' src={blue} alt="" />
