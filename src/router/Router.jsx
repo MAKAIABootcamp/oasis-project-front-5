@@ -71,13 +71,15 @@ const Router = () => {
       <Route path="/">
         <Route index element={<Home />} />
         <Route path="products" element={<Products />} />
-        <Route path="details" element={<Details />} />
+
+        <Route path="details/:id" element={<Details />} />
         <Route path="cart" element={<Cart />} />
         <Route path="confirmation" element={<Confirmation />} />
         <Route path="favorites" element={<Favorites />} />
         <Route path="blog" element={<Blog />} />
         <Route path="admin" element={<Admin />} />
         <Route path="location" element={<Location />} />
+
         {isLogged ? (
           <Route>
             <Route path="profile" element={<Profile />} />
