@@ -57,7 +57,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex justify-center">
             <button className="button__login" type="submit">
               Acceder
             </button>

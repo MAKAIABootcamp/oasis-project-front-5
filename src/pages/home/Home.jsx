@@ -25,11 +25,11 @@ const Home = () => {
             <h1 className='text-[70px] font-bold'>OASIS</h1>
             <div className='flex gap-8 w-full'>
                 <div onClick={() => goProducts('Mujer')} className='w-[23%] relative flex justify-center'>
-                    <img className="home__image" src="https://img.freepik.com/foto-gratis/joven-mujer-bonita-morena-posando-fondo-marmol-beige-vistiendo-pantalones-cortos-lino-beige-bolso-lujo-cuero-caramelo-camisa-blanca-accesorios-dorados-traje-estilo-callejero_291049-1753.jpg?w=360&t=st=1694128326~exp=1694128926~hmac=5bee90fe1de0a371b76195315967334df7e9a2859157309d19714b61fe95666d" alt="" />
+                    <img className="home__image" src="https://img.freepik.com/foto-gratis/retrato-hermosa-mujer-morena-sensual-chica-ropa-clasica-beige-elegante-pantalones-anchos-modelo-aislado-blanco_158538-9432.jpg?w=740&t=st=1694619167~exp=1694619767~hmac=eaa8681d77b9038bf91597cbdcc4b7e8b8f3acae5ad6a49ec03c1b673a6a0ed8" alt="" />
                     <span className='font-semibold'>MUJER</span>
                 </div>
                 <div onClick={() => goProducts('Hombre')} className='w-[23%] relative flex justify-center'>
-                    <img className="home__image" src="https://img.freepik.com/foto-gratis/retrato-guapo-sonriente-elegante-hipster-lumbersexual-empresario-modelo-hombre-vestido-ropa-chaqueta-jeans_158538-1740.jpg?w=900&t=st=1694128392~exp=1694128992~hmac=9f458c8a7feccfa222c0bb19de2d3a07af409d18edad154647bfdc7cde4de20b" alt="" />
+                    <img className="home__image" src="https://img.freepik.com/foto-gratis/retrato-guapo-modelo-lambersexual-hipster-estilo-seguro-hombre-vestido-sueter-verde-jeans-hombre-moda-posando-estudio-cerca-pared-gris_158538-23991.jpg?w=900&t=st=1694615324~exp=1694615924~hmac=a35c306c365bddd581f53b4671db8e1f1be91688f17bafeaf0d91f7c7d82bfba" alt="" />
                     <span className='font-semibold'>HOMBRE</span>
                 </div>
                 <div onClick={() => goProducts('Niños')} className='w-[23%] relative flex justify-center'>
