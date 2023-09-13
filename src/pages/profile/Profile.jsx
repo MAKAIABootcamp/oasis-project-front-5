@@ -19,7 +19,7 @@ const Profile = () => {
       <div className="container__login m-20 flex flex-col items-center w-[20%] gap-10 py-10 rounded-2xl bg-white">
         <img
           className="w-5 absolute left-16 top-16 cursor-pointer"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
           src={back}
           alt=""
         />

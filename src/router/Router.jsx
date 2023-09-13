@@ -91,6 +91,14 @@ const Router = () => {
           <Route path="details" element={<Details />} />
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<Login />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="confirmation" element={<Confirmation />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="admin" element={<Admin />} />
+          <Route path="location" element={<Location />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="personal" element={<PersonalData />} />
         </Route>
         <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
           <Route path="profile" element={<Profile />} />
