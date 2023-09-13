@@ -16,7 +16,7 @@ const Cart = () => {
                 <Options/>
             </div>
 
-            <div className='mx-60 my-20 flex justify-between'>
+            <div className='cart__container'>
 
                 <div className='flex gap-8'>
                     <img className='w-40' src={blue} alt="" />
