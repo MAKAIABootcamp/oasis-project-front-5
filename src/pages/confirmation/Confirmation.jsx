@@ -20,7 +20,9 @@ const Confirmation = () => {
                     <h1 className='title'>PEDIDO REALIZADO CON EXITO</h1>
                     <img className='w-5 object-contain' src={ok} alt="" />
                 </div>
-                <Options className='options' />
+                <div className='confirmation__options'>
+                <Options />
+                </div>
             </div>
 
             <div className='confirmation__container'>

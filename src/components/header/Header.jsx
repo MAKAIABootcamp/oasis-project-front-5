@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <div className="header flex justify-between items-center">
-      <img className="w-4 object-contain cursor-pointer" onClick={() => navigate(-1)} src={back} alt="" />
+      <img className="backArrow" onClick={() => navigate(-1)} src={back} alt="" />
 
       <ul className="header__categories flex gap-5 font-semibold">
         <li className="products__li selected">Mujer</li>
