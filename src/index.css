@@ -54,6 +54,11 @@
     font-weight: bold;
 }
 
+.icons {
+    width: 15px;
+    object-fit: contain;
+}
+
 @media (max-width:650px) {
     .backArrow {
         width: 15px;
@@ -66,5 +71,9 @@
     .container__login {
         border: none;
         margin-top: 3rem;
+    }
+
+    .icons {
+        width: 12px;
     }
 }

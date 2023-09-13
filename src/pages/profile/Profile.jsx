@@ -29,7 +29,7 @@ const Profile = () => {
               <img className="w-4 object-contain" src={user} alt="" />
               <p>Datos personales</p>
             </div>
-            <img className="w-4 object-contain" src={next} alt="" />
+            <img className="icons" src={next} alt="" />
           </div>
 
           <hr />
@@ -39,7 +39,7 @@ const Profile = () => {
               <img className="w-4 object-contain" src={cash} alt="" />
               <p>Métodos de pago</p>
             </div>
-            <img className="w-4 object-contain " src={next} alt="" />
+            <img className="icons" src={next} alt="" />
           </div>
 
           <hr />
@@ -49,7 +49,7 @@ const Profile = () => {
               <img className="w-4 object-contain" src={bag} alt="" />
               <p>Mis compras</p>
             </div>
-            <img className="w-4 object-contain" src={next} alt="" />
+            <img className="icons" src={next} alt="" />
           </div>
 
           <hr />
@@ -59,7 +59,7 @@ const Profile = () => {
               <img className="w-4 object-contain" src={sale} alt="" />
               <p>Mis ventas</p>
             </div>
-            <img className="w-4 object-contain " src={next} alt="" />
+            <img className="icons" src={next} alt="" />
           </div>
 
           <hr />
@@ -75,7 +75,7 @@ const Profile = () => {
               <img className="w-4 object-contain" src={out} alt="" />
               <p>Cerrar sesión</p>
             </div>
-            <img className="w-4 object-contain" src={next} alt="" />
+            <img className="icons" src={next} alt="" />
           </div>
         </div>
       </div>
