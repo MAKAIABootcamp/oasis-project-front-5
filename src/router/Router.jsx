@@ -71,7 +71,7 @@ const Router = () => {
       <Route path="/">
         <Route index element={<Home />} />
         <Route path="products" element={<Products />} />
-        <Route path="details" element={<Details />} />
+        <Route path="details/:id" element={<Details />} />
         {isLogged ? (
           <Route>
             <Route path="profile" element={<Profile />} />

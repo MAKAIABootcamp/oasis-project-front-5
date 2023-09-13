@@ -1,6 +1,6 @@
 import React, { useEffect , useState} from "react";
 import "./products.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 import { fetchItems } from "../../redux/store/products/productsActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +34,10 @@ const Products = () => {
                 dispatch(fetchItems(localSelectedCategory));
             }
         }, [dispatch, localSelectedCategory]);
+ 
+  const goToDetails = () => {
+    navigate(`/details`);
+  };
         
     return (
         <div className="products my-8 mx-14 flex flex-col gap-20">
@@ -50,13 +54,15 @@ const Products = () => {
                     </ul>
                 </div>
                     <div className="flex gap-10">
-                    {filteredProducts.map((product) => (
-                        <div className="flex flex-col gap-2" key={product.id}>
+                    {filteredProducts.map((product, index) => (
+                        <div className="flex flex-col gap-2" key={index}>
+                            <Link to={`/details/${product.id}`}>
                             <img
-                                onClick={() => navigate(`/details`)}
+                                // onClick={() => goToDetails()}
                                 className="w-80 rounded-md cursor-pointer"
                                 src={product.gallery.poster} 
                             />
+                            </Link>
                             <div>
                                 <p className="font-semibold">{product.name}</p>
                                 <p>${product.price}</p>
