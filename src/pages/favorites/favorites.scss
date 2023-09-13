@@ -1,0 +1,18 @@
+.favorites {
+    margin: 40px;
+
+    &__container {
+        margin: 80px 120px;
+    }
+}
+
+@media (max-width:650px) {
+
+    .favorites {
+        margin: 20px;
+
+        &__container {
+            margin: 60px 20px;
+        }
+    }
+}

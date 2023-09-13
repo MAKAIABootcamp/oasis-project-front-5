@@ -1,0 +1,19 @@
+.header {
+
+    &__input {
+        width: 20%;
+    }
+}
+
+@media (max-width:450px) {
+    .header {
+
+        &__categories {
+            display: none !important;
+        }
+
+        &__input {
+            width: 50%;
+        }
+    }
+ }

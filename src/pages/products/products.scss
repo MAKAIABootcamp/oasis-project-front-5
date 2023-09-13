@@ -1,11 +1,21 @@
 .products {
 
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
     &__search {
         border: 1px solid black;
         border-radius: 50px;
         outline: none;
         padding: 3px;
         padding-left: 35px;
+    }
+
+    &__ul {
+        display: flex;
+        flex-direction: column;
     }
 
     &__li {
@@ -16,10 +26,39 @@
         color: #288e7c;
         text-decoration: underline;
     }
+
+    &__container {
+        display: flex;
+        gap: 6rem;
+    }
 }
 
 
 .selected {
         color: #288e7c;
         text-decoration: underline;
+    }
+
+
+    @media (max-width:450px) {
+        .products {
+            margin: 20px;
+            gap: 2rem;
+
+            &__categories {
+                display: none;
+            }
+
+            &__container {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            &__ul {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
     }
