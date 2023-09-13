@@ -48,7 +48,7 @@ const Details = () => {
                     </p>
                 </div>
 
-                <h2 className='details__nameUp font-bold'>Blusa casual azul</h2>
+              <h2 className='details__nameUp font-bold'>Blusa casual azul</h2>
 
                 <div className="details__photosContainer flex gap-6">
                     <img className="w-80" src={product.gallery.poster} alt={product.name} />
@@ -57,13 +57,16 @@ const Details = () => {
                         <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_1_1.jpg?ts=1689584553276" alt="" />
                         <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_2_1.jpg?ts=1689584553343" alt="" />
                         <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_3_1.jpg?ts=1689584553743" alt="" />
+
                     </div>
                 </div>
 
                 <div className="details__info flex flex-col justify-between">
 
                     <div>
-                        <h2 className='details__name font-semibold'>Blusa casual azul</h2>
+
+                        <h2 className='details__name font-semibold'>{product.name}</h2>
+
                         <div className="flex justify-between">
                             <p className='details__price'>{product.price}</p>
                             <img className="w-5 object-contain cursor-pointer" src={heart} alt="" />
