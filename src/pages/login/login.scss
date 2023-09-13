@@ -3,4 +3,24 @@
     background-image: url('../../assets/background.png');
     height: 100vh;
     background-size: cover;
+
+    &__back {
+        position: absolute;
+        left: 50px;
+        top: 40px;
+    }
 }
+
+@media (max-width:650px) {
+
+    .login{
+        background-image: none;
+
+        &__back {
+            left: 20px;
+            top: 20px;
+        }
+    }
+}
+
+

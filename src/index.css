@@ -21,6 +21,18 @@
 
 .container__login {
     border: solid 1px #288e7c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    gap: 1rem;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.container__options {
+    border: solid 1px #288e7c;
 }
 
 .button__page {
@@ -29,4 +41,39 @@
     font-size: 14px;
     color: white;
     font-weight: 600;
+}
+
+.backArrow {
+    width: 20px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.icons {
+    width: 15px;
+    object-fit: contain;
+}
+
+@media (max-width:650px) {
+    .backArrow {
+        width: 15px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .container__login {
+        border: none;
+        margin-top: 3rem;
+    }
+
+    .icons {
+        width: 12px;
+    }
 }

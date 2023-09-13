@@ -5,18 +5,19 @@ import Options from '../../components/options/Options'
 import blue from '../../assets/blue.jpg'
 import bag from '../../assets/bag.png'
 import heart from '../../assets/like.png'
+import './favorites.scss'
 
 const Favorites = () => {
     const navigate = useNavigate();
     return (
-        <div className='mx-20 my-12 flex flex-col'>
+        <div className='favorites flex flex-col'>
             <div className='flex justify-between'>
-                <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
+                <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
                 <h1 className='font-semibold'>FAVORITOS</h1>
                 <Options />
             </div>
 
-            <div className='flex flex-col gap-4 mx-40 my-20'>
+            <div className='favorites__container flex flex-col gap-4'>
                 <div className='flex gap-6'>
                     <img className='w-40 rounded-md' src={blue} alt="" />
 

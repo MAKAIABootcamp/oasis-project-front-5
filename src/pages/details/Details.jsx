@@ -36,32 +36,36 @@ const Details = () => {
 
 
     return (
-        <div className="details my-10 mx-16 flex flex-col gap-20">
+        <div className="details">
 
             <Header/>
 
-            <div className="flex gap-20 mx-20">
+            <div className="details__container">
 
-                <div className="w-[30%]">
+                <div className="details__paragraph">
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure tempore assumenda officia! Cupiditate, sunt tenetur, minus maxime, repudiandae nobis officia porro ab facilis rem perspiciatis doloribus nemo deserunt tempore quod.
                     </p>
                 </div>
 
-                <div className="flex gap-8 w-[50%]">
-                    <img className="w-80" src={product.gallery.poster} alt={product.name} />
+              <h2 className='details__nameUp font-bold'>Blusa casual azul</h2>
 
-                    <div className="flex flex-col justify-between w-[100%]">
-                        <img className="w-20" src={product.gallery.frontPage} alt={product.name} />
-                        <img className="w-20" src={product.gallery.imgTwo} alt={product.name} />
-                        <img className="w-20" src={product.gallery.imgOne} alt={product.name} />
+                <div className="details__photosContainer flex gap-6">
+                    <img className="w-80" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_1_1.jpg?ts=1689584553276" alt="" />
+
+                    <div className="details__photos justify-between w-[100%]">
+                        <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_1_1.jpg?ts=1689584553276" alt="" />
+                        <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_2_1.jpg?ts=1689584553343" alt="" />
+                        <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_3_1.jpg?ts=1689584553743" alt="" />
+
                     </div>
                 </div>
 
-                <div className="flex flex-col justify-between w-[30%]">
+                <div className="details__info flex flex-col justify-between">
 
                     <div>
-                        <h2 className='font-semibold'>{product.name}</h2>
+
+                        <h2 className='details__name font-semibold'>{product.name}</h2>
 
                         <div className="flex justify-between">
                             <p className='details__price'>{product.price}</p>

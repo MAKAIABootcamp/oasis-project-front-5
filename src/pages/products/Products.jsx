@@ -40,13 +40,12 @@ const Products = () => {
   };
         
     return (
-        <div className="products my-8 mx-14 flex flex-col gap-20">
+        <div className="products">
             <Header />
-
-            <div className="flex gap-[10%]">
+            <div className="products__container">
                 <div className="flex flex-col gap-6">
-                    <h2 className="text-[18px] font-semibold">Categoría</h2>
-                    <ul className="flex flex-col gap-5">
+                    <h2 className="products__categories text-[18px] font-semibold">Categoría</h2>
+                    <ul className="products__ul  gap-5">
                         <li className="products__li selected">Blusas</li>
                         <li className="products__li">Pantalones</li>
                         <li className="products__li">Vestidos</li>
