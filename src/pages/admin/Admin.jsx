@@ -17,7 +17,7 @@ const Admin = () => {
 
                 <h1 className='font-bold profile__name'>ADMINISTRADOR</h1>
 
-                <div className="flex flex-col gap-6  mb-16 p-10">
+                <div className="flex flex-col gap-6  mb-16 px-10 py-14">
 
                     <div className="flex justify-between cursor-pointer w-60">
                         <div className="flex gap-2">
