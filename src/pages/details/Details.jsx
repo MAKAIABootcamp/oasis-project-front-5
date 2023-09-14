@@ -11,23 +11,23 @@ const Details = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products.items);
-  
+
     useEffect(() => {
-      if (products.length === 0) {
-        dispatch(fetchItems()); 
-      }
+        if (products.length === 0) {
+            dispatch(fetchItems());
+        }
     }, [dispatch, products]);
-  
-    const product = products.find((p) => p.id === parseInt(id)); 
+
+    const product = products.find((p) => p.id === parseInt(id));
     console.log('Producto:', product);
 
-       useEffect(() => {
+    useEffect(() => {
         if (id) {
-        const existingProduct = products.find((p) => p.id === parseInt(id)); 
-        if (!existingProduct) {
-          dispatch(fetchItems()); 
+            const existingProduct = products.find((p) => p.id === parseInt(id));
+            if (!existingProduct) {
+                dispatch(fetchItems());
+            }
         }
-      }
     }, [dispatch, id, products]);
 
     if (!product) {
@@ -38,45 +38,39 @@ const Details = () => {
     return (
         <div className="details">
 
-            <Header/>
+            <Header />
 
             <div className="details__container">
 
                 <div className="details__paragraph">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure tempore assumenda officia! Cupiditate, sunt tenetur, minus maxime, repudiandae nobis officia porro ab facilis rem perspiciatis doloribus nemo deserunt tempore quod.
+                        ¿Sabías que la industria de la moda genera aproximadamente 92 millones de toneladas de desechos textiles al año, lo que contribuye significativamente a problemas ambientales como la contaminación del agua, las emisiones de gases de efecto invernadero y la agotación de recursos naturales? Es hora de hacer un cambio,  y OASIS está aquí para liderarlo,  Únete a nosotros y sé parte de la revolución de la moda sostenible.
                     </p>
                 </div>
-
-              <h2 className='details__nameUp font-bold'>Blusa casual azul</h2>
 
                 <div className="details__photosContainer flex gap-6">
                     <img className="w-80" src={product.gallery.poster} alt={product.name} />
 
                     <div className="details__photos justify-between w-[100%]">
-                        <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_1_1.jpg?ts=1689584553276" alt="" />
-                        <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_2_1.jpg?ts=1689584553343" alt="" />
-                        <img className="w-20" src="https://static.zara.net/photos///2023/I/0/1/p/3641/312/400/2/w/972/3641312400_6_3_1.jpg?ts=1689584553743" alt="" />
-
+                        <img className="w-20" src={product.gallery.frontPage} alt={product.name} />
+                        <img className="w-20" src={product.gallery.imgTwo} alt={product.name} />
+                        <img className="w-20" src={product.gallery.imgOne} alt={product.name} />
                     </div>
                 </div>
 
                 <div className="details__info flex flex-col justify-between">
 
                     <div>
-
                         <h2 className='details__name font-semibold'>{product.name}</h2>
-
                         <div className="flex justify-between">
-                            <p className='details__price'>{product.price}</p>
+                            <p className='details__price'> $ {product.price}</p>
                             <img className="w-5 object-contain cursor-pointer" src={heart} alt="" />
                         </div>
                     </div>
 
                     <p className='font-semibold'>{product.title}</p>
 
-                    <p>
-                    {product.description}</p>
+                    <p>{product.description}</p>
 
                     <div>
                         <p>Talla</p>
