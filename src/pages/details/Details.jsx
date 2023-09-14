@@ -11,6 +11,7 @@ const Details = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products.items);
+    const selectedCategory = useSelector((state) => state.products.selectedCategory); 
 
     useEffect(() => {
         if (products.length === 0) {

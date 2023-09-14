@@ -1,5 +1,5 @@
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import { setItemsAndCategory } from './productsReducer'; 
+import { setItemsAndCategory, setSelectedCategory } from './productsReducer'; 
 
 export const fetchItems = (category) => {
   return async (dispatch) => {
@@ -14,7 +14,10 @@ export const fetchItems = (category) => {
       console.log('Productos cargados:', items);
       console.log('Categoría seleccionada', category);
    
-     dispatch(setItemsAndCategory({ items, selectedCategory: category }));
+   
+    dispatch(setItemsAndCategory({ items, selectedCategory: category }));
+  
+    dispatch(setSelectedCategory(category));
     } catch (error) {
       console.error(error);
     
