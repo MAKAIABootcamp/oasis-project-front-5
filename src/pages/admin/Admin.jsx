@@ -12,14 +12,14 @@ const Admin = () => {
     const navigate = useNavigate();
     return (
         <div className="admin flex flex-col items-center text-[14px]">
-            <img className="w-4 absolute top-10 left-20 cursor-pointer" onClick={() => navigate(-1)} src={back} alt="" />
-            <div className="container__login flex flex-col items-center my-[5%] w-[20%] gap-20 py-10 rounded-2xl bg-white">
+            <img className="backArrow login__back" onClick={() => navigate(-1)} src={back} alt="" />
+            <div className="container__login">
 
-                <h1 className='font-bold'>ADMINISTRADOR</h1>
+                <h1 className='font-bold profile__name'>ADMINISTRADOR</h1>
 
-                <div className="flex flex-col gap-6 w-60 mb-16">
+                <div className="flex flex-col gap-6  mb-16 p-10">
 
-                    <div className="flex justify-between cursor-pointer">
+                    <div className="flex justify-between cursor-pointer w-60">
                         <div className="flex gap-2">
                             <img className="w-4 object-contain" src={sale} alt="" />
                             <p>Ventas</p>
