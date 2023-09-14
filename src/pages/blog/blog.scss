@@ -1,0 +1,38 @@
+.blog {
+    margin: 40px;
+
+    &__container {
+        margin: 60px 100px;
+    }
+
+    &__titleImage {
+        width: 40%;
+    }
+
+    &__paragraph {
+        width: 50%;
+    }
+}
+
+@media (max-width:650px) {
+    .blog {
+        margin: 20px;
+
+        &__container {
+            margin: 40px 20px;
+        }
+
+        &__item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__titleImage {
+            width: 100%;
+        }
+    
+        &__paragraph {
+            width: 100%;
+        }
+    }
+}
