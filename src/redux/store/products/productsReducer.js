@@ -13,9 +13,12 @@ const productsSlice = createSlice({
       state.items = action.payload.items;
       state.selectedCategory = action.payload.selectedCategory;
     },
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+    },
   },
 });
 
-export const { setItemsAndCategory } = productsSlice.actions;
+export const { setItemsAndCategory, setSelectedCategory } = productsSlice.actions;
 
 export default productsSlice.reducer;
