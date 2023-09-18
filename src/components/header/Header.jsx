@@ -18,38 +18,38 @@ const Header = () => {
 
 
   return (
-    <div className="header flex justify-between items-center">
-     <img className="backArrow" onClick={() => navigate(-1)} src={back} alt="" />
+    <div className="header flex justify-between items-center flex-wrap gap-3">
+      <img className="backArrow" onClick={() => navigate(-1)} src={back} alt="" />
 
       <ul className="header__categories flex gap-5 font-semibold">
-      <li
+        <li
           className={`products__li ${selectedCategory === 'Todo' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('Todo')} 
+          onClick={() => handleCategoryChange('Todo')}
         >
           Todo
         </li>
-      <li
+        <li
           className={`products__li ${selectedCategory === 'Mujer' ? 'selected' : ''}`}
           onClick={() => handleCategoryChange('Mujer')}
         >
           Mujer
         </li>
         <li
-           className={`products__li ${selectedCategory === 'Hombre' ? 'selected' : ''}`}
-           onClick={() => handleCategoryChange('Hombre')}
-         >
+          className={`products__li ${selectedCategory === 'Hombre' ? 'selected' : ''}`}
+          onClick={() => handleCategoryChange('Hombre')}
+        >
           Hombre
         </li>
         <li
-            className={`products__li ${selectedCategory === 'Niños' ? 'selected' : ''}`}
-            onClick={() => handleCategoryChange('Niños')}
-          >
+          className={`products__li ${selectedCategory === 'Niños' ? 'selected' : ''}`}
+          onClick={() => handleCategoryChange('Niños')}
+        >
           Niños
         </li>
         <li
-            className={`products__li ${selectedCategory === 'Hogar' ? 'selected' : ''}`}
-            onClick={() => handleCategoryChange('Hogar')}
-          >
+          className={`products__li ${selectedCategory === 'Hogar' ? 'selected' : ''}`}
+          onClick={() => handleCategoryChange('Hogar')}
+        >
           Hogar
         </li>
       </ul>
