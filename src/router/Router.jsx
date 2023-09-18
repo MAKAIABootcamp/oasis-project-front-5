@@ -21,7 +21,6 @@ import Blog from "../pages/blog/Blog";
 import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
 import Admin from "../pages/admin/Admin";
-import Oasis from "../pages/oasis/Oasis";
 import Footer from "../components/footer/Footer";
 
 
@@ -85,8 +84,6 @@ const Router = () => {
           <Route path="location" element={<Location />} />
           <Route path="profile" element={<Profile />} />
           <Route path="personal" element={<PersonalData />} />
-          <Route path="oasis" element={<Oasis />} />
-
           {isLogged ? (
             <Route>
               <Route path="profile" element={<Profile />} />
