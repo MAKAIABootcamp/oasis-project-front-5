@@ -15,8 +15,8 @@ const Cart = () => {
             <div className='cart flex flex-col'>
                 <h1 className='title self-center'>CARRITO</h1>
                 <div className='cart__container'>
-                    <Sidebar/>
-                    <Paragraph/>
+                    <Sidebar />
+                    <Paragraph />
                     <div className='flex gap-8'>
                         <img className='w-40' src={blue} alt="" />
                         <div className='flex flex-col gap-14'>
