@@ -23,6 +23,7 @@ import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
 import Admin from "../pages/admin/Admin";
 import Oasis from "../pages/oasis/Oasis";
+import Footer from "../components/footer/Footer";
 
 
 const Router = () => {
@@ -68,37 +69,14 @@ const Router = () => {
 
 
   return (
-    <Routes>
-      <Route path="/">
-        <Route index element={<Home />} />
-        <Route path="products" element={<Products />} />
-
-        <Route path="details/:id" element={<Details />} />
-        <Route path="cart" element={<Cart />} />
-        <Route path="confirmation" element={<Confirmation />} />
-        <Route path="favorites" element={<Favorites />} />
-        <Route path="blog" element={<Blog />} />
-        <Route path="admin" element={<Admin />} />
-        <Route path="location" element={<Location />} />
-        <Route path="oasis" element={<Oasis />} />
-
-        {isLogged ? (
-          <Route>
-            <Route path="profile" element={<Profile />} />
-            <Route path="personal" element={<PersonalData />} />
-          </Route>
-        ) : (
-          <Route>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-          </Route>
-        )}
-        <Route element={<PublicRouter isAuthenticate={isLogged} />}>
+    <>
+      <Routes>
+        <Route path="/">
           <Route index element={<Home />} />
+          <Route path="details/:id" element={<Details />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="products" element={<Products />} />
-          <Route path="details" element={<Details />} />
           <Route path="profile" element={<Profile />} />
           <Route path="login" element={<Login />} />
           <Route path="cart" element={<Cart />} />
@@ -109,20 +87,23 @@ const Router = () => {
           <Route path="location" element={<Location />} />
           <Route path="profile" element={<Profile />} />
           <Route path="personal" element={<PersonalData />} />
+          <Route path="oasis" element={<Oasis />} />
+
+          {isLogged ? (
+            <Route>
+              <Route path="profile" element={<Profile />} />
+              <Route path="personal" element={<PersonalData />} />
+            </Route>
+          ) : (
+            <Route>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </Route>
+          )}
         </Route>
-        <Route element={<PrivateRouter isAuthenticate={isLogged} />}>
-          <Route path="profile" element={<Profile />} />
-          <Route path="personal" element={<PersonalData />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="location" element={<Location />} />
-          <Route path="payment" element={<Payment />} />
-          <Route path="confirmation" element={<Confirmation />} />
-          <Route path="favorites" element={<Favorites />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="admin" element={<Admin />} />
-        </Route>
-      </Route>
-    </Routes>
+      </Routes>
+      {window.location.pathname !== "/" && <Footer />}
+    </>
   );
 };
 
