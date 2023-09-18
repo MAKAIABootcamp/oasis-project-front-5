@@ -5,7 +5,14 @@ export const fetchItems = (category) => {
   return async (dispatch) => {
     const db = getFirestore();
     const itemsCollection = collection(db, 'items');
-    const q = category ? query(itemsCollection, where('genre', '==', category)) : itemsCollection;
+
+    let q;
+
+    if (category && category !== 'Todo' ) {
+      q = query (itemsCollection, where ('genre', '==', category));
+    } else {
+      q = itemsCollection
+    }
 
     try {
       const querySnapshot = await getDocs(q);
@@ -16,7 +23,6 @@ export const fetchItems = (category) => {
    
    
     dispatch(setItemsAndCategory({ items, selectedCategory: category }));
-  
     dispatch(setSelectedCategory(category));
     } catch (error) {
       console.error(error);

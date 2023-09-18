@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import back from '../../assets/back.png'
-import Options from '../../components/options/Options'
+import bag from '../../assets/bag.png'
 import './blog.scss'
 
 const Blog = () => {
@@ -9,12 +9,14 @@ const Blog = () => {
     return (
         <div className='blog flex flex-col'>
             <div className='flex justify-between'>
-                <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='title'>OASIS BLOG</h1>
-                <Options />
+                <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
+                <button className='flex items-center gap-2' onClick={() => navigate('/products')}>
+                    <img className='icons' src={bag} alt="" />
+                    <p>Nuestra tienda</p>
+                </button>
             </div>
-
-            <div className='blog__container flex flex-col gap-16'>
+            <div className='blog__container flex flex-col gap-12'>
+                <h1 className='title self-center'>OASIS BLOG</h1>
                 <div className='blog__item flex justify-between'>
                     <div className='blog__titleImage flex flex-col gap-4'>
                         <h2 className='font-bold'>Lorem ipsum dolor sit amet.</h2>

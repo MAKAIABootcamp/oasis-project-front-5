@@ -12,11 +12,8 @@ const Location = () => {
     const navigate = useNavigate();
     return (
         <div className='location flex flex-col'>
-            <div className='flex justify-between'>
-                <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='title'>CONFIRMAR PEDIDO</h1>
-                <Options />
-            </div>
+            <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
+            <h1 className='title self-center'>CONFIRMAR PEDIDO</h1>
 
             <div className='location__container'>
 
