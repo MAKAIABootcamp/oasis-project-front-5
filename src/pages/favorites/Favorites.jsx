@@ -6,10 +6,13 @@ import blue from '../../assets/blue.jpg'
 import bag from '../../assets/bag.png'
 import heart from '../../assets/like.png'
 import './favorites.scss'
+import Header from '../../components/header/Header'
 
 const Favorites = () => {
     const navigate = useNavigate();
     return (
+        <>
+        <Header />
         <div className='favorites flex flex-col'>
                 <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
                 <h1 className='font-semibold self-center'>FAVORITOS</h1>
@@ -35,6 +38,7 @@ const Favorites = () => {
             </div>
 
         </div>
+        </>
     )
 }
 
