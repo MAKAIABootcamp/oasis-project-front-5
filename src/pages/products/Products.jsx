@@ -18,10 +18,15 @@ const Products = () => {
 
     const products = useSelector((state) => state.products.items);
 
-    const filteredProducts = localSelectedCategory
-        ? products.filter((product) => product.genre === localSelectedCategory)
-        : products;
+    let filteredProducts = products;
 
+    if (localSelectedCategory !== 'Todo' ) {
+        filteredProducts = products.filter((product) => {
+            return product.genre === localSelectedCategory;
+        });
+    } else {
+            filteredProducts = products
+        }
 
     useEffect(() => {
 
@@ -49,12 +54,12 @@ const Products = () => {
                         <li className="products__li">Buzos</li>
                     </ul>
                 </div>
-                <div className="flex gap-10">
+                <div className="flex gap-10 flex-wrap">
                     {filteredProducts.map((product, index) => (
                         <div className="flex flex-col gap-2" key={index}>
                             <Link to={`/details/${product.id}`}>
                                 <img
-                                    className="w-80 rounded-md cursor-pointer"
+                                    className="w-80 h-80 object-cover rounded-md cursor-pointer"
                                     src={product.gallery.poster}
                                 />
                             </Link>

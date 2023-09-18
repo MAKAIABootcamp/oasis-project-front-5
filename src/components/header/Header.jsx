@@ -23,6 +23,12 @@ const Header = () => {
 
       <ul className="header__categories flex gap-5 font-semibold">
       <li
+          className={`products__li ${selectedCategory === 'Todo' ? 'selected' : ''}`}
+          onClick={() => handleCategoryChange('Todo')} 
+        >
+          Todo
+        </li>
+      <li
           className={`products__li ${selectedCategory === 'Mujer' ? 'selected' : ''}`}
           onClick={() => handleCategoryChange('Mujer')}
         >

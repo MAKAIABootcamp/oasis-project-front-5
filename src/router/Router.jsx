@@ -8,7 +8,6 @@ import { auth } from "../firebase/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { getUserActionFromCollection } from "../redux/store/auth/authActions";
-import Home from "../pages/home/Home";
 import Products from "../pages/products/Products";
 import Location from "../pages/location/Location";
 import Details from "../pages/details/Details";
@@ -72,7 +71,7 @@ const Router = () => {
     <>
       <Routes>
         <Route path="/">
-          <Route index element={<Home />} />
+          <Route index element={<Blog />} />
           <Route path="details/:id" element={<Details />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
@@ -82,7 +81,6 @@ const Router = () => {
           <Route path="cart" element={<Cart />} />
           <Route path="confirmation" element={<Confirmation />} />
           <Route path="favorites" element={<Favorites />} />
-          <Route path="blog" element={<Blog />} />
           <Route path="admin" element={<Admin />} />
           <Route path="location" element={<Location />} />
           <Route path="profile" element={<Profile />} />
@@ -102,7 +100,7 @@ const Router = () => {
           )}
         </Route>
       </Routes>
-      {window.location.pathname !== "/" && <Footer />}
+      <Footer />
     </>
   );
 };
