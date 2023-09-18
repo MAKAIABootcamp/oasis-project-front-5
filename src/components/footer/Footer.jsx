@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <div className='footer'>
       <div className='footer__container'>
-        <img className='w-5 object-contain' onClick={() => navigate('/')} src={homeWhite} alt="" />
+        <img className='w-5 object-contain' onClick={() => navigate('/products')} src={homeWhite} alt="" />
         <img className='w-6 object-contain' onClick={() => navigate('/login')} src={userWhite} alt="" />
         <img className='w-4 object-contain' src={history} alt="" />
         <img className='w-5 object-contain' onClick={() => navigate('/')} src={comun} alt="" />
