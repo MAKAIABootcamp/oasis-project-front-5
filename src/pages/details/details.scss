@@ -1,5 +1,4 @@
 .details {
-
     margin: 40px;
     display: flex;
     flex-direction: column;
@@ -45,7 +44,7 @@
 @media (max-width:650px) {
 
     .details {
-        margin: 20px;
+        margin: 20px 20px 100px 20px;
         gap: 2rem;
 
         &__container {

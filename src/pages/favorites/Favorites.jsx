@@ -11,11 +11,8 @@ const Favorites = () => {
     const navigate = useNavigate();
     return (
         <div className='favorites flex flex-col'>
-            <div className='flex justify-between'>
                 <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='font-semibold'>FAVORITOS</h1>
-                <Options />
-            </div>
+                <h1 className='font-semibold self-center'>FAVORITOS</h1>
 
             <div className='favorites__container flex flex-col gap-4'>
                 <div className='flex gap-6'>

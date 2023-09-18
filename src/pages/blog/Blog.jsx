@@ -1,19 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import back from '../../assets/back.png'
-import Options from '../../components/options/Options'
 import './blog.scss'
 
 const Blog = () => {
     const navigate = useNavigate();
     return (
         <div className='blog flex flex-col'>
-            <div className='flex justify-between'>
-                <img className='w-5 cursor-pointer object-contain' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='title'>OASIS BLOG</h1>
-                <Options />
-            </div>
-
+                <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
+                <h1 className='title self-center'>OASIS BLOG</h1>
             <div className='blog__container flex flex-col gap-16'>
                 <div className='blog__item flex justify-between'>
                     <div className='blog__titleImage flex flex-col gap-4'>

@@ -10,12 +10,8 @@ const Cart = () => {
     const navigate = useNavigate();
     return (
         <div className='cart flex flex-col'>
-            <div className='flex justify-between'>
                 <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
-                <h1 className='title'>CARRITO</h1>
-                <Options/>
-            </div>
-
+                <h1 className='title self-center'>CARRITO</h1>
             <div className='cart__container'>
 
                 <div className='flex gap-8'>
