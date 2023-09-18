@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/header/Header";
 import { fetchItems } from "../../redux/store/products/productsActions";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "../../components/footer/Footer";
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -65,6 +66,7 @@ const Products = () => {
                     ))}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 };
