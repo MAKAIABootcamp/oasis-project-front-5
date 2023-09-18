@@ -13,10 +13,6 @@
         display: none;
     }
 
-    &__paragraph {
-        width: 30%;
-    }
-
     &__photos {
         display: flex;
         flex-direction: column;
@@ -51,10 +47,6 @@
             flex-direction: column;
             margin: 0px 10px;
             gap: 2rem;
-        }
-
-        &__paragraph {
-            display: none;
         }
 
         &__photosContainer {

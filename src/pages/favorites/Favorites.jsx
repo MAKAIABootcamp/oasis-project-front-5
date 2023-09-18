@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import blue from '../../assets/blue.jpg'
 import bag from '../../assets/bag.png'
 import heart from '../../assets/like.png'
@@ -9,7 +8,6 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Paragraph from '../../components/paragraph/Paragraph'
 
 const Favorites = () => {
-    const navigate = useNavigate();
     return (
         <>
             <Header />
