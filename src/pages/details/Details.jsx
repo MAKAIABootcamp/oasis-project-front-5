@@ -37,9 +37,9 @@ const Details = () => {
 
 
     return (
+        <>
+        <Header />
         <div className="details">
-
-            <Header />
 
             <div className="details__container">
 
@@ -82,6 +82,7 @@ const Details = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

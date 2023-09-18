@@ -42,8 +42,10 @@ const Products = () => {
 
 
     return (
+        <>
+        <Header />
+        
         <div className="products">
-            <Header />
             <div className="products__container">
                 <div className="flex flex-col gap-6">
                     <h2 className="products__categories text-[18px] font-semibold">Categoría</h2>
@@ -73,6 +75,7 @@ const Products = () => {
             </div>
             <Footer/>
         </div>
+        </>
     );
 };
 

@@ -13,9 +13,9 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleCategoryChange = (category) => {
+    navigate('/products')
     dispatch(setItemsAndCategory({ items: [], selectedCategory: category }));
   };
-
 
   return (
     <div className="header flex justify-between items-center flex-wrap gap-3">
