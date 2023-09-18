@@ -3,6 +3,8 @@
 
     &__container {
         margin: 80px 120px;
+        display: flex;
+        justify-content: space-between;
     }
 }
 

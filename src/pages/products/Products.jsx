@@ -5,6 +5,7 @@ import Header from "../../components/header/Header";
 import { fetchItems } from "../../redux/store/products/productsActions";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../components/footer/Footer";
+import Sidebar from "../../components/sidebar/Sidebar";
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -20,13 +21,13 @@ const Products = () => {
 
     let filteredProducts = products;
 
-    if (localSelectedCategory !== 'Todo' ) {
+    if (localSelectedCategory !== 'Todo') {
         filteredProducts = products.filter((product) => {
             return product.genre === localSelectedCategory;
         });
     } else {
-            filteredProducts = products
-        }
+        filteredProducts = products
+    }
 
     useEffect(() => {
 
@@ -43,38 +44,29 @@ const Products = () => {
 
     return (
         <>
-        <Header />
-        
-        <div className="products">
-            <div className="products__container">
-                <div className="products__sidebar flex flex-col gap-6">
-                    <h2 className="products__categories text-[18px] font-semibold">Oasis</h2>
-                    <ul className="products__ul  gap-5">
-                        <li className="products__li selected">Home</li>
-                        <li className="products__li">Blog</li>
-                        <li className="products__li">Iniciar sesión</li>
-                        <li className="products__li">Perfil</li>
-                    </ul>
-                </div>
-                <div className="flex gap-10 flex-wrap justify-center">
-                    {filteredProducts.map((product, index) => (
-                        <div className="flex flex-col gap-2" key={index}>
-                            <Link to={`/details/${product.id}`}>
-                                <img
-                                    className="w-80 h-80 object-cover rounded-md cursor-pointer"
-                                    src={product.gallery.poster}
-                                />
-                            </Link>
-                            <div>
-                                <p className="font-semibold">{product.name}</p>
-                                <p>${product.price}</p>
+            <Header />
+            <div className="products">
+                <div className="products__container">
+                    <Sidebar/>
+                    <div className="flex gap-10 flex-wrap justify-center">
+                        {filteredProducts.map((product, index) => (
+                            <div className="flex flex-col gap-2" key={index}>
+                                <Link to={`/details/${product.id}`}>
+                                    <img
+                                        className="w-80 h-80 object-cover rounded-md cursor-pointer"
+                                        src={product.gallery.poster}
+                                    />
+                                </Link>
+                                <div>
+                                    <p className="font-semibold">{product.name}</p>
+                                    <p>${product.price}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+                <Footer />
             </div>
-            <Footer/>
-        </div>
         </>
     );
 };

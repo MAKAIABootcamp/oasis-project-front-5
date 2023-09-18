@@ -34,6 +34,7 @@
 
 .container__options {
     border: solid 1px #288e7c;
+    justify-content: center;
 }
 
 .button__page {

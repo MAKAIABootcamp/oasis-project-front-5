@@ -1,22 +1,24 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import back from '../../assets/back.png'
 import location from '../../assets/location.png'
 import add from '../../assets/add.png'
-import Options from '../../components/options/Options'
 import transfer from '../../assets/transfer.png'
 import cash from '../../assets/cash.png'
 import './location.scss'
+import Sidebar from "../../components/sidebar/Sidebar";
+import Paragraph from '../../components/paragraph/Paragraph'
+import Header from '../../components/header/Header'
 
 const Location = () => {
     const navigate = useNavigate();
     return (
+        <>
+        <Header/>
         <div className='location flex flex-col'>
-            <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
             <h1 className='title self-center'>CONFIRMAR PEDIDO</h1>
-
             <div className='location__container'>
-
+                <Sidebar/>
+                <Paragraph/>
                 <div className='flex flex-col gap-8'>
                     <h2 className='font-semibold'>Elige la dirección de entrega</h2>
                     <div className='container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer'>
@@ -60,6 +62,7 @@ const Location = () => {
 
             </div>
         </div>
+        </>
     )
 }
 
