@@ -47,16 +47,16 @@ const Products = () => {
         
         <div className="products">
             <div className="products__container">
-                <div className="flex flex-col gap-6">
-                    <h2 className="products__categories text-[18px] font-semibold">Categoría</h2>
+                <div className="products__sidebar flex flex-col gap-6">
+                    <h2 className="products__categories text-[18px] font-semibold">Oasis</h2>
                     <ul className="products__ul  gap-5">
-                        <li className="products__li selected">Blusas</li>
-                        <li className="products__li">Pantalones</li>
-                        <li className="products__li">Vestidos</li>
-                        <li className="products__li">Buzos</li>
+                        <li className="products__li selected">Home</li>
+                        <li className="products__li">Blog</li>
+                        <li className="products__li">Iniciar sesión</li>
+                        <li className="products__li">Perfil</li>
                     </ul>
                 </div>
-                <div className="flex gap-10 flex-wrap">
+                <div className="flex gap-10 flex-wrap justify-center">
                     {filteredProducts.map((product, index) => (
                         <div className="flex flex-col gap-2" key={index}>
                             <Link to={`/details/${product.id}`}>
