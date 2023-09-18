@@ -16,7 +16,7 @@ const Blog = () => {
                 </button>
             </div>
             <div className='blog__container flex flex-col gap-12'>
-                <h1 className='title self-center'>OASIS BLOG</h1>
+                <h1 className='title self-center'>OASIS</h1>
                 <div className='blog__item flex justify-between'>
                     <div className='blog__titleImage flex flex-col gap-4'>
                         <h2 className='font-bold'>Lorem ipsum dolor sit amet.</h2>
