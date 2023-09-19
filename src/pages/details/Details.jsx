@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import heart from '../../assets/heart.png'
 import './details.scss'
 import Header from '../../components/header/Header'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchItems } from '../../redux/store/products/productsActions'
 import Sidebar from "../../components/sidebar/Sidebar";
-import Paragraph from '../../components/paragraph/Paragraph'
 
 const Details = () => {
 
@@ -15,7 +14,10 @@ const Details = () => {
     const products = useSelector((state) => state.products.items);
     const selectedCategory = useSelector((state) => state.products.selectedCategory);
     const [selectedImage, setSelectedImage] = useState(null);
-    
+
+    const location = useLocation();
+    const isDetailsPage = location.pathname.startsWith('/details'); // Verificar si estamos en la página de detalles
+
     useEffect(() => {
         if (products.length === 0) {
             dispatch(fetchItems());
@@ -44,11 +46,16 @@ const Details = () => {
 
     return (
         <>
-            <Header />
+            <Header showSearchBar={false} />
             <div className="details">
                 <Sidebar />
                 <div className="details__container">
-                    <Paragraph />
+                   <div className="paragraph" style={{ textAlign: 'justify' }}>
+                        <span className='details__name font-semibold'>COMPOSICIÓN</span>
+                        <p>
+                            {product.text}
+                        </p>
+                    </div>
                     <div className="details__photosContainer flex gap-6">
                         <img className="w-80" src={selectedImage || product.gallery.poster} alt={product.name} />
 
