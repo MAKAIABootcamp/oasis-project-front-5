@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import heart from '../../assets/heart.png'
 import './details.scss'
 import Header from '../../components/header/Header'
@@ -13,7 +13,8 @@ const Details = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products.items);
-    const selectedCategory = useSelector((state) => state.products.selectedCategory); 
+    const selectedCategory = useSelector((state) => state.products.selectedCategory);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         if (products.length === 0) {
@@ -37,47 +38,66 @@ const Details = () => {
         return <p>Un momento...</p>;
     }
 
+    const handleThumbnailClick = (image) => {
+        setSelectedImage(image);
+    };
 
     return (
         <>
-        <Header />
-        <div className="details">
-        <Sidebar/>
-            <div className="details__container">
-                <Paragraph/>
-                <div className="details__photosContainer flex gap-6">
-                    <img className="w-80" src={product.gallery.poster} alt={product.name} />
+            <Header />
+            <div className="details">
+                <Sidebar />
+                <div className="details__container">
+                    <Paragraph />
+                    <div className="details__photosContainer flex gap-6">
+                        <img className="w-80" src={selectedImage || product.gallery.poster} alt={product.name} />
 
-                    <div className="details__photos justify-between w-[100%]">
-                        <img className="w-20" src={product.gallery.frontPage} alt={product.name} />
-                        <img className="w-20" src={product.gallery.imgTwo} alt={product.name} />
-                        <img className="w-20" src={product.gallery.imgOne} alt={product.name} />
-                    </div>
-                </div>
-
-                <div className="details__info flex flex-col justify-between">
-
-                    <div>
-                        <h2 className='details__name font-semibold'>{product.name}</h2>
-                        <div className="flex justify-between">
-                            <p className='details__price'> $ {product.price}</p>
-                            <img className="w-5 object-contain cursor-pointer" src={heart} alt="" />
+                        <div className="details__photos justify-between w-[100%]">
+                            <img
+                                className="w-20 cursor-pointer"
+                                src={product.gallery.frontPage}
+                                alt={product.name}
+                                onClick={() => handleThumbnailClick(product.gallery.frontPage)}
+                            />
+                            <img
+                                className="w-20 cursor-pointer"
+                                src={product.gallery.imgTwo}
+                                alt={product.name}
+                                onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
+                            />
+                            <img
+                                className="w-20 cursor-pointer"
+                                src={product.gallery.imgOne}
+                                alt={product.name}
+                                onClick={() => handleThumbnailClick(product.gallery.imgOne)}
+                            />
                         </div>
                     </div>
 
-                    <p className='font-semibold'>{product.title}</p>
 
-                    <p>{product.description}</p>
+                    <div className="details__info flex flex-col justify-between">
 
-                    <div>
-                        <p>Talla</p>
-                        <p className="details__size rounded-md p-1 w-8">{product.size}</p>
+                        <div>
+                            <h2 className='details__name font-semibold'>{product.name}</h2>
+                            <div className="flex justify-between">
+                                <p className='details__price'> $ {product.price}</p>
+                                <img className="w-5 object-contain cursor-pointer" src={heart} alt="" />
+                            </div>
+                        </div>
+
+                        <p className='font-semibold'>{product.title}</p>
+
+                        <p>{product.description}</p>
+
+                        <div>
+                            <p>Talla</p>
+                            <p className="details__size rounded-md p-1 w-8">{product.size}</p>
+                        </div>
+
+                        <button className="button__page px-6 py-1.5 w-[100%]">Añadir a la bolsa</button>
                     </div>
-
-                    <button className="button__page px-6 py-1.5 w-[100%]">Añadir a la bolsa</button>
                 </div>
             </div>
-        </div>
         </>
     )
 }

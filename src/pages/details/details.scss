@@ -36,6 +36,22 @@
     }
 }
 
+.details__photosContainer {
+    position: relative;
+    overflow: hidden;
+    
+    .w-80 {
+        height: auto;
+        transition: transform 0.3s ease-in-out;
+    }
+}
+.details__photos {
+    img:hover {
+        transform: scale(1.1); 
+        cursor: pointer;
+    }
+}
+
 @media (max-width:650px) {
 
     .details {
