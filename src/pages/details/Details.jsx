@@ -15,7 +15,7 @@ const Details = () => {
     const products = useSelector((state) => state.products.items);
     const selectedCategory = useSelector((state) => state.products.selectedCategory);
     const [selectedImage, setSelectedImage] = useState(null);
-
+    
     useEffect(() => {
         if (products.length === 0) {
             dispatch(fetchItems());
