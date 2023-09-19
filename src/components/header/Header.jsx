@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setItemsAndCategory } from '../../redux/store/products/productsReducer';
 import { useState } from 'react';
 
-const Header = ({ searchTerm, onSearchChange }) => {
+const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector((state) => state.products.selectedCategory);
   const navigate = useNavigate();
@@ -57,22 +57,24 @@ const Header = ({ searchTerm, onSearchChange }) => {
           Niños
         </li>
         <li
-          className={`products__li ${selectedCategory === 'Hogar' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('Hogar')}
+          className={`products__li ${selectedCategory === 'Accesorios' ? 'selected' : ''}`}
+          onClick={() => handleCategoryChange('Accesorios')}
         >
-          Hogar
+          Accesorios
         </li>
       </ul>
 
-      <div className="header__input relative flex items-center">
-        <input
-          className="products__search w-[100%]"
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-        <img className="absolute object-contain w-6 left-2" src={search} alt="" />
-      </div>
+      {showSearchBar && (
+        <div className="header__input relative flex items-center">
+          <input
+            className="products__search w-[100%]"
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          <img className="absolute object-contain w-6 left-2" src={search} alt="" />
+        </div>
+      )}
 
       <div className="flex gap-6">
         <img
