@@ -52,6 +52,18 @@
     }
 }
 
+.heart-icon {
+    width: 25px;
+    height: 25px;
+    fill: rgb(177, 169, 169); 
+
+  }
+  
+  .heart-icon-filled {
+    fill: red; 
+    stroke: none; 
+  }
+  
 @media (max-width:650px) {
 
     .details {

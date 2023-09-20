@@ -6,7 +6,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchItems } from '../../redux/store/products/productsActions'
 import Sidebar from "../../components/sidebar/Sidebar";
-
+import { addToFavorites, removeFromFavorites } from '../../redux/store/favorites/favoriteSlice'
 const Details = () => {
 
     const { id } = useParams();
@@ -16,7 +16,20 @@ const Details = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const location = useLocation();
-    const isDetailsPage = location.pathname.startsWith('/details'); // Verificar si estamos en la página de detalles
+    const isDetailsPage = location.pathname.startsWith('/details');
+    const product = products.find((p) => p.id === parseInt(id));
+    console.log('Producto:', product);
+
+    const favorites = useSelector((state) => state.favorites.favorites);
+    const isFavorite = favorites.some((item) => item.id === product.id);
+
+    const handleToggleFavorite = () => {
+        if (isFavorite) {
+            dispatch(removeFromFavorites(product));
+        } else {
+            dispatch(addToFavorites(product));
+        }
+    };
 
     useEffect(() => {
         if (products.length === 0) {
@@ -24,8 +37,7 @@ const Details = () => {
         }
     }, [dispatch, products]);
 
-    const product = products.find((p) => p.id === parseInt(id));
-    console.log('Producto:', product);
+
 
     useEffect(() => {
         if (id) {
@@ -50,7 +62,7 @@ const Details = () => {
             <div className="details">
                 <Sidebar />
                 <div className="details__container">
-                   <div className="paragraph" style={{ textAlign: 'justify' }}>
+                    <div className="paragraph" style={{ textAlign: 'justify' }}>
                         <span className='details__name font-semibold'>COMPOSICIÓN</span>
                         <p>
                             {product.text}
@@ -83,15 +95,22 @@ const Details = () => {
 
 
                     <div className="details__info flex flex-col justify-between">
-
-                        <div>
+                     <div>
                             <h2 className='details__name font-semibold'>{product.name}</h2>
                             <div className="flex justify-between">
-                                <p className='details__price'> $ {product.price}</p>
-                                <img className="w-5 object-contain cursor-pointer" src={heart} alt="" />
+                                <p className='details__price'>$ {product.price}</p>
+                                <svg
+                                    onClick={handleToggleFavorite}
+                                    className={`heart-icon ${isFavorite ? 'heart-icon-filled' : ''}`}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill={isFavorite ? 'red' : 'none'} 
+                                >
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
                             </div>
                         </div>
-
                         <p className='font-semibold'>{product.title}</p>
 
                         <p>{product.description}</p>

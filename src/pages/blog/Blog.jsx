@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import back from '../../assets/back.png'
 import bag from '../../assets/bag.png'
+import { fireStore } from '../../firebase/firebaseConfig'; 
 import './blog.scss'
+import { collection, getDocs } from 'firebase/firestore';
 
 const Blog = () => {
     const navigate = useNavigate();
+    const [articles, setArticles] = useState([]);
+
+    useEffect(() => {
+     
+        const getArticles = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(fireStore, 'articles'));
+                const articleData = [];
+                querySnapshot.forEach((doc) => {
+                    articleData.push(doc.data());
+                });
+                setArticles(articleData);
+            } catch (error) {
+                console.error('Error al obtener los artículos desde Firestore:', error);
+            }
+        };
+
+        getArticles();
+    }, []);
+
     return (
         <div className='blog flex flex-col'>
             <div className='flex justify-between'>
@@ -16,25 +38,20 @@ const Blog = () => {
                 </button>
             </div>
             <div className='blog__container flex flex-col gap-12'>
-                <h1 className='title self-center'>OASIS</h1>
-                <div className='blog__item flex justify-between'>
-                    <div className='blog__titleImage flex flex-col gap-4'>
-                        <h2 className='font-bold'>Lorem ipsum dolor sit amet.</h2>
-                        <img className='h-40 rounded-md' src="https://www.nueva-iso-14001.com/wp-content/uploads/2020/12/medio-ambiente.jpg" alt="" />
+                {articles.map((article, index) => (
+                    <div key={index} className='blog__item flex justify-between'>
+                        <div className='blog__titleImage flex flex-col gap-4'>
+                            <h2 className='font-bold'>{article.title}</h2>
+                            <a href={article.originalUrl} target="_blank" rel="noopener noreferrer">
+                                <img className="w-80 h-80 object-cover rounded-md cursor-pointer" src={article.imageUrl} alt={article.title} />
+                            </a>
+                        </div>
+                        <p className='blog__paragraph mt-10'>{article.description}</p>
                     </div>
-                    <p className='blog__paragraph mt-10'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis quo consequuntur officiis odit, sed vel? Alias libero recusandae, at praesentium mollitia laudantium adipisci dicta, et ullam necessitatibus magnam, perspiciatis nam!</p>
-                </div>
-
-                <div className='blog__item flex justify-between'>
-                    <div className='blog__titleImage flex flex-col gap-4'>
-                        <h2 className='font-bold'>Lorem ipsum dolor sit amet.</h2>
-                        <img className='h-40 rounded-md' src="https://tn.com.ar/resizer/rmu6QhMBeufWp-9Egy3UwZJ5sq8=/767x0/smart/filters:format(webp)/cloudfront-us-east-1.images.arcpublishing.com/artear/AYP4ZIECXVEN3FBZZIX5XP2HCA.jpeg" alt="" />
-                    </div>
-                    <p className=' blog__paragraph mt-10'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo repellat dolorum nesciunt assumenda, ducimus reprehenderit sint voluptatum tenetur, impedit nisi debitis dicta dignissimos voluptas temporibus? Eos at ducimus est rerum.</p>
-                </div>
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Blog
+export default Blog; 
