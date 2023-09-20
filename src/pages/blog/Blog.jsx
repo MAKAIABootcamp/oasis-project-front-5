@@ -33,16 +33,19 @@ const Blog = () => {
             <div className='blog__header'>
                 <h1 className='blog__title'>Oasis</h1>
             </div>
-            <div className='blog__container flex justify-between'>
-                <div className='w-[20%] flex flex-col gap-4'>
-                        <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
-                            <img className='icons' src={bag} alt="" />
-                            <p>Nuestra tienda</p>
-                        </button>
+            <div className='blog__container'>
+                {/* <div className='w-[20%] flex flex-col gap-4'>
                         <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
                             <img className='icons' src={add} alt="" />
                             <p>Publicar artículo</p>
                         </button>
+                </div> */}
+                <div className='blog__button'>
+                    <p className='blog__transform'>Transformemos la forma en que concebimos la moda !</p>
+                    <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
+                        <img className='blog__icon' src={bag} alt="" />
+                        <p className='blog__buttonText'>Nuestra tienda</p>
+                    </button>
                 </div>
                 <div>
                     {articles.map((article, index) => (
