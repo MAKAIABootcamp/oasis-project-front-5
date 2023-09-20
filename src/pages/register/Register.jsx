@@ -34,15 +34,16 @@ const Register = () => {
 
   return (
     <div className="register flex flex-col items-center text-[14px] relative">
-      <img
-        className="backArrow register__back"
-        onClick={() => navigate(-1)}
-        src={back}
-        alt=""
-      />
       <div className="container__login">
+
         <div className="flex flex-col items-center gap-2">
-          <h1 className="text-[20px]">CREAR CUENTA</h1>
+          <div className="back">
+            <img className="backArrow " onClick={() => navigate(-1)} src={back} alt="" />
+            <div>
+              <h1 className="text-[20px]">CREAR CUENTA</h1>
+            </div>
+          </div>
+
           <img className="w-[26%]" src={logo} alt="" />
         </div>
         <form className="w-[80%]" onSubmit={handleSubmit(userRegister)}>
@@ -83,6 +84,16 @@ const Register = () => {
                 type="text"
                 className="border-b border-gray-300 mb-2 outline-none"
                 {...register("address")}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-gray-400 text-[14px]  login__label">
+                Celular
+              </label>
+              <input
+                type="text"
+                className="border-b border-gray-300 mb-2 outline-none"
+                {...register("phoneNumber")}
               />
             </div>
             <div className="flex flex-col">

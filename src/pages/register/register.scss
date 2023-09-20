@@ -4,10 +4,13 @@
     height: 100vh;
     background-size: cover;
 
-    &__back {
-        position: absolute;
-        left: 50px;
-        top: 40px;
+    .back {
+        margin-top: 25px;
+        display: flex;
+        gap: 40px;
+        align-self: start;
+        align-items: center;
+        margin-left: 10px;
     }
 }
 

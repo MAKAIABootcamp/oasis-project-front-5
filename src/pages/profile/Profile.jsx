@@ -1,6 +1,6 @@
 import React from "react";
 import { logout } from "../../redux/store/auth/authActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import back from "../../assets/back.png";
 import user from "../../assets/user.png";
@@ -14,11 +14,31 @@ import "./profile.scss";
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userLogged = useSelector((state) => state.auth.userLogged);
+
+  if (!userLogged) {
+    return (
+      <div>
+        <p>Espere un momento...</p>
+      </div>
+    );
+  }
   return (
     <div className="profile relative flex flex-col items-center">
-      <img className="backArrow login__back" onClick={() => navigate(-1)} src={back} alt="" />
-      <div className="container__login">
-        <h1 className="profile__name">CAMILA SÁNCHEZ</h1>
+           <div className="container__login">
+        <div className="back">
+          <img className="backArrow " onClick={() => navigate(-1)} src={back} alt="" />
+          <div>
+            <h1>{userLogged.displayName}</h1>
+          </div>
+        </div>
+        <div className='w-20 h-20 rounded-full overflow-hidden'>
+          <img
+            src={userLogged.photoURL}
+            alt='Foto de perfil'
+            className='w-full h-full object-cover'
+          />
+        </div>
         <div className="flex flex-col gap-6 p-10">
           <hr />
           <div
