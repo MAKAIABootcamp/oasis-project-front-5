@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setUserLogged } from '../../redux/store/auth/authReducer';
 import { auth, fireStore } from '../../firebase/firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import fileUpload from '../../service/fileUpload';
 
 const PersonalData = () => {
     const navigate = useNavigate();
@@ -23,8 +24,8 @@ const PersonalData = () => {
     const [editingField, setEditingField] = useState(null);
 
     useEffect(() => {
-               if (userLogged) {
-                       const getUserDataFromFirestore = async () => {
+        if (userLogged) {
+            const getUserDataFromFirestore = async () => {
                 try {
                     if (userLogged && userLogged.id) {
                         const userDocRef = doc(fireStore, 'users', userLogged.id);
@@ -38,7 +39,7 @@ const PersonalData = () => {
                     console.error('Error al obtener datos de Firestore:', error);
                 }
             };
-            
+
             getUserDataFromFirestore();
         }
     }, [userLogged]);
@@ -48,6 +49,24 @@ const PersonalData = () => {
         setEditingField(field);
     };
 
+    const handleProfilePictureChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const imageUrl = await fileUpload(file);
+                if (userLogged && userLogged.id) {
+                    const userDocRef = doc(fireStore, 'users', userLogged.id);
+                    await updateDoc(userDocRef, { photoURL: imageUrl });
+                    dispatch(setUserLogged({
+                        ...userLogged,
+                        photoURL: imageUrl,
+                    }));
+                }
+            } catch (error) {
+                console.error('Error al actualizar la foto de perfil:', error);
+            }
+        }
+    };
     const handleSave = async (e) => {
         e.preventDefault();
 
@@ -105,14 +124,23 @@ const PersonalData = () => {
                     </div>
                 </div>
                 <div className='w-20 h-20 rounded-full overflow-hidden'>
-                    <img
-                        src={userLogged.photoURL}
-                        alt='Foto de perfil'
-                        className='w-full h-full object-cover'
+                    <input
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        onChange={handleProfilePictureChange}
+                        id="profilePictureInput"
                     />
+                    <label htmlFor="profilePictureInput">
+                        <img
+                            src={userLogged.photoURL}
+                            alt='Foto de perfil'
+                            className='w-full h-full object-cover cursor-pointer'
+                        />
+                      </label>
                 </div>
                 <div className='flex flex-col gap-8 p-10'>
-                {isEditing && editingField === 'displayName' ? (
+                    {isEditing && editingField === 'displayName' ? (
                         <form>
                             <input
                                 type='text'
@@ -124,7 +152,7 @@ const PersonalData = () => {
                                     })
                                 }
                             />
-                             <button type='submit' onClick={handleSave}>Guardar</button>
+                            <button type='submit' onClick={handleSave}>Guardar</button>
                         </form>
                     ) : (
                         <div className='flex justify-between w-72'>
@@ -158,7 +186,7 @@ const PersonalData = () => {
                         </div>
                     )}
                     <hr />
-                   <div className='flex justify-between w-72'>
+                    <div className='flex justify-between w-72'>
                         <div className='flex gap-2'>
                             <p>Correo:</p>
                             <p>{userLogged.email}</p>
