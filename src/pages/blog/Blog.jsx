@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import back from '../../assets/back.png'
 import bag from '../../assets/bag.png'
-import { fireStore } from '../../firebase/firebaseConfig'; 
+import add from '../../assets/add.png'
+import { fireStore } from '../../firebase/firebaseConfig';
 import './blog.scss'
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -11,7 +11,7 @@ const Blog = () => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-     
+
         const getArticles = async () => {
             try {
                 const querySnapshot = await getDocs(collection(fireStore, 'articles'));
@@ -30,25 +30,33 @@ const Blog = () => {
 
     return (
         <div className='blog flex flex-col'>
-            <div className='flex justify-between'>
-                <img className='backArrow' onClick={() => navigate(-1)} src={back} alt="" />
-                <button className='flex items-center gap-2' onClick={() => navigate('/products')}>
-                    <img className='icons' src={bag} alt="" />
-                    <p>Nuestra tienda</p>
-                </button>
+            <div className='blog__header'>
+                <h1 className='blog__title'>Oasis</h1>
             </div>
-            <div className='blog__container flex flex-col gap-12'>
-                {articles.map((article, index) => (
-                    <div key={index} className='blog__item flex justify-between'>
-                        <div className='blog__titleImage flex flex-col gap-4'>
-                            <h2 className='font-bold'>{article.title}</h2>
-                            <a href={article.originalUrl} target="_blank" rel="noopener noreferrer">
-                                <img className="w-80 h-80 object-cover rounded-md cursor-pointer" src={article.imageUrl} alt={article.title} />
-                            </a>
+            <div className='blog__container flex justify-between'>
+                <div className='w-[20%] flex flex-col gap-4'>
+                        <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
+                            <img className='icons' src={bag} alt="" />
+                            <p>Nuestra tienda</p>
+                        </button>
+                        <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
+                            <img className='icons' src={add} alt="" />
+                            <p>Publicar artículo</p>
+                        </button>
+                </div>
+                <div>
+                    {articles.map((article, index) => (
+                        <div key={index} className='blog__item flex justify-between'>
+                            <div className='blog__titleImage flex flex-col gap-4'>
+                                <h2 className='blog__subtitle font-bold'>{article.title}</h2>
+                                <a href={article.originalUrl} target="_blank" rel="noopener noreferrer">
+                                    <img className="w-80 h-80 object-cover rounded-md cursor-pointer" src={article.imageUrl} alt={article.title} />
+                                </a>
+                            </div>
+                            <p className='blog__paragraph mt-10'>{article.description}</p>
                         </div>
-                        <p className='blog__paragraph mt-10'>{article.description}</p>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );
