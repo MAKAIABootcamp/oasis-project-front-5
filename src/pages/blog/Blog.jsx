@@ -31,6 +31,10 @@ const Blog = () => {
     return (
         <div className='blog flex flex-col'>
             <div className='blog__header'>
+                <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
+                    <img className='blog__icon' src={bag} alt="" />
+                    <p className='blog__buttonText'>Nuestra tienda</p>
+                </button>
                 <h1 className='blog__title'>Oasis</h1>
             </div>
             <div className='blog__container'>
@@ -42,10 +46,10 @@ const Blog = () => {
                 </div> */}
                 <div className='blog__button'>
                     <p className='blog__transform'>Transformemos la forma en que concebimos la moda !</p>
-                    <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
-                        <img className='blog__icon' src={bag} alt="" />
-                        <p className='blog__buttonText'>Nuestra tienda</p>
-                    </button>
+                </div>
+
+                <div>
+                    ¿Sabías que la industria de la moda genera aproximadamente 92 millones de toneladas de desechos textiles al año, lo que contribuye significativamente a problemas ambientales como la contaminación del agua, las emisiones de gases de efecto invernadero y la agotación de recursos naturales? Es hora de hacer un cambio, y OASIS está aquí para liderarlo, Únete a nosotros y sé parte de la revolución de la moda sostenible.
                 </div>
                 <div>
                     {articles.map((article, index) => (
