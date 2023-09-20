@@ -16,7 +16,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   return (
     <div className="profile relative flex flex-col items-center">
-      <img className="backArrow login__back" onClick={() => navigate('/')} src={back} alt="" />
+      <img className="backArrow login__back" onClick={() => navigate(-1)} src={back} alt="" />
       <div className="container__login">
         <h1 className="profile__name">CAMILA SÁNCHEZ</h1>
         <div className="flex flex-col gap-6 p-10">

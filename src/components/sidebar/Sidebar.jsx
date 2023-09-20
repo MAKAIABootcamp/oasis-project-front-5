@@ -4,9 +4,21 @@ import comunity from '../../assets/comunity.png'
 import user from '../../assets/user.png'
 import './sidebar.scss'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const sidebar = () => {
     const navigate = useNavigate();
+    const { isLogged } = useSelector((state) => state.auth); // Obtiene el estado de autenticación desde Redux
+
+    const handlePerfilClick = () => {
+        if (isLogged) {
+            // Si el usuario está autenticado, redirige a la página de perfil
+            navigate('/profile');
+        } else {
+            // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+            navigate('/login');
+        }
+    };
     return (
         <div>
             <div className="sidebar flex flex-col gap-6">
@@ -20,7 +32,7 @@ const sidebar = () => {
                         <img className="w-6 object-contain"  src={comunity} alt="" />
                         <p className="products__li"> Blog</p>
                     </li>
-                    <li className="flex gap-2" onClick={() => navigate('/login')}>
+                    <li className="flex gap-2" onClick={handlePerfilClick}>
                         <img className="w-5 object-contain" src={user} alt="" />
                         <p className="products__li"> Perfil</p>
                     </li>

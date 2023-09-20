@@ -75,7 +75,7 @@ const Router = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="products" element={<Products />} />
-          <Route path="profile" element={<Profile />} />
+          {/* <Route path="profile" element={<Profile />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="cart" element={<Cart />} />
           <Route path="confirmation" element={<Confirmation />} />
@@ -87,7 +87,7 @@ const Router = () => {
           {isLogged ? (
             <Route>
               <Route path="profile" element={<Profile />} />
-              <Route path="personal" element={<PersonalData />} />
+              {/* <Route path="personal" element={<PersonalData />} /> */}
             </Route>
           ) : (
             <Route>
