@@ -1,14 +1,86 @@
-import React, { useEffect, useState } from 'react'
-import './personalData.scss'
-import back from '../../assets/back.png'
-import edit from '../../assets/edit.png'
+import React, { useEffect, useState } from 'react';
+import './PersonalData.scss';
+import back from '../../assets/back.png';
+import edit from '../../assets/edit.png';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserLogged } from '../../redux/store/auth/authReducer';
+import { auth, fireStore } from '../../firebase/firebaseConfig';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const PersonalData = () => {
     const navigate = useNavigate();
     const userLogged = useSelector((state) => state.auth.userLogged);
+    const dispatch = useDispatch();
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedUserData, setEditedUserData] = useState({
+        displayName: '',
+        email: '',
+        phoneNumber: '',
+        address: '',
+    });
+    const [editingField, setEditingField] = useState(null);
+
+    useEffect(() => {
+               if (userLogged) {
+                       const getUserDataFromFirestore = async () => {
+                try {
+                    if (userLogged && userLogged.id) {
+                        const userDocRef = doc(fireStore, 'users', userLogged.id);
+                        const userDocSnapshot = await getDoc(userDocRef);
+                        if (userDocSnapshot.exists()) {
+                            const userData = userDocSnapshot.data();
+                            setEditedUserData(userData);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error al obtener datos de Firestore:', error);
+                }
+            };
+            
+            getUserDataFromFirestore();
+        }
+    }, [userLogged]);
+
+    const handleEdit = (field) => {
+        setIsEditing(true);
+        setEditingField(field);
+    };
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+
+        if (userLogged && userLogged.id) {
+            try {
+                const userDocRef = doc(fireStore, 'users', userLogged.id);
+                const updatedFields = {};
+                if (editingField === 'displayName') {
+                    updatedFields.displayName = editedUserData.displayName;
+                }
+                if (editingField === 'phoneNumber') {
+                    updatedFields.phoneNumber = editedUserData.phoneNumber;
+                }
+                if (editingField === 'address') {
+                    updatedFields.address = editedUserData.address;
+                }
+
+                await updateDoc(userDocRef, updatedFields);
+
+                dispatch(
+                    setUserLogged({
+                        ...userLogged,
+                        [editingField]: editedUserData[editingField],
+                    })
+                );
+
+                setIsEditing(false);
+                setEditingField(null);
+            } catch (error) {
+                console.error('Error al actualizar la información en Firestore:', error);
+            }
+        }
+    };
 
     if (!userLogged) {
         return (
@@ -17,11 +89,17 @@ const PersonalData = () => {
             </div>
         );
     }
+
     return (
         <div className='personal relative flex flex-col items-center'>
             <div className='container__login'>
-                <div className="back">
-                    <img className="backArrow " onClick={() => navigate(-1)} src={back} alt="" />
+                <div className='back'>
+                    <img
+                        className='backArrow '
+                        onClick={() => navigate(-1)}
+                        src={back}
+                        alt=''
+                    />
                     <div>
                         <h1>DATOS PERSONALES</h1>
                     </div>
@@ -34,52 +112,155 @@ const PersonalData = () => {
                     />
                 </div>
                 <div className='flex flex-col gap-8 p-10'>
-
-
-                    <div className='flex justify-between w-72'>
-                        <div className='flex gap-2'>
-                            <p>Nombre:</p>
-                            <p>{userLogged.displayName}</p>
+                {isEditing && editingField === 'displayName' ? (
+                        <form>
+                            <input
+                                type='text'
+                                value={editedUserData.displayName}
+                                onChange={(e) =>
+                                    setEditedUserData({
+                                        ...editedUserData,
+                                        displayName: e.target.value,
+                                    })
+                                }
+                            />
+                             <button type='submit' onClick={handleSave}>Guardar</button>
+                        </form>
+                    ) : (
+                        <div className='flex justify-between w-72'>
+                            <div className='flex gap-2'>
+                                <p>Nombre:</p>
+                                {isEditing && editingField === 'displayName' ? (
+                                    <input
+                                        type='text'
+                                        value={editedUserData.displayName}
+                                        onChange={(e) =>
+                                            setEditedUserData({
+                                                ...editedUserData,
+                                                displayName: e.target.value,
+                                            })
+                                        }
+                                    />
+                                ) : (
+                                    <p>{userLogged.displayName}</p>
+                                )}
+                            </div>
+                            {isEditing && editingField === 'displayName' ? (
+                                <button type='submit' onClick={handleSave}>Guardar</button>
+                            ) : (
+                                <img
+                                    className='w-4 object-contain cursor-pointer'
+                                    src={edit}
+                                    alt=''
+                                    onClick={() => handleEdit('displayName')}
+                                />
+                            )}
                         </div>
-                        <img className='w-4 object-contain cursor-pointer' src={edit} alt='' />
-                    </div>
-
+                    )}
                     <hr />
-                    <div className='flex justify-between w-72'>
+                   <div className='flex justify-between w-72'>
                         <div className='flex gap-2'>
                             <p>Correo:</p>
                             <p>{userLogged.email}</p>
-
                         </div>
-                        <img className='w-4 object-contain cursor-pointer' src={edit} alt="" />
                     </div>
                     <hr />
-
-                    <div className='flex justify-between w-72'>
-                        <div className='flex gap-2'>
-                            <p>Celular:</p>
-                            <p>{userLogged.phoneNumber}</p>
+                    {isEditing && editingField === 'phoneNumber' ? (
+                        <form>
+                            <input
+                                type='tel'
+                                value={editedUserData.phoneNumber}
+                                onChange={(e) =>
+                                    setEditedUserData({
+                                        ...editedUserData,
+                                        phoneNumber: e.target.value,
+                                    })
+                                }
+                            />
+                            <button type='submit' onClick={handleSave}>Guardar</button>
+                        </form>
+                    ) : (
+                        <div className='flex justify-between w-72'>
+                            <div className='flex gap-2'>
+                                <p>Celular:</p>
+                                {isEditing && editingField === 'phoneNumber' ? (
+                                    <input
+                                        type='tel'
+                                        value={editedUserData.phoneNumber}
+                                        onChange={(e) =>
+                                            setEditedUserData({
+                                                ...editedUserData,
+                                                phoneNumber: e.target.value,
+                                            })
+                                        }
+                                    />
+                                ) : (
+                                    <p>{userLogged.phoneNumber}</p>
+                                )}
+                            </div>
+                            {isEditing && editingField === 'phoneNumber' ? (
+                                <button type='submit' onClick={handleSave}>Guardar</button>
+                            ) : (
+                                <img
+                                    className='w-4 object-contain cursor-pointer'
+                                    src={edit}
+                                    alt=''
+                                    onClick={() => handleEdit('phoneNumber')}
+                                />
+                            )}
                         </div>
-                        <img className='w-4 object-contain cursor-pointer' src={edit} alt="" />
-                    </div>
+                    )}
                     <hr />
-
-                    <div className='flex justify-between w-72'>
-                        <div className='flex gap-2'>
-                            <p>Dirección:</p>
-                            <p>{userLogged.address}</p>
-
+                    {isEditing && editingField === 'address' ? (
+                        <form>
+                            <input
+                                type='text'
+                                value={editedUserData.address}
+                                onChange={(e) =>
+                                    setEditedUserData({
+                                        ...editedUserData,
+                                        address: e.target.value,
+                                    })
+                                }
+                            />
+                            <button type='submit' onClick={handleSave}>Guardar</button>
+                        </form>
+                    ) : (
+                        <div className='flex justify-between w-72'>
+                            <div className='flex gap-2'>
+                                <p>Dirección:</p>
+                                {isEditing && editingField === 'address' ? (
+                                    <input
+                                        type='text'
+                                        value={editedUserData.address}
+                                        onChange={(e) =>
+                                            setEditedUserData({
+                                                ...editedUserData,
+                                                address: e.target.value,
+                                            })
+                                        }
+                                    />
+                                ) : (
+                                    <p>{userLogged.address}</p>
+                                )}
+                            </div>
+                            {isEditing && editingField === 'address' ? (
+                                <button type='submit' onClick={handleSave}>Guardar</button>
+                            ) : (
+                                <img
+                                    className='w-4 object-contain cursor-pointer'
+                                    src={edit}
+                                    alt=''
+                                    onClick={() => handleEdit('address')}
+                                />
+                            )}
                         </div>
-                        <img className='w-4 object-contain cursor-pointer' src={edit} alt="" />
-                    </div>
+                    )}
                     <hr />
-
-
                 </div>
-
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default PersonalData
+export default PersonalData;
