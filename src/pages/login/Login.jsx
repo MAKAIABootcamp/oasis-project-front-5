@@ -23,15 +23,14 @@ const Login = () => {
 
   return (
     <div className="login flex flex-col items-center text-[14px]">
-      <img
-        className="backArrow login__back"
-        onClick={() => navigate(-1)}
-        src={back}
-        alt=""
-      />
-      <div className="container__login">
+          <div className="container__login">
         <div className="flex flex-col items-center gap-2">
-          <h1 className="text-[20px]">OASIS</h1>
+        <div className="back">
+            <img className="backArrow " onClick={() => navigate(-1)} src={back} alt="" />
+            <div>
+              <h1 className="text-[20px]">OASIS</h1>
+            </div>
+          </div>
           <img className="w-[26%]" src={logo} alt="" />
         </div>
         <form

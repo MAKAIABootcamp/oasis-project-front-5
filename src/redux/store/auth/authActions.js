@@ -21,6 +21,8 @@ export const loginWithCode = (code) => {
                     displayName: user.displayName,
                     photoURL: user.photoURL,
                     phoneNumber: user.phoneNumber,
+                    email: user.email,
+                    address: user.address, 
                     accessToken: user.accessToken
                 }
                 console.log(user);
