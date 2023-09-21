@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import bag from '../../assets/bag.png'
 import deleteIcon from '../../assets/delete.png'
+import editIcon from '../../assets/edit.png';
 import { fireStore } from '../../firebase/firebaseConfig';
 import './blog.scss'
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
@@ -10,6 +11,8 @@ const Blog = () => {
     const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
     const [commentData, setCommentData] = useState({ name: '', text: '' });
+    const [editingComment, setEditingComment] = useState({ index: -1, commentIndex: -1, text: '' });
+    const [isEditing, setIsEditing] = useState(false);
 
 
     useEffect(() => {
@@ -20,7 +23,7 @@ const Blog = () => {
                 const articleData = [];
                 querySnapshot.forEach((doc) => {
                     const article = doc.data();
-                    article.id = doc.id; 
+                    article.id = doc.id;
                     articleData.push(article);
                 });
                 setArticles(articleData);
@@ -34,22 +37,39 @@ const Blog = () => {
 
     const handleCommentSubmit = async (e, index) => {
         e.preventDefault();
-
+    
         const updatedArticles = [...articles];
         const articleId = updatedArticles[index].id;
-
+    
         if (!Array.isArray(updatedArticles[index].comments)) {
             updatedArticles[index].comments = [];
         }
-
-        const newComment = { name: commentData.name, text: commentData.text };
-        const articleRef = doc(fireStore, 'articles', updatedArticles[index].id); 
+    
+        if (editingComment.index === index && editingComment.commentIndex !== -1) {
+            const commentIndex = editingComment.commentIndex;
+            updatedArticles[index].comments[commentIndex].text = commentData.text;
+        } else {
+            const newComment = { name: commentData.name, text: commentData.text };
+            updatedArticles[index].comments.push(newComment);
+        }
+    
+        const articleRef = doc(fireStore, 'articles', updatedArticles[index].id);
         await updateDoc(articleRef, {
-            comments: [...updatedArticles[index].comments, newComment],
+            comments: updatedArticles[index].comments,
         });
-        updatedArticles[index].comments.push(newComment);
+    
         setArticles(updatedArticles);
         setCommentData({ name: '', text: '' });
+        setEditingComment({ index: -1, commentIndex: -1, text: '' });
+        setIsEditing(false); 
+    };
+    
+
+    const handleCommentEdit = (index, commentIndex) => {
+        const commentText = articles[index].comments[commentIndex].text;
+        setEditingComment({ index, commentIndex, text: commentText });
+        setCommentData({ name: '', text: commentText });
+        setIsEditing(true);
     };
 
     const handleCommentDelete = async (index, commentIndex) => {
@@ -94,21 +114,28 @@ const Blog = () => {
                             </div>
                             <p className='blog__paragraph mt-10'>{article.description}</p>
                             <div className='blog__comments'>
-                        <h3>Comentarios</h3>
-                        {article.comments &&
-                            Array.isArray(article.comments) &&
-                            article.comments.map((comment, commentIndex) => (
-                                <div key={commentIndex} className='comment'>
-                                    <p className='comment-user'>{comment.name}:</p>
-                                    <p className='comment-text'>{comment.text}</p>
-                                  <button
-                                        className='comment-delete'
-                                        onClick={() => handleCommentDelete(index, commentIndex)}
-                                    >
-                                        <img src={deleteIcon} className='deleteIcon w-5' alt='Eliminar' />
-                                    </button>
-                                </div>
-                            ))}
+                                <h3>Comentarios</h3>
+                                {article.comments &&
+                                    Array.isArray(article.comments) &&
+                                    article.comments.map((comment, commentIndex) => (
+                                        <div key={commentIndex} className='comment'>
+                                            <p className='comment-user'>{comment.name}:</p>
+                                            <p className='comment-text'>{comment.text}</p>
+                                            <button
+                                                className='comment-delete'
+                                                onClick={() => handleCommentDelete(index, commentIndex)}
+                                            >
+                                                <img src={deleteIcon} className='deleteIcon w-5' alt='Eliminar' />
+                                            </button>
+                                            <button
+                                                className='comment-edit'
+                                                onClick={() => handleCommentEdit(index, commentIndex)}
+                                            >
+                                                <img src={editIcon} className='editIcon w-5' alt='Editar' />
+                                            </button>
+
+                                        </div>
+                                    ))}
                                 <form onSubmit={(e) => handleCommentSubmit(e, index)}>
                                     <div className='comment-input'>
                                         <input
@@ -128,7 +155,10 @@ const Blog = () => {
                                         />
                                     </div>
                                     <div className='comment-button'>
-                                        <button type='submit'>Enviar comentario</button>
+                                        <button type='submit'>
+                                            {isEditing ? 'Guardar cambios' : 'Enviar comentario'}
+                                        </button>
+
                                     </div>
                                 </form>
                             </div>
