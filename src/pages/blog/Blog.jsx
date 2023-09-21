@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bag from '../../assets/bag.png';
+import user from '../../assets/user.png'
 import deleteIcon from '../../assets/delete.png';
 import editIcon from '../../assets/edit.png';
+import logo from "../../assets/logo-circle.svg";
 import { fireStore } from '../../firebase/firebaseConfig';
 import './blog.scss';
-import {collection, getDocs, updateDoc, doc,} from 'firebase/firestore';
+import { collection, getDocs, updateDoc, doc, } from 'firebase/firestore';
 
 const Blog = () => {
     const navigate = useNavigate();
@@ -90,11 +92,26 @@ const Blog = () => {
     return (
         <div className='blog flex flex-col'>
             <div className='blog__header'>
-                <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
-                    <img className='blog__icon' src={bag} alt='' />
-                    <p className='blog__buttonText'>Nuestra tienda</p>
-                </button>
-                <h1 className='blog__title'>Oasis</h1>
+                <div className=' flex items-center gap-2 w-[200px]' >
+                    <img className="w-[30%] " src={logo} alt="" />
+                    <h1 className='blog__title'  >Oasis</h1>
+                </div>
+                                   <div className='blog__option flex items-center gap-2 w-[200px]'>
+                        <button onClick={() => navigate('/products')}>
+                            <img className='blog__icon' src={bag} alt='' />
+                        </button>
+                        <p onClick={() => navigate('/products')} className='blog__buttonText'>Nuestra tienda</p>
+
+                    </div>
+                    <div className='blog__option flex items-center gap-2 w-[200px]'>
+                        <button onClick={() => navigate('/login')}>
+                            <img className="blog__icon" src={user} alt="" />
+
+                        </button>
+                        <p onClick={() => navigate('/login')} className='blog__buttonText'>Ingresa</p>
+
+                    </div>
+                
             </div>
             <div className='blog__container'>
                 <div className='blog__button'>
