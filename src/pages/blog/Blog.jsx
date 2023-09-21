@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import bag from '../../assets/bag.png'
-import add from '../../assets/add.png'
 import { fireStore } from '../../firebase/firebaseConfig';
 import './blog.scss'
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
 
 const Blog = () => {
     const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
+    const [commentData, setCommentData] = useState({ name: '', text: '' });
+
 
     useEffect(() => {
 
@@ -17,7 +18,9 @@ const Blog = () => {
                 const querySnapshot = await getDocs(collection(fireStore, 'articles'));
                 const articleData = [];
                 querySnapshot.forEach((doc) => {
-                    articleData.push(doc.data());
+                    const article = doc.data();
+                    article.id = doc.id; 
+                    articleData.push(article);
                 });
                 setArticles(articleData);
             } catch (error) {
@@ -27,6 +30,26 @@ const Blog = () => {
 
         getArticles();
     }, []);
+
+    const handleCommentSubmit = async (e, index) => {
+        e.preventDefault();
+
+        const updatedArticles = [...articles];
+        const articleId = updatedArticles[index].id;
+
+        if (!Array.isArray(updatedArticles[index].comments)) {
+            updatedArticles[index].comments = [];
+        }
+
+        const newComment = { name: commentData.name, text: commentData.text };
+        const articleRef = doc(fireStore, 'articles', updatedArticles[index].id); 
+        await updateDoc(articleRef, {
+            comments: [...updatedArticles[index].comments, newComment],
+        });
+        updatedArticles[index].comments.push(newComment);
+        setArticles(updatedArticles);
+        setCommentData({ name: '', text: '' });
+    };
 
     return (
         <div className='blog flex flex-col'>
@@ -38,12 +61,6 @@ const Blog = () => {
                 <h1 className='blog__title'>Oasis</h1>
             </div>
             <div className='blog__container'>
-                {/* <div className='w-[20%] flex flex-col gap-4'>
-                        <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
-                            <img className='icons' src={add} alt="" />
-                            <p>Publicar artículo</p>
-                        </button>
-                </div> */}
                 <div className='blog__button'>
                     <p className='blog__transform'>Transformemos la forma en que concebimos la moda !</p>
                 </div>
@@ -61,6 +78,39 @@ const Blog = () => {
                                 </a>
                             </div>
                             <p className='blog__paragraph mt-10'>{article.description}</p>
+                            <div className='blog__comments'>
+                                <h3>Comentarios</h3>
+                                {article.comments && Array.isArray(article.comments) && article.comments.map((comment, commentIndex) => (
+                                    <div key={commentIndex} className='comment'>
+                                        <p className='comment-user'>{comment.name}:</p>
+                                        <p className='comment-text'>{comment.text}</p>
+                                    </div>
+                                ))}
+
+                                <form onSubmit={(e) => handleCommentSubmit(e, index)}>
+                                    <div className='comment-input'>
+                                        <input
+                                            type='text'
+                                            placeholder='Nombre del usuario'
+                                            value={commentData.name}
+                                            onChange={(e) => setCommentData({ ...commentData, name: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <div className='comment-input'>
+                                        <textarea
+                                            placeholder='Escribe tu comentario...'
+                                            value={commentData.text}
+                                            onChange={(e) => setCommentData({ ...commentData, text: e.target.value })}
+                                            required
+                                        />
+                                    </div>
+                                    <div className='comment-button'>
+                                        <button type='submit'>Enviar comentario</button>
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
                     ))}
                 </div>
@@ -68,5 +118,6 @@ const Blog = () => {
         </div>
     );
 };
+
 
 export default Blog; 
