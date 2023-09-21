@@ -8,14 +8,13 @@ import { useSelector } from 'react-redux'
 
 const sidebar = () => {
     const navigate = useNavigate();
-    const { isLogged } = useSelector((state) => state.auth); // Obtiene el estado de autenticación desde Redux
-
+    const { isLogged } = useSelector((state) => state.auth); 
     const handlePerfilClick = () => {
         if (isLogged) {
-            // Si el usuario está autenticado, redirige a la página de perfil
+  
             navigate('/profile');
         } else {
-            // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+           
             navigate('/login');
         }
     };
