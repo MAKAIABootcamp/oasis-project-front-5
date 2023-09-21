@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import bag from '../../assets/bag.png'
-import deleteIcon from '../../assets/delete.png'
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import bag from '../../assets/bag.png';
+import deleteIcon from '../../assets/delete.png';
 import editIcon from '../../assets/edit.png';
 import { fireStore } from '../../firebase/firebaseConfig';
-import './blog.scss'
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import './blog.scss';
+import {collection, getDocs, updateDoc, doc,} from 'firebase/firestore';
 
 const Blog = () => {
     const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
     const [commentData, setCommentData] = useState({ name: '', text: '' });
-    const [editingComment, setEditingComment] = useState({ index: -1, commentIndex: -1, text: '' });
+    const [editingComment, setEditingComment] = useState({
+        index: -1,
+        commentIndex: -1,
+        text: '',
+    });
     const [isEditing, setIsEditing] = useState(false);
 
-
     useEffect(() => {
-
         const getArticles = async () => {
             try {
                 const querySnapshot = await getDocs(collection(fireStore, 'articles'));
@@ -37,33 +39,27 @@ const Blog = () => {
 
     const handleCommentSubmit = async (e, index) => {
         e.preventDefault();
-    
         const updatedArticles = [...articles];
         const articleId = updatedArticles[index].id;
-    
         if (!Array.isArray(updatedArticles[index].comments)) {
             updatedArticles[index].comments = [];
         }
-    
         if (editingComment.index === index && editingComment.commentIndex !== -1) {
             const commentIndex = editingComment.commentIndex;
             updatedArticles[index].comments[commentIndex].text = commentData.text;
         } else {
-            const newComment = { name: commentData.name, text: commentData.text };
+            const newComment = { name: commentData.name, text: commentData.text, timestamp: Date.now() };
             updatedArticles[index].comments.push(newComment);
         }
-    
-        const articleRef = doc(fireStore, 'articles', updatedArticles[index].id);
+        const articleRef = doc(fireStore, 'articles', articleId);
         await updateDoc(articleRef, {
             comments: updatedArticles[index].comments,
         });
-    
         setArticles(updatedArticles);
         setCommentData({ name: '', text: '' });
         setEditingComment({ index: -1, commentIndex: -1, text: '' });
-        setIsEditing(false); 
+        setIsEditing(false);
     };
-    
 
     const handleCommentEdit = (index, commentIndex) => {
         const commentText = articles[index].comments[commentIndex].text;
@@ -76,21 +72,26 @@ const Blog = () => {
         const updatedArticles = [...articles];
         const articleId = updatedArticles[index].id;
         const commentId = updatedArticles[index].comments[commentIndex].id;
-
         const articleRef = doc(fireStore, 'articles', articleId);
-        await updateDoc(articleRef, {
-            comments: updatedArticles[index].comments.filter((_, index) => index !== commentIndex),
-        });
         updatedArticles[index].comments.splice(commentIndex, 1);
+        await updateDoc(articleRef, {
+            comments: updatedArticles[index].comments,
+        });
         setArticles(updatedArticles);
     };
 
+    const isCommentEditableOrDeletable = (commentTimestamp) => {
+        const currentTime = Date.now();
+        const timeDifference = currentTime - commentTimestamp;
+        const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+        return minutesDifference <= 2;
+    };
 
     return (
         <div className='blog flex flex-col'>
             <div className='blog__header'>
                 <button className='blog__option flex items-center gap-2 w-[200px]' onClick={() => navigate('/products')}>
-                    <img className='blog__icon' src={bag} alt="" />
+                    <img className='blog__icon' src={bag} alt='' />
                     <p className='blog__buttonText'>Nuestra tienda</p>
                 </button>
                 <h1 className='blog__title'>Oasis</h1>
@@ -101,15 +102,22 @@ const Blog = () => {
                 </div>
 
                 <div>
-                    ¿Sabías que la industria de la moda genera aproximadamente 92 millones de toneladas de desechos textiles al año, lo que contribuye significativamente a problemas ambientales como la contaminación del agua, las emisiones de gases de efecto invernadero y la agotación de recursos naturales? Es hora de hacer un cambio, y OASIS está aquí para liderarlo, Únete a nosotros y sé parte de la revolución de la moda sostenible.
+                    ¿Sabías que la industria de la moda genera aproximadamente 92 millones de toneladas de desechos textiles al
+                    año, lo que contribuye significativamente a problemas ambientales como la contaminación del agua, las
+                    emisiones de gases de efecto invernadero y la agotación de recursos naturales? Es hora de hacer un cambio,
+                    y OASIS está aquí para liderarlo, Únete a nosotros y sé parte de la revolución de la moda sostenible.
                 </div>
                 <div>
                     {articles.map((article, index) => (
                         <div key={article.id} className='blog__item flex justify-between'>
                             <div className='blog__titleImage flex flex-col gap-4'>
                                 <h2 className='blog__subtitle font-bold'>{article.title}</h2>
-                                <a href={article.originalUrl} target="_blank" rel="noopener noreferrer">
-                                    <img className="w-80 h-80 object-cover rounded-md cursor-pointer" src={article.imageUrl} alt={article.title} />
+                                <a href={article.originalUrl} target='_blank' rel='noopener noreferrer'>
+                                    <img
+                                        className='w-80 h-80 object-cover rounded-md cursor-pointer'
+                                        src={article.imageUrl}
+                                        alt={article.title}
+                                    />
                                 </a>
                             </div>
                             <p className='blog__paragraph mt-10'>{article.description}</p>
@@ -121,19 +129,22 @@ const Blog = () => {
                                         <div key={commentIndex} className='comment'>
                                             <p className='comment-user'>{comment.name}:</p>
                                             <p className='comment-text'>{comment.text}</p>
-                                            <button
-                                                className='comment-delete'
-                                                onClick={() => handleCommentDelete(index, commentIndex)}
-                                            >
-                                                <img src={deleteIcon} className='deleteIcon w-5' alt='Eliminar' />
-                                            </button>
-                                            <button
-                                                className='comment-edit'
-                                                onClick={() => handleCommentEdit(index, commentIndex)}
-                                            >
-                                                <img src={editIcon} className='editIcon w-5' alt='Editar' />
-                                            </button>
-
+                                            {isCommentEditableOrDeletable(comment.timestamp) && (
+                                                <>
+                                                    <button
+                                                        className='comment-delete'
+                                                        onClick={() => handleCommentDelete(index, commentIndex)}
+                                                    >
+                                                        <img src={deleteIcon} className='deleteIcon w-5' alt='Eliminar' />
+                                                    </button>
+                                                    <button
+                                                        className='comment-edit'
+                                                        onClick={() => handleCommentEdit(index, commentIndex)}
+                                                    >
+                                                        <img src={editIcon} className='editIcon w-5' alt='Editar' />
+                                                    </button>
+                                                </>
+                                            )}
                                         </div>
                                     ))}
                                 <form onSubmit={(e) => handleCommentSubmit(e, index)}>
@@ -155,14 +166,10 @@ const Blog = () => {
                                         />
                                     </div>
                                     <div className='comment-button'>
-                                        <button type='submit'>
-                                            {isEditing ? 'Guardar cambios' : 'Enviar comentario'}
-                                        </button>
-
+                                        <button type='submit'>{isEditing ? 'Guardar cambios' : 'Enviar comentario'}</button>
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     ))}
                 </div>
@@ -171,4 +178,4 @@ const Blog = () => {
     );
 };
 
-export default Blog; 
+export default Blog;
