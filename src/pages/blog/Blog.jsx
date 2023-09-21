@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import bag from '../../assets/bag.png'
+import deleteIcon from '../../assets/delete.png'
 import { fireStore } from '../../firebase/firebaseConfig';
 import './blog.scss'
-import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 
 const Blog = () => {
     const navigate = useNavigate();
@@ -51,6 +52,20 @@ const Blog = () => {
         setCommentData({ name: '', text: '' });
     };
 
+    const handleCommentDelete = async (index, commentIndex) => {
+        const updatedArticles = [...articles];
+        const articleId = updatedArticles[index].id;
+        const commentId = updatedArticles[index].comments[commentIndex].id;
+
+        const articleRef = doc(fireStore, 'articles', articleId);
+        await updateDoc(articleRef, {
+            comments: updatedArticles[index].comments.filter((_, index) => index !== commentIndex),
+        });
+        updatedArticles[index].comments.splice(commentIndex, 1);
+        setArticles(updatedArticles);
+    };
+
+
     return (
         <div className='blog flex flex-col'>
             <div className='blog__header'>
@@ -70,7 +85,7 @@ const Blog = () => {
                 </div>
                 <div>
                     {articles.map((article, index) => (
-                        <div key={index} className='blog__item flex justify-between'>
+                        <div key={article.id} className='blog__item flex justify-between'>
                             <div className='blog__titleImage flex flex-col gap-4'>
                                 <h2 className='blog__subtitle font-bold'>{article.title}</h2>
                                 <a href={article.originalUrl} target="_blank" rel="noopener noreferrer">
@@ -79,14 +94,21 @@ const Blog = () => {
                             </div>
                             <p className='blog__paragraph mt-10'>{article.description}</p>
                             <div className='blog__comments'>
-                                <h3>Comentarios</h3>
-                                {article.comments && Array.isArray(article.comments) && article.comments.map((comment, commentIndex) => (
-                                    <div key={commentIndex} className='comment'>
-                                        <p className='comment-user'>{comment.name}:</p>
-                                        <p className='comment-text'>{comment.text}</p>
-                                    </div>
-                                ))}
-
+                        <h3>Comentarios</h3>
+                        {article.comments &&
+                            Array.isArray(article.comments) &&
+                            article.comments.map((comment, commentIndex) => (
+                                <div key={commentIndex} className='comment'>
+                                    <p className='comment-user'>{comment.name}:</p>
+                                    <p className='comment-text'>{comment.text}</p>
+                                  <button
+                                        className='comment-delete'
+                                        onClick={() => handleCommentDelete(index, commentIndex)}
+                                    >
+                                        <img src={deleteIcon} className='deleteIcon w-5' alt='Eliminar' />
+                                    </button>
+                                </div>
+                            ))}
                                 <form onSubmit={(e) => handleCommentSubmit(e, index)}>
                                     <div className='comment-input'>
                                         <input
@@ -118,6 +140,5 @@ const Blog = () => {
         </div>
     );
 };
-
 
 export default Blog; 
