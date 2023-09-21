@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchItems } from '../../redux/store/products/productsActions'
 import Sidebar from "../../components/sidebar/Sidebar";
 import { addToFavorites, removeFromFavorites } from '../../redux/store/favorites/favoriteSlice'
+
+
 const Details = () => {
 
     const { id } = useParams();
