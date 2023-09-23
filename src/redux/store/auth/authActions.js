@@ -77,7 +77,6 @@ export const login = () => {
 export const logout = () => {
     return async (dispatch) => {
         try {
-            localStorage.removeItem('favorites');
             await signOut(auth)
             dispatch(setUserLogged(null));
             dispatch(setIsLogged(false));
