@@ -6,6 +6,7 @@ import Header from '../../components/header/Header';
 import Sidebar from "../../components/sidebar/Sidebar";
 import { collection, getDocs } from 'firebase/firestore';
 import { fireStore, auth } from '../../firebase/firebaseConfig';
+import { Link } from 'react-router-dom';
 
 const Favorites = () => {
     const [favoriteProducts, setFavoriteProducts] = useState([]);
@@ -45,27 +46,27 @@ const Favorites = () => {
                         ) : (
                             favoriteProducts.map((product) => (
                                 <div key={product.id}>
-                                <div className='favorites__info'>
-                                    <p className='favorites__description'>{product.text}</p>
-                                    <div className='favorites__dates'>
-                                        <img className='w-[250px] rounded-md' src={product.gallery.frontPage} alt={product.name} />
-                                        <div className='product-details flex flex-col justify-between'>
-                                            <div className='flex flex-col gap-2'>
-                                                <p className='font-semibold text-[18px]'>$ {product.price}</p>
-                                                <p className='font-semibold'>{product.name}</p>
-                                                <p>Talla {product.size}</p>
-                                                <img className='w-5 cursor-pointer object-contain' src={heart} alt="" />
-                                                <p>{product.description}</p>
-                                            </div>
-                                            <div className='flex gap-2 cursor-pointer items-center'>
-                                                <img className='w-5 object-contain' src={bag} alt="" />
-                                                <p className='font-semibold'>Añadir a la bolsa</p>
+                                    <Link to={`/details/${product.id}`} className="favorites__info">
+                                        <p className='favorites__description'>{product.text}</p>
+                                        <div className='favorites__dates'>
+                                            <img className='w-[250px] rounded-md' src={product.gallery.frontPage} alt={product.name} />
+                                            <div className='product-details flex flex-col justify-between'>
+                                                <div className='flex flex-col gap-2'>
+                                                    <p className='font-semibold text-[18px]'>$ {product.price}</p>
+                                                    <p className='font-semibold'>{product.name}</p>
+                                                    <p>Talla {product.size}</p>
+                                                    <img className='w-5 cursor-pointer object-contain' src={heart} alt="" />
+                                                    <p>{product.description}</p>
+                                                </div>
+                                                <div className='flex gap-2 cursor-pointer items-center'>
+                                                    <img className='w-5 object-contain' src={bag} alt="" />
+                                                    <p className='font-semibold'>Añadir a la bolsa</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
-                            </div>
-                        ))
+                            ))
                         )}
                     </div>
                 </div>
