@@ -13,33 +13,10 @@ const Details = () => {
   const products = useSelector((state) => state.products.items);
   const [selectedImage, setSelectedImage] = useState(null);
   const product = products.find((p) => p.id === parseInt(id));
+  const userLogged = useSelector((state) => state.auth.userLogged);
+  const userFavorites = useSelector((state) => state.favorites.userFavorites) || [];
 
-
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    if (product) {
-      const isProductInFavorites = storedFavorites.some((item) => item.id === product.id);
-      setIsFavorite(isProductInFavorites);
-    }
-  }, [product]);
-
-  const favorites = useSelector((state) => state.favorites.favorites);
-
-  const handleToggleFavorite = () => {
-    const updatedFavorites = [...favorites];
-    if (isFavorite) {
-      dispatch(removeFromFavorites(product));
-      const updatedLocalStorage = updatedFavorites.filter((item) => item.id !== product.id);
-      localStorage.setItem('favorites', JSON.stringify(updatedLocalStorage));
-    } else {
-      dispatch(addToFavorites(product));
-      updatedFavorites.push(product);
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-    }
-    setIsFavorite(!isFavorite);
-  };
+  const isFavorite = userFavorites.some((item) => item.id === product.id);
 
   useEffect(() => {
     if (products.length === 0) {
@@ -56,13 +33,26 @@ const Details = () => {
     }
   }, [dispatch, id, products]);
 
-  if (!product) {
-    return <p>Un momento...</p>;
-  }
+  const handleToggleFavorite = () => {
+    if (!userLogged) {
+      alert('Para agregar un producto a favoritos, debes iniciar sesión.');
+      return;
+    }
+
+    if (isFavorite) {
+      dispatch(removeFromFavorites(product));
+    } else {
+      dispatch(addToFavorites(product));
+    }
+  };
 
   const handleThumbnailClick = (image) => {
     setSelectedImage(image);
   };
+
+  if (!product) {
+    return <p>Un momento...</p>;
+  }
 
   return (
     <>
@@ -106,10 +96,10 @@ const Details = () => {
                 <p className="details__price">$ {product.price}</p>
                 <svg
                   onClick={handleToggleFavorite}
-                  className={`heart-icon ${isFavorite ? 'heart-icon-filled' : ''}`}
+                  className={`heart-icon ${userLogged ? (isFavorite ? 'heart-icon-filled' : '') : ''}`}
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  fill={isFavorite ? 'red' : 'none'}
+                  fill={userLogged ? (isFavorite ? 'red' : 'none') : 'none'}
                 >
                   <path d="M0 0h24v24H0z" fill="none" />
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />

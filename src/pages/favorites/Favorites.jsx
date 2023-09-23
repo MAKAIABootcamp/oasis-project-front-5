@@ -40,8 +40,11 @@ const Favorites = () => {
                 <div className='favorites__container flex'>
                     <Sidebar />
                     <div className='favorites__card'>
-                        {favoriteProducts.map((product) => (
-                            <div key={product.id} >
+                    {favoriteProducts.length === 0 ? (
+                            <p>No tienes ningún producto agregado</p>
+                        ) : (
+                            favoriteProducts.map((product) => (
+                                <div key={product.id}>
                                 <div className='favorites__info'>
                                     <p className='favorites__description'>{product.text}</p>
                                     <div className='favorites__dates'>
@@ -62,7 +65,8 @@ const Favorites = () => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        ))
+                        )}
                     </div>
                 </div>
             </div>
