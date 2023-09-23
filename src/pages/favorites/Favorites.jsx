@@ -25,13 +25,9 @@ const Favorites = () => {
                 }
             }
         };
-
         fetchFavoriteProducts();
     }, [user]);
 
-    useEffect(() => {
-        localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts));
-    }, [favoriteProducts]);
 
     return (
         <>
@@ -50,7 +46,7 @@ const Favorites = () => {
                                         <p className='favorites__description'>{product.text}</p>
                                         <div className='favorites__dates'>
                                             <Link to={`/details/${product.id}`} className="product-image-link">
-                                                <img className='w-[250px] rounded-md' src={product.gallery.frontPage} alt={product.name} />
+                                                <img className='w-[250px] rounded-md' src={product.gallery.poster} alt={product.name} />
                                             </Link>
                                             <div className='product-details flex flex-col justify-between'>
                                                 <div className='flex flex-col gap-2'>

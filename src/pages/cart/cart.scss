@@ -2,9 +2,29 @@
     margin: 40px;
 
     &__container {
-        margin: 60px;
+        margin: 80px 120px;
         display: flex;
-        justify-content: space-between;
+        gap: 8rem;
+    }
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    &__info{
+        display: flex;
+        gap: 2rem;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    &__item {
+        display: flex;
+        gap: 4rem;
     }
 }
 

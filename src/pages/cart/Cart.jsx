@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../../redux/store/cart/cartSlice';
 import del from '../../assets/delete.png';
 import './cart.scss';
 import Header from '../../components/header/Header';
 import Sidebar from '../../components/sidebar/Sidebar';
+import { fireStore, auth } from '../../firebase/firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
+
+    const [cartProducts, setCartProducts] = useState([]);
+    const user = auth.currentUser;
+
+    useEffect(() => {
+        const fetchCartProducts = async () => {
+            if (user) {
+                try {
+                    const userCartCollection = collection(fireStore, 'users', user.uid, 'cart');
+                    const querySnapshot = await getDocs(userCartCollection);
+                    const cartData = querySnapshot.docs.map((doc) => doc.data());
+                    setCartProducts(cartData);
+                } catch (error) {
+                    console.error("Error al obtener cart de Firestore:", error);
+                }
+            }
+        };
+
+        fetchCartProducts();
+    }, [user]);
+
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const handleRemoveFromCart = (productId) => {
@@ -21,13 +45,16 @@ const Cart = () => {
         <h1 className="title self-center">CARRITO</h1>
         <div className="cart__container">
           <Sidebar />
-          {cartItems.length === 0 ? (
+          <div className='cart__card'>
+          {cartProducts.length === 0 ? (
             <p>Tu carrito está vacío</p>
           ) : (
-            <div>
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex gap-8">
-                  <img className="w-40" src={item.gallery.frontPage} alt={item.name} />
+            <div className='cart__item'>
+              {cartProducts.map((item) => (
+                <div key={item.id} className="cart__info">
+                    <Link to={`/details/${item.id}`} className="product-image-link">
+                  <img className="w-40" src={item.gallery.poster} alt={item.name} />
+                  </Link>
                   <div className="flex flex-col gap-14">
                     <div className="flex flex-col gap-4">
                       <div className="flex justify-between">
@@ -62,6 +89,7 @@ const Cart = () => {
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
     </>
