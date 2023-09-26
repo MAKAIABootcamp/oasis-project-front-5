@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeFromCart, addToCart } from '../../redux/store/cart/cartSlice';
+import { removeFromCart } from '../../redux/store/cart/cartSlice';
 import del from '../../assets/delete.png';
 import './cart.scss';
 import Header from '../../components/header/Header';
