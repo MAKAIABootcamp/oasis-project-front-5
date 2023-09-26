@@ -8,6 +8,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { fireStore, auth } from '../../firebase/firebaseConfig';
 import { Link } from 'react-router-dom';
 
+
 const Favorites = () => {
     const [favoriteProducts, setFavoriteProducts] = useState([]);
     const user = auth.currentUser;

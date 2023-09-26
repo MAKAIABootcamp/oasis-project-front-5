@@ -1,23 +1,27 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import cash from '../../assets/cash.png'
-import location from '../../assets/location.png'
-import happy from '../../assets/happy.png'
-import ok from '../../assets/ok.png'
-import blue from '../../assets/blue.jpg'
-import './confirmation.scss'
-import Header from '../../components/header/Header'
-import Paragraph from '../../components/paragraph/Paragraph'
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import cash from '../../assets/cash.png';
+import location from '../../assets/location.png';
+import happy from '../../assets/happy.png';
+import ok from '../../assets/ok.png';
+import './confirmation.scss';
+import Header from '../../components/header/Header';
+import Paragraph from '../../components/paragraph/Paragraph';
 
 const Confirmation = () => {
     const navigate = useNavigate();
+    const locationData = useLocation().state || {};
+    const { cartData, total, selectedAddress, selectedPayment } = locationData;
+
+    console.log(cartData)
+
     return (
         <>
             <Header />
             <div className='confirmation flex flex-col items-center'>
                 <div className='flex gap-4 '>
                     <img className='w-5 object-contain' src={happy} alt="" />
-                    <h1 className='title'>PEDIDO REALIZADO CON EXITO</h1>
+                    <h1 className='title'>PEDIDO REALIZADO CON ÉXITO</h1>
                     <img className='w-5 object-contain' src={ok} alt="" />
                 </div>
                 <div className='confirmation__container'>
@@ -25,24 +29,26 @@ const Confirmation = () => {
                     <div className='flex flex-col gap-8'>
                         <div className='flex flex-col gap-4'>
                             <h2 className='font-semibold'>Detalles de tu compra</h2>
-                            <div className='flex gap-6'>
-                                <img className='w-40 rounded-md' src={blue} alt="" />
-                                <div className='flex flex-col gap-2'>
-                                    <p className='font-semibold text-[18px]'>$ 15.000</p>
-                                    <p className='font-semibold'>Blusa blanca de tela suave</p>
-                                    <p>Talla M</p>
+                            {cartData.map((item) => (
+                                <div key={item.id} className='flex gap-6'>
+                                    <img className='w-20 rounded-md' src={item.gallery.poster} alt="" />
+                                    <div className='flex flex-col gap-2'>
+                                        <p className='font-semibold text-[18px]'>$ {item.price}</p>
+                                        <p className='font-semibold'>{item.name}</p>
+                                        <p>Talla {item.size}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
                         <div className='flex flex-col gap-2'>
                             <div className='flex justify-between'>
                                 <p>Envío</p>
-                                <p>$ 5.000</p>
+                                <p>$ {5000}</p>
                             </div>
                             <hr />
                             <div className='flex justify-between font-semibold'>
                                 <p>Total</p>
-                                <p>20.000</p>
+                                <p>$ {total}</p>
                             </div>
                         </div>
                     </div>
@@ -52,14 +58,14 @@ const Confirmation = () => {
                                 <img className='w-4 object-contain' src={location} alt="" />
                                 <div>
                                     <p className='font-bold'>Dirección de entrega:</p>
-                                    <p>Cra 47 # 16-12 Medellín, Antioquia</p>
+                                    <p>{selectedAddress}</p>
                                 </div>
                             </div>
                             <div className='flex gap-4'>
                                 <img className='w-4 object-contain' src={cash} alt="" />
                                 <div>
                                     <p className='font-bold'>Método de pago:</p>
-                                    <p>Transferencia</p>
+                                    <p>{selectedPayment}</p>
                                 </div>
                             </div>
                         </div>
@@ -71,4 +77,4 @@ const Confirmation = () => {
     )
 }
 
-export default Confirmation
+export default Confirmation;
