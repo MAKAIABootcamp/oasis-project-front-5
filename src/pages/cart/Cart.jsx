@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/store/cart/cartSlice';
+import { removeFromCart, addToCart } from '../../redux/store/cart/cartSlice';
 import del from '../../assets/delete.png';
 import './cart.scss';
 import Header from '../../components/header/Header';
 import Sidebar from '../../components/sidebar/Sidebar';
 import { fireStore, auth } from '../../firebase/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Cart = () => {
-
     const [cartProducts, setCartProducts] = useState([]);
     const user = auth.currentUser;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCartProducts = async () => {
@@ -32,13 +32,20 @@ const Cart = () => {
         fetchCartProducts();
     }, [user]);
 
-    const envio = 5000
+    const envio = 5000;
     const total = cartProducts.reduce((acc, item) => acc + parseFloat(item.price), 0) + envio;
 
     const handleRemoveFromCart = (productId) => {
         dispatch(removeFromCart({ id: productId }));
     };
 
+    const handleAddToCart = () => {
+        const locationState = {
+            cartData: cartProducts,
+            total,
+        };
+        navigate('/location', { state: locationState });
+    };
     return (
         <>
             <Header />
@@ -90,7 +97,7 @@ const Cart = () => {
                         </div>
                         <button
                             className="button__page px-6 py-1.5 w-[100%]"
-                            onClick={() => navigate('/location')}
+                            onClick={handleAddToCart}
                         >
                             Continuar con la compra
                         </button>
