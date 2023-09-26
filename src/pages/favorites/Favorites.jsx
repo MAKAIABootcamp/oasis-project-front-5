@@ -43,10 +43,10 @@ const Favorites = () => {
                             favoriteProducts.map((product) => (
                                 <div key={product.id}>
                                     <div className='favorites__info'>
-                                        <p className='favorites__description'>{product.text}</p>
+                                        <p className='favorites__description'>{product.description}</p>
                                         <div className='favorites__dates'>
-                                            <Link to={`/details/${product.id}`} className="product-image-link">
-                                                <img className='w-[250px] rounded-md' src={product.gallery.poster} alt={product.name} />
+                                        <Link to={`/details/${product.id}`}>
+                                            <img className='w-[150px] h-[200px] rounded-md' src={product.gallery.poster} alt={product.name} />
                                             </Link>
                                             <div className='product-details flex flex-col justify-between'>
                                                 <div className='flex flex-col gap-2'>
@@ -54,7 +54,6 @@ const Favorites = () => {
                                                     <p className='font-semibold'>{product.name}</p>
                                                     <p>Talla {product.size}</p>
                                                     <img className='w-5 cursor-pointer object-contain' src={heart} alt="" />
-                                                    <p>{product.description}</p>
                                                 </div>
                                                 <div className='flex gap-2 cursor-pointer items-center'>
                                                     <img className='w-5 object-contain' src={bag} alt="" />

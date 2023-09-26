@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../../redux/store/cart/cartSlice';
 import del from '../../assets/delete.png';
 import './cart.scss';
@@ -14,7 +14,6 @@ const Cart = () => {
     const [cartProducts, setCartProducts] = useState([]);
     const user = auth.currentUser;
     const dispatch = useDispatch();
-    const cartItems = useSelector((state) => state.cart.cartItems);
 
     useEffect(() => {
         const fetchCartProducts = async () => {
@@ -33,12 +32,12 @@ const Cart = () => {
         fetchCartProducts();
     }, [user]);
 
+    const envio = 5000
+    const total = cartProducts.reduce((acc, item) => acc + parseFloat(item.price), 0) + envio;
 
     const handleRemoveFromCart = (productId) => {
         dispatch(removeFromCart({ id: productId }));
-        fetchCartProducts();
     };
-    const total = cartItems.reduce((acc, item) => acc + item.price, 0);
 
     return (
         <>
@@ -55,7 +54,7 @@ const Cart = () => {
                                 {cartProducts.map((item) => (
                                     <div key={item.id} className="cart__info">
                                         <Link to={`/details/${item.id}`} className="product-image-link">
-                                            <img className="w-40" src={item.gallery.poster} alt={item.name} />
+                                            <img className="w-[150px] h-[200px]" src={item.gallery.poster} alt={item.name} />
                                         </Link>
                                         <div className="flex flex-col gap-14">
                                             <div className="flex flex-col gap-4">
@@ -76,12 +75,18 @@ const Cart = () => {
                         )}
                     </div>
                     <div className="flex flex-col gap-8">
-                        <div className="flex justify-between">
-                            <div className="flex gap-2">
-                                <p className="font-semibold">Total</p>
-                                <p>(+ envío)</p>
+                        <div className="flex flex-col gap-4 ">
+                            <div className='flex gap-2 justify-between'>
+                                <p>Valor de envío</p>
+                                <p>$ 5000</p>
                             </div>
-                            <p className="font-semibold">$ {total}</p>
+                            <div className='flex justify-between'>
+                                <div className="flex gap-2">
+                                    <p className="font-semibold">Total</p>
+                                    <p>(+ envío)</p>
+                                </div>
+                                <p className="font-semibold">$ {total}</p>
+                            </div>
                         </div>
                         <button
                             className="button__page px-6 py-1.5 w-[100%]"

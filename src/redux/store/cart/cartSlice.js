@@ -11,6 +11,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       state.cartItems.push(action.payload);
+      
       addToCartInFirestore(action.payload);
     },
     removeFromCart: (state, action) => {
@@ -24,4 +25,5 @@ const cartSlice = createSlice({
 
 export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
+
 
