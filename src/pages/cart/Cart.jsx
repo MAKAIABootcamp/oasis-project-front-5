@@ -33,12 +33,12 @@ const Cart = () => {
         fetchCartProducts();
     }, [user]);
 
+    const envio = 5000
+    const total = cartProducts.reduce((acc, item) => acc + parseFloat(item.price), 0) + envio;
 
     const handleRemoveFromCart = (productId) => {
         dispatch(removeFromCart({ id: productId }));
-        fetchCartProducts();
     };
-    const total = cartItems.reduce((acc, item) => acc + item.price, 0);
 
     return (
         <>

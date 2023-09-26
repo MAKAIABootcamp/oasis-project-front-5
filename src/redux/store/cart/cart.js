@@ -34,3 +34,4 @@ export const removeFromCartInFirestore = async (productId) => {
     console.error("Error al eliminar del carrito en Firestore:", error);
   }
 };
+
