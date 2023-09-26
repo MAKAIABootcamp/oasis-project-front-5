@@ -160,3 +160,18 @@ export const getUserActionFromCollection = (uid) => {
         }
     }
 }
+
+export const getUserRoleActionFromCollection = (uid, role) => {
+    return async (dispatch) => {
+      try {
+        const userDoc = await getUserDocument(uid);
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          dispatch(setUser(userData, role));
+        }
+      } catch (error) {
+        console.error("Error al obtener el usuario desde la base de datos: ", error);
+      }
+    };
+  };
+  

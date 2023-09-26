@@ -7,7 +7,7 @@ import PrivateRouter from "./PublicRouter";
 import { auth } from "../firebase/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
-import { getUserActionFromCollection } from "../redux/store/auth/authActions";
+import { getUserActionFromCollection, getUserRoleActionFromCollection } from "../redux/store/auth/authActions";
 import Products from "../pages/products/Products";
 import Location from "../pages/location/Location";
 import Details from "../pages/details/Details";
@@ -35,7 +35,13 @@ const Router = () => {
         console.log(user);
         if (!userLogged?.id) {
           dispatch(getUserActionFromCollection(uid));
+          // if(!userLogged?.role){
+          //   getRoleFromDatabase(uid).then((role) => {
+          //     dispatch(getUserRoleActionFromCollection(uid, role));})
+          // }
+          
         }
+        
       } else {
         console.log("No hay sesión activa");
       }
@@ -65,35 +71,40 @@ const Router = () => {
     });
   }
 
-
   return (
     <>
       <Routes>
         <Route path="/">
+            {/* Rutas para todos los usuarios */}
           <Route index element={<Blog />} />
           <Route path="details/:id" element={<Details />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
           <Route path="products" element={<Products />} />
-          {/* <Route path="profile" element={<Profile />} /> */}
-          <Route path="login" element={<Login />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="confirmation" element={<Confirmation />} />
-          <Route path="favorites" element={<Favorites />} />
-          <Route path="admin" element={<Admin />} />
-          <Route path="location" element={<Location />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="personal" element={<PersonalData />} />
           {isLogged ? (
-            <Route>
+            <>
+            {/* Rutas para los dos usuarios logeados */}
               <Route path="profile" element={<Profile />} />
-              {/* <Route path="personal" element={<PersonalData />} /> */}
-            </Route>
+              {userLogged.role === "admin" ? (
+                <>
+                {/* Rutas para los administradores logeados */}
+                <Route path="admin" element={<Admin />} />
+                </>
+              ) : (
+                <>
+                {/* Rutas para los clientes logeados */}
+                  <Route path="cart" element={<Cart />} />
+                  <Route path="confirmation" element={<Confirmation />} />
+                  <Route path="favorites" element={<Favorites />} />
+                  <Route path="personal" element={<PersonalData />} />
+                  <Route path="location" element={<Location />} />
+                </>
+              )}
+            </>
           ) : (
-            <Route>
-              <Route path="login" element={<Login />} />
+            <>
+            {/* Rutas los dos usuarios logeados no pueden ver */}
+              <Route path="/login" element={<Login />} />
               <Route path="register" element={<Register />} />
-            </Route>
+            </>
           )}
         </Route>
       </Routes>
