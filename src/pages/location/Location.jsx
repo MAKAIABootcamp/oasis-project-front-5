@@ -8,6 +8,7 @@ import './location.scss';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Paragraph from '../../components/paragraph/Paragraph';
 import Header from '../../components/header/Header';
+import {clearCartInFirestore} from '../../redux/store/cart/cart'
 
 const Location = () => {
     const navigate = useNavigate();
@@ -26,13 +27,14 @@ const Location = () => {
 
     const isButtonDisabled = !(selectedAddress && selectedPayment);
 
-    const handleConfirmOrder = () => {
+    const handleConfirmOrder = async () => {
         const orderData = {
             cartData,
             total,
             selectedAddress,
             selectedPayment,
         };
+        await clearCartInFirestore();
         navigate('/confirmation', { state: orderData });
     };
 
