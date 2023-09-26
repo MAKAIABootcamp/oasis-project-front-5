@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../../redux/store/cart/cartSlice';
 import del from '../../assets/delete.png';
 import './cart.scss';
@@ -14,7 +14,6 @@ const Cart = () => {
     const [cartProducts, setCartProducts] = useState([]);
     const user = auth.currentUser;
     const dispatch = useDispatch();
-    const cartItems = useSelector((state) => state.cart.cartItems);
 
     useEffect(() => {
         const fetchCartProducts = async () => {
@@ -76,7 +75,7 @@ const Cart = () => {
                         )}
                     </div>
                     <div className="flex flex-col gap-8">
-                        <div className="flex flex-col ">
+                        <div className="flex flex-col gap-4 ">
                             <div className='flex gap-2 justify-between'>
                                 <p>Valor de envío</p>
                                 <p>$ 5000</p>
