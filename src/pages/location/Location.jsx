@@ -9,6 +9,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Paragraph from '../../components/paragraph/Paragraph';
 import Header from '../../components/header/Header';
 import {clearCartInFirestore} from '../../redux/store/cart/cart'
+import { collection, addDoc } from 'firebase/firestore';
+import { fireStore } from "../../firebase/firebaseConfig.js";
 
 const Location = () => {
     const navigate = useNavigate();
@@ -35,7 +37,14 @@ const Location = () => {
             selectedPayment,
         };
         await clearCartInFirestore();
-        navigate('/confirmation', { state: orderData });
+        try {
+            const salesCollection = collection(fireStore, 'ventas');
+            await addDoc(salesCollection, orderData);
+    
+            navigate('/confirmation', { state: orderData });
+        } catch (error) {
+            console.error("Error al guardar los datos de la venta en Firestore:", error);
+        }
     };
 
     return (
