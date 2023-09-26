@@ -1,4 +1,4 @@
-import { collection, query, doc, getDocs, deleteDoc } from 'firebase/firestore';
+import { collection, query, doc, setDoc, getDocs, deleteDoc } from 'firebase/firestore';
 import { auth, fireStore } from "../../../firebase/firebaseConfig.js";
 
 export const addToCartInFirestore = async (product) => {
