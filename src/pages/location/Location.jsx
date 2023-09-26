@@ -30,11 +30,21 @@ const Location = () => {
     const isButtonDisabled = !(selectedAddress && selectedPayment);
 
     const handleConfirmOrder = async () => {
+        const user = auth.currentUser;
+
+        if (!user) {
+            console.error("Usuario no autenticado.");
+            return;
+        }
+
         const orderData = {
             cartData,
             total,
             selectedAddress,
             selectedPayment,
+            nombre: user.displayName || '',
+            correo: user.email || '',
+            celular: user.phoneNumber || '',
         };
     
         await clearCartInFirestore();
