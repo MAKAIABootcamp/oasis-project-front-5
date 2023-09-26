@@ -67,7 +67,7 @@ const Location = () => {
                             <p>El tiempo de entrega es de 4 a 5 días hábiles</p>
                             <div className='flex justify-between'>
                                 <p>Envío</p>
-                                <p>$ 5.000</p>
+                                <p>$ 5000</p>
                             </div>
                             <hr />
                             <div className='flex justify-between font-semibold'>
