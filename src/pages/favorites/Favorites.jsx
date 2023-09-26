@@ -25,13 +25,9 @@ const Favorites = () => {
                 }
             }
         };
-
         fetchFavoriteProducts();
     }, [user]);
 
-    useEffect(() => {
-        localStorage.setItem('favoriteProducts', JSON.stringify(favoriteProducts));
-    }, [favoriteProducts]);
 
     return (
         <>
@@ -41,15 +37,17 @@ const Favorites = () => {
                 <div className='favorites__container flex'>
                     <Sidebar />
                     <div className='favorites__card'>
-                    {favoriteProducts.length === 0 ? (
+                        {favoriteProducts.length === 0 ? (
                             <p>No tienes ningún producto agregado</p>
                         ) : (
                             favoriteProducts.map((product) => (
                                 <div key={product.id}>
-                                    <Link to={`/details/${product.id}`} className="favorites__info">
+                                    <div className='favorites__info'>
                                         <p className='favorites__description'>{product.text}</p>
                                         <div className='favorites__dates'>
-                                            <img className='w-[250px] rounded-md' src={product.gallery.frontPage} alt={product.name} />
+                                            <Link to={`/details/${product.id}`} className="product-image-link">
+                                                <img className='w-[250px] rounded-md' src={product.gallery.poster} alt={product.name} />
+                                            </Link>
                                             <div className='product-details flex flex-col justify-between'>
                                                 <div className='flex flex-col gap-2'>
                                                     <p className='font-semibold text-[18px]'>$ {product.price}</p>
@@ -64,7 +62,7 @@ const Favorites = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </Link>
+                                    </div>
                                 </div>
                             ))
                         )}
