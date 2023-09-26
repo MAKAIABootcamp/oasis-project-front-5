@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems } from '../../redux/store/products/productsActions';
 import Sidebar from '../../components/sidebar/Sidebar';
 import { addToFavorites, removeFromFavorites } from '../../redux/store/favorites/favoriteSlice';
+import { addToCart } from '../../redux/store/cart/cartSlice';
 
 const Details = () => {
   const { id } = useParams();
@@ -44,6 +45,14 @@ const Details = () => {
     } else {
       dispatch(addToFavorites(product));
     }
+  };
+
+  const handleAddToCart = () => {
+    if (!userLogged) {
+      alert('Para agregar un producto al carrito, debes iniciar sesión.');
+      return;
+    }
+    dispatch(addToCart(product));
   };
 
   const [heartColor, setHeartColor] = useState('none');
@@ -121,7 +130,7 @@ const Details = () => {
               <p className="details__size rounded-md p-1 w-8">{product.size}</p>
             </div>
 
-            <button className="button__page px-6 py-1.5 w-[100%]">Añadir a la bolsa</button>
+            <button className="button__page px-6 py-1.5 w-[100%]" onClick={handleAddToCart}>Añadir a la bolsa</button>
           </div>
         </div>
       </div>
