@@ -79,10 +79,10 @@ const Details = () => {
       <div className="details">
         <Sidebar />
         <div className="details__container">
-          <div className="paragraph" style={{ textAlign: 'justify' }}>
+          {/* <div className="paragraph" style={{ textAlign: 'justify' }}>
             <span className="details__name font-semibold">COMPOSICIÓN</span>
             <p>{product.text}</p>
-          </div>
+          </div> */}
           <div className="details__photosContainer flex gap-6">
             <img className="w-80" src={selectedImage || product.gallery.poster} alt={product.name} />
 
