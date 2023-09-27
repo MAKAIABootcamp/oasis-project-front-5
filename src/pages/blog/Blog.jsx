@@ -92,54 +92,56 @@ const Blog = () => {
     return (
         <div className='blog flex flex-col'>
             <div className='blog__header'>
-                <div className=' flex items-center gap-2 w-[200px]' >
-                    <img className="w-[30%] " src={logo} alt="" />
-                    <h1 className='blog__title'  >Oasis</h1>
+                <div className=' flex items-center w-[200px]' >
+                    <img className="w-[50%]" src={logo} alt="" />
+                    <h1 className='blog__title'  >OASIS</h1>
                 </div>
-                                   <div className='blog__option flex items-center gap-2 w-[200px]'>
+
+                <div className='flex'>
+                    <div className='blog__option flex items-center gap-2 w-[200px]'>
                         <button onClick={() => navigate('/products')}>
                             <img className='blog__icon' src={bag} alt='' />
                         </button>
                         <p onClick={() => navigate('/products')} className='blog__buttonText'>Nuestra tienda</p>
-
                     </div>
                     <div className='blog__option flex items-center gap-2 w-[200px]'>
                         <button onClick={() => navigate('/login')}>
                             <img className="blog__icon" src={user} alt="" />
-
                         </button>
                         <p onClick={() => navigate('/login')} className='blog__buttonText'>Ingresa</p>
-
                     </div>
-                
+                </div>
+
             </div>
             <div className='blog__container'>
                 <div className='blog__button'>
                     <p className='blog__transform'>Transformemos la forma en que concebimos la moda !</p>
+                    <div>
+                        ¿Sabías que la industria de la moda genera aproximadamente 92 millones de toneladas de desechos textiles al
+                        año, lo que contribuye significativamente a problemas ambientales como la contaminación del agua, las
+                        emisiones de gases de efecto invernadero y la agotación de recursos naturales? Es hora de hacer un cambio,
+                        y OASIS está aquí para liderarlo, Únete a nosotros y sé parte de la revolución de la moda sostenible.
+                    </div>
                 </div>
 
-                <div>
-                    ¿Sabías que la industria de la moda genera aproximadamente 92 millones de toneladas de desechos textiles al
-                    año, lo que contribuye significativamente a problemas ambientales como la contaminación del agua, las
-                    emisiones de gases de efecto invernadero y la agotación de recursos naturales? Es hora de hacer un cambio,
-                    y OASIS está aquí para liderarlo, Únete a nosotros y sé parte de la revolución de la moda sostenible.
-                </div>
+
                 <div>
                     {articles.map((article, index) => (
-                        <div key={article.id} className='blog__item flex justify-between'>
+                        <div key={article.id} className='blog__item flex flex-col'>
                             <div className='blog__titleImage flex flex-col gap-4'>
                                 <h2 className='blog__subtitle font-bold'>{article.title}</h2>
-                                <a href={article.originalUrl} target='_blank' rel='noopener noreferrer'>
+                                <a href={article.originalUrl} className='blog__a' target='_blank' rel='noopener noreferrer'>
                                     <img
-                                        className='w-80 h-80 object-cover rounded-md cursor-pointer'
+                                        className='w-[30%] h-[200px] object-cover rounded-md cursor-pointer'
                                         src={article.imageUrl}
                                         alt={article.title}
                                     />
+                                    <p className='blog__paragraph'>{article.description}</p>
                                 </a>
                             </div>
-                            <p className='blog__paragraph mt-10'>{article.description}</p>
+                            
                             <div className='blog__comments'>
-                                <h3>Comentarios</h3>
+                                <h3 className='font-bold'>Comentarios</h3>
                                 {article.comments &&
                                     Array.isArray(article.comments) &&
                                     article.comments.map((comment, commentIndex) => (
@@ -168,7 +170,7 @@ const Blog = () => {
                                     <div className='comment-input'>
                                         <input
                                             type='text'
-                                            placeholder='Nombre del usuario'
+                                            placeholder='Nombre'
                                             value={commentData.name}
                                             onChange={(e) => setCommentData({ ...commentData, name: e.target.value })}
                                             required
@@ -183,7 +185,7 @@ const Blog = () => {
                                         />
                                     </div>
                                     <div className='comment-button'>
-                                        <button type='submit'>{isEditing ? 'Guardar cambios' : 'Enviar comentario'}</button>
+                                        <button type='submit'>{isEditing ? 'Guardar cambios' : 'Enviar'}</button>
                                     </div>
                                 </form>
                             </div>

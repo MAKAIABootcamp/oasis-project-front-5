@@ -2,25 +2,20 @@
 
     &__header {
         background-color: #9acdc1;
-        padding: 20px;
+        padding: 5px 0px 5px 40px;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
     }
 
     &__transform {
         color: #288e7c;
         font-weight: bold;
         font-size: 25px;
+        align-self: center;
     }
 
     &__title {
-        font-size: 40px;
-    }
-
-    &__option {
-      //  position: absolute;
-        right: 10px;
-        top: 30px;
+        font-size: 50px;
     }
 
     &__option:hover {
@@ -38,12 +33,14 @@
 
     &__button {
         display: flex;
+        flex-direction: column;
         justify-content: center;
-     
+        gap: 2rem;
+        margin-bottom: 2rem;
     }
 
     &__icon {
-        width: 25px;
+        width: 22px;
     }
 
     &__buttonText {
@@ -52,14 +49,11 @@
 
     &__item {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
         margin-bottom: 20px;
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         padding: 30px;
-
         &:last-child {
             margin-bottom: 10;
         }
@@ -70,7 +64,6 @@
     }
 
     &__titleImage {
-        width: 45%;
         border-radius: 8px;
 
         img {
@@ -84,8 +77,12 @@
         }
     }
 
+    &__a {
+        display: flex;
+        gap: 4rem;
+    }
+
     &__paragraph {
-        width: 50%;
         font-size: 18px;
         line-height: 1.5;
         color: #333;
@@ -98,6 +95,18 @@
         color: #333;
 
     }
+
+    &__comments {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.comment {
+    display: flex;
+    gap: 5px;
 }
 
 @media (max-width: 650px) {
