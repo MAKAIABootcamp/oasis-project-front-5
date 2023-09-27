@@ -31,6 +31,10 @@
         gap: 2rem;
     }
 
+    &__option {
+        cursor: pointer;
+    }
+
     &__button {
         display: flex;
         flex-direction: column;
@@ -83,7 +87,6 @@
     }
 
     &__paragraph {
-        font-size: 18px;
         line-height: 1.5;
         color: #333;
 

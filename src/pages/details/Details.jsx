@@ -86,21 +86,21 @@ const Details = () => {
           <div className="details__photosContainer flex gap-6">
             <img className="w-80" src={selectedImage || product.gallery.poster} alt={product.name} />
 
-            <div className="details__photos justify-between w-[100%]">
+            <div className="details__photos">
               <img
-                className="w-20 cursor-pointer"
+                className="w-[80%] cursor-pointer"
                 src={product.gallery.frontPage}
                 alt={product.name}
                 onClick={() => handleThumbnailClick(product.gallery.frontPage)}
               />
               <img
-                className="w-20 cursor-pointer"
+                className="w-[80%]  cursor-pointer"
                 src={product.gallery.imgTwo}
                 alt={product.name}
                 onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
               />
               <img
-                className="w-20 cursor-pointer"
+                className="w-[80%]  cursor-pointer"
                 src={product.gallery.imgOne}
                 alt={product.name}
                 onClick={() => handleThumbnailClick(product.gallery.imgOne)}

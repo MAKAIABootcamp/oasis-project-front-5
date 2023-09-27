@@ -5,8 +5,12 @@
 
     &__container {
         display: flex;
-        justify-content: space-between;
         margin: 0px 50px;
+        gap: 2rem;
+    }
+
+    &__photosContainer {
+        width: 40%;
     }
 
     &__nameUp {
@@ -16,6 +20,7 @@
     &__photos {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
     }
 
     &__size{
@@ -36,15 +41,7 @@
     }
 }
 
-.details__photosContainer {
-    position: relative;
-    overflow: hidden;
-    
-    .w-80 {
-        height: auto;
-        transition: transform 0.3s ease-in-out;
-    }
-}
+
 .details__photos {
     img:hover {
         transform: scale(1.1); 
@@ -64,7 +61,7 @@
     stroke: none; 
   }
   
-@media (max-width:650px) {
+@media (max-width:850px) {
 
     .details {
         margin: 20px 20px 100px 20px;
