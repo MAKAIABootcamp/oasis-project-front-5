@@ -7,7 +7,10 @@ import PrivateRouter from "./PublicRouter";
 import { auth } from "../firebase/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
-import { getUserActionFromCollection, getUserRoleActionFromCollection } from "../redux/store/auth/authActions";
+import {
+  getUserActionFromCollection,
+  getUserRoleActionFromCollection,
+} from "../redux/store/auth/authActions";
 import Products from "../pages/products/Products";
 import Location from "../pages/location/Location";
 import Details from "../pages/details/Details";
@@ -22,7 +25,7 @@ import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
 import Admin from "../pages/admin/Admin";
 import Footer from "../components/footer/Footer";
-
+import NoFound from "../pages/noFound/NoFound";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -39,9 +42,7 @@ const Router = () => {
           //   getRoleFromDatabase(uid).then((role) => {
           //     dispatch(getUserRoleActionFromCollection(uid, role));})
           // }
-          
         }
-        
       } else {
         console.log("No hay sesión activa");
       }
@@ -54,55 +55,52 @@ const Router = () => {
   );
 
   if (error) {
-    Swal.fire(
-      "Oops!",
-      "Ha occurrido un error " + error.login,
-      "error"
-    );
+    Swal.fire("Oops!", "Ha occurrido un error " + error.login, "error");
   }
   if (error === false) {
-    Swal.fire(
-      "Excelente",
-      "Haz iniciado sesión correctamente",
-      "success"
-    ).then(() => {
-      dispatch(setError(null));
-      navigate("/profile");
-    });
+    Swal.fire("Excelente", "Haz iniciado sesión correctamente", "success").then(
+      () => {
+        dispatch(setError(null));
+        navigate("/profile");
+      }
+    );
   }
 
   return (
     <>
       <Routes>
         <Route path="/">
-            {/* Rutas para todos los usuarios */}
+          {/* Rutas para todos los usuarios */}
           <Route index element={<Blog />} />
           <Route path="details/:id" element={<Details />} />
           <Route path="products" element={<Products />} />
+          <Route path="404" element={<NoFound />} />
           {isLogged ? (
             <>
-            {/* Rutas para los dos usuarios logeados */}
-              <Route path="profile" element={<Profile />} />
+              {/* Rutas para los dos usuarios logeados */}
+              <>
+                <Route path="personal" element={<PersonalData />} />
+                <Route path="profile" element={<Profile />} />
+              </>
               {userLogged.role === "admin" ? (
                 <>
-                {/* Rutas para los administradores logeados */}
-                <Route path="admin" element={<Admin />} />
+                  {/* Rutas para los administradores logeados */}
+                  <Route path="admin" element={<Admin />} />
                 </>
               ) : (
                 <>
-                {/* Rutas para los clientes logeados */}
+                  {/* Rutas para los clientes logeados */}
                   <Route path="cart" element={<Cart />} />
                   <Route path="confirmation" element={<Confirmation />} />
                   <Route path="favorites" element={<Favorites />} />
-                  <Route path="personal" element={<PersonalData />} />
                   <Route path="location" element={<Location />} />
                 </>
               )}
             </>
           ) : (
             <>
-            {/* Rutas los dos usuarios logeados no pueden ver */}
-              <Route path="/login" element={<Login />} />
+              {/* Rutas los dos usuarios logeados no pueden ver */}
+              <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
             </>
           )}

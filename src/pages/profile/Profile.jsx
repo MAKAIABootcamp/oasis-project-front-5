@@ -51,36 +51,42 @@ const Profile = () => {
             </div>
             <img className="icons" src={next} alt="" />
           </div>
-
           <hr />
-
+          
+          {userLogged?.role === `client` && 
+          
           <div className="flex justify-between cursor-pointer">
+
             <div className="flex gap-2">
               <img className="w-4 object-contain" src={cash} alt="" />
               <p>Métodos de pago</p>
             </div>
             <img className="icons" src={next} alt="" />
-          </div>
+          </div>}
 
           <hr />
-
+          {userLogged?.role === `client` && 
+          
           <div className="flex justify-between cursor-pointer">
+
             <div className="flex gap-2">
               <img className="w-4 object-contain" src={bag} alt="" />
               <p>Mis compras</p>
             </div>
             <img className="icons" src={next} alt="" />
-          </div>
-
+          </div>}
           <hr />
+          
+          {userLogged?.role === `client` && 
 
           <div className="flex justify-between cursor-pointer">
+          
             <div className="flex gap-2">
               <img className="w-4 object-contain" src={sale} alt="" />
               <p>Mis ventas</p>
             </div>
             <img className="icons" src={next} alt="" />
-          </div>
+          </div>}
 
           <hr />
 

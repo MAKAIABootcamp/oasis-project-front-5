@@ -111,12 +111,12 @@ const Details = () => {
           <div className="details__info flex flex-col justify-between">
             <div>
               <h2 className="details__name font-semibold">{product.name}</h2>
-              <div className="flex justify-between">
+              {userLogged?.role === `client` && <div className="flex justify-between">
                 <p className="details__price">$ {product.price}</p>
                 <img src={heartOrLikeImage}  alt=""
                   onClick={handleToggleFavorite}
                   className='heart-icon'/>
-              </div>
+              </div>}
             </div>
             <p className="font-semibold">{product.title}</p>
 
@@ -127,7 +127,7 @@ const Details = () => {
               <p className="details__size rounded-md p-1 w-8">{product.size}</p>
             </div>
 
-            <button className="button__page px-6 py-1.5 w-[100%]" onClick={handleAddToCart}>Añadir a la bolsa</button>
+            {userLogged?.role === `client` && <button className="button__page px-6 py-1.5 w-[100%]" onClick={handleAddToCart}>Añadir a la bolsa</button>}
           </div>
         </div>
       </div>
