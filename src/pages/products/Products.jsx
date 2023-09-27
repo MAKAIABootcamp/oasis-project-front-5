@@ -84,7 +84,8 @@ const Products = () => {
                                         />
                                     </Link>
                                     <div>
-                                        <p className="font-semibold">{product.name}</p>
+                                       <p className="font-semibold">{product.name} </p>
+                                        <span>{product.status}</span>                                   
                                         <p>${product.price}</p>
                                     </div>
                                 </div>
