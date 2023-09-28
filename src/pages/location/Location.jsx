@@ -33,6 +33,14 @@ const Location = () => {
     });
     const [savedCreditCard, setSavedCreditCard] = useState(null);
 
+    if (!userLogged) {
+        return (
+          <div>
+            <p>Espere un momento...</p>
+          </div>
+        );
+      }
+
     const handleAddress = (address) => {
         setSelectedAddress(address);
     };
