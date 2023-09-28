@@ -219,7 +219,8 @@ const Location = () => {
             {showCreditCardForm && (
                 <div className='credit-card-form-overlay'>
                     <div className='credit-card-form'>
-                        <h2>Ingresa los detalles de la tarjeta</h2>
+                        <h2>Ingresa los datos de la tarjeta</h2>
+
                         <input
                             type='text'
                             name='cardNumber'
@@ -248,7 +249,7 @@ const Location = () => {
                             value={creditCardData.cardCVC}
                             onChange={handleCreditCardInputChange}
                         />
-                        <button onClick={handleSaveCreditCard}>Guardar</button>
+                        <button className='button__page p-2' onClick={handleSaveCreditCard}>Guardar</button>
                     </div>
                 </div>
             )}
