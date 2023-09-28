@@ -172,12 +172,6 @@ const Location = () => {
                     <div className='flex flex-col gap-8'>
                         <h2 className='font-semibold'>Elige un medio de pago</h2>
                         <div
-                            className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Transferencia' ? 'selectedPayment' : ''}`}
-                            onClick={() => handlePayment('Transferencia')}
-                        >
-                            <img className='w-4 object-contain' src={transfer} alt='' />Transferencia
-                        </div>
-                        <div
                             className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Efectivo' ? 'selectedPayment' : ''}`}
                             onClick={() => handlePayment('Efectivo')}
                         >
@@ -199,7 +193,7 @@ const Location = () => {
                                 }`}
                         >
                             <img className='w-4 object-contain' src={creditCardIcon} alt='' />
-                            Agregar tarjeta
+                            Tarjeta de crédito
                         </div>
                     </div>
 
