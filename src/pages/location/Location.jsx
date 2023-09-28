@@ -105,6 +105,12 @@ const Location = () => {
         const last4Digits = creditCardData.cardNumber.slice(-4);
         setShowCreditCardForm(false);
         setSavedCreditCard(last4Digits);
+        setCreditCardData({
+            cardNumber: '',
+            cardName: '',
+            cardExpiration: '',
+            cardCVC: '',
+        });
     };
 
     return (
@@ -170,21 +176,19 @@ const Location = () => {
                             <img className='w-4 object-contain' src={cash} alt='' />Efectivo
                         </div>
                         {savedCreditCard && (
-                <div
-                    onClick={() => handlePayment(`Tarjeta de crédito - **** ${savedCreditCard}`)}
-                    className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${
-                        selectedPayment === `Tarjeta de crédito - **** ${savedCreditCard}` ? 'selectedPayment' : ''
-                    }`}
-                >
-                    <img className='w-4 object-contain' src={creditCardIcon} alt='' />
-                     **** {savedCreditCard}
-                </div>
-            )}
+                            <div
+                                onClick={() => handlePayment(`Tarjeta de crédito - **** ${savedCreditCard}`)}
+                                className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === `Tarjeta de crédito - **** ${savedCreditCard}` ? 'selectedPayment' : ''
+                                    }`}
+                            >
+                                <img className='w-4 object-contain' src={creditCardIcon} alt='' />
+                                **** {savedCreditCard}
+                            </div>
+                        )}
                         <div
                             onClick={handleOpenCreditCardForm}
-                            className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${
-                                selectedPayment === 'Tarjeta de crédito' ? 'selectedPayment' : ''
-                            }`}
+                            className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Tarjeta de crédito' ? 'selectedPayment' : ''
+                                }`}
                         >
                             <img className='w-4 object-contain' src={creditCardIcon} alt='' />
                             Agregar tarjeta
@@ -219,7 +223,11 @@ const Location = () => {
             {showCreditCardForm && (
                 <div className='credit-card-form-overlay'>
                     <div className='credit-card-form'>
-                        <h2>Ingresa los detalles de la tarjeta</h2>
+                        <button className="close-button" onClick={handleCloseCreditCardForm}>
+                            X
+                        </button>
+                        <h2>Ingresa los datos de la tarjeta</h2>
+
                         <input
                             type='text'
                             name='cardNumber'
@@ -248,7 +256,7 @@ const Location = () => {
                             value={creditCardData.cardCVC}
                             onChange={handleCreditCardInputChange}
                         />
-                        <button onClick={handleSaveCreditCard}>Guardar</button>
+                        <button className='button__page p-2' onClick={handleSaveCreditCard}>Guardar</button>
                     </div>
                 </div>
             )}
