@@ -4,6 +4,7 @@ import loc from '../../assets/location.png';
 import add from '../../assets/add.png';
 import transfer from '../../assets/transfer.png';
 import cash from '../../assets/cash.png';
+import creditCardIcon from '../../assets/credit.png';
 import './location.scss';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Paragraph from '../../components/paragraph/Paragraph';
@@ -11,7 +12,7 @@ import Header from '../../components/header/Header';
 import { clearCartInFirestore } from '../../redux/store/cart/cart'
 import { collection, addDoc } from 'firebase/firestore';
 import { fireStore, auth } from "../../firebase/firebaseConfig.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Location = () => {
     const navigate = useNavigate();
@@ -23,6 +24,14 @@ const Location = () => {
     const [showAddAddressForm, setShowAddAddressForm] = useState(false);
     const [newAddress, setNewAddress] = useState('');
     const [addresses, setAddresses] = useState([]);
+    const [showCreditCardForm, setShowCreditCardForm] = useState(false);
+    const [creditCardData, setCreditCardData] = useState({
+        cardNumber: '',
+        cardName: '',
+        cardExpiration: '',
+        cardCVC: '',
+    });
+    const [savedCreditCard, setSavedCreditCard] = useState(null);
 
     const handleAddress = (address) => {
         setSelectedAddress(address);
@@ -76,6 +85,28 @@ const Location = () => {
         setNewAddress('');
     };
 
+    const handleOpenCreditCardForm = () => {
+        setShowCreditCardForm(true);
+    };
+
+    const handleCloseCreditCardForm = () => {
+        setShowCreditCardForm(false);
+    };
+
+    const handleCreditCardInputChange = (e) => {
+        const { name, value } = e.target;
+        setCreditCardData({
+            ...creditCardData,
+            [name]: value,
+        });
+    };
+
+    const handleSaveCreditCard = () => {
+        const last4Digits = creditCardData.cardNumber.slice(-4);
+        setShowCreditCardForm(false);
+        setSavedCreditCard(last4Digits);
+    };
+
     return (
         <>
             <Header />
@@ -90,7 +121,7 @@ const Location = () => {
                             onClick={() => handleAddress(userLogged.address)}
                             className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === userLogged.address ? 'selectedAddress' : ''}`}
                         >
-                            <img className='w-4 object-contain' src={loc} alt="" />
+                            <img className='w-4 object-contain' src={loc} alt='' />
                             {userLogged.address}
                         </div>
                         {addresses.map((address, index) => (
@@ -99,7 +130,7 @@ const Location = () => {
                                 onClick={() => handleAddress(address)}
                                 className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === address ? 'selectedAddress' : ''}`}
                             >
-                                <img className='w-4 object-contain' src={loc} alt="" />
+                                <img className='w-4 object-contain' src={loc} alt='' />
                                 {address}
                             </div>
                         ))}
@@ -118,7 +149,7 @@ const Location = () => {
                                 onClick={() => setShowAddAddressForm(true)}
                                 className="container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer"
                             >
-                                <img className='w-4 object-contain' src={add} alt="" />
+                                <img className='w-4 object-contain' src={add} alt='' />
                                 Agregar otra dirección
                             </div>
                         )}
@@ -130,13 +161,33 @@ const Location = () => {
                             className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Transferencia' ? 'selectedPayment' : ''}`}
                             onClick={() => handlePayment('Transferencia')}
                         >
-                            <img className='w-4 object-contain' src={transfer} alt="" />Transferencia
+                            <img className='w-4 object-contain' src={transfer} alt='' />Transferencia
                         </div>
                         <div
                             className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Efectivo' ? 'selectedPayment' : ''}`}
                             onClick={() => handlePayment('Efectivo')}
                         >
-                            <img className='w-4 object-contain' src={cash} alt="" />Efectivo
+                            <img className='w-4 object-contain' src={cash} alt='' />Efectivo
+                        </div>
+                        {savedCreditCard && (
+                <div
+                    onClick={() => handlePayment(`Tarjeta de crédito - **** ${savedCreditCard}`)}
+                    className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${
+                        selectedPayment === `Tarjeta de crédito - **** ${savedCreditCard}` ? 'selectedPayment' : ''
+                    }`}
+                >
+                    <img className='w-4 object-contain' src={creditCardIcon} alt='' />
+                     **** {savedCreditCard}
+                </div>
+            )}
+                        <div
+                            onClick={handleOpenCreditCardForm}
+                            className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${
+                                selectedPayment === 'Tarjeta de crédito' ? 'selectedPayment' : ''
+                            }`}
+                        >
+                            <img className='w-4 object-contain' src={creditCardIcon} alt='' />
+                            Agregar tarjeta
                         </div>
                     </div>
 
@@ -162,11 +213,48 @@ const Location = () => {
                             Confirmar pedido
                         </button>
                     </div>
-
                 </div>
             </div>
+
+            {showCreditCardForm && (
+                <div className='credit-card-form-overlay'>
+                    <div className='credit-card-form'>
+                        <h2>Ingresa los detalles de la tarjeta</h2>
+                        <input
+                            type='text'
+                            name='cardNumber'
+                            placeholder='Número de tarjeta'
+                            value={creditCardData.cardNumber}
+                            onChange={handleCreditCardInputChange}
+                        />
+                        <input
+                            type='text'
+                            name='cardName'
+                            placeholder='Nombre en la tarjeta'
+                            value={creditCardData.cardName}
+                            onChange={handleCreditCardInputChange}
+                        />
+                        <input
+                            type='text'
+                            name='cardExpiration'
+                            placeholder='Fecha de vencimiento (MM/YY)'
+                            value={creditCardData.cardExpiration}
+                            onChange={handleCreditCardInputChange}
+                        />
+                        <input
+                            type='text'
+                            name='cardCVC'
+                            placeholder='CVC'
+                            value={creditCardData.cardCVC}
+                            onChange={handleCreditCardInputChange}
+                        />
+                        <button onClick={handleSaveCreditCard}>Guardar</button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
 
 export default Location;
+
