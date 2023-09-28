@@ -8,9 +8,10 @@ import './location.scss';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Paragraph from '../../components/paragraph/Paragraph';
 import Header from '../../components/header/Header';
-import {clearCartInFirestore} from '../../redux/store/cart/cart'
+import { clearCartInFirestore } from '../../redux/store/cart/cart'
 import { collection, addDoc } from 'firebase/firestore';
 import { fireStore, auth } from "../../firebase/firebaseConfig.js";
+import { useDispatch, useSelector } from "react-redux";
 
 const Location = () => {
     const navigate = useNavigate();
@@ -18,6 +19,9 @@ const Location = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedPayment, setSelectedPayment] = useState(null);
     const { cartData, total } = location.state || {};
+    const userLogged = useSelector((state) => state.auth.userLogged);
+    const [showAddAddressForm, setShowAddAddressForm] = useState(false);
+    const [newAddress, setNewAddress] = useState('')
 
     const handleAddress = (address) => {
         setSelectedAddress(address);
@@ -46,9 +50,9 @@ const Location = () => {
             correo: user.email || '',
             celular: user.phoneNumber || '',
         };
-    
+
         await clearCartInFirestore();
-    
+
         try {
             const salesCollection = collection(fireStore, 'ventas');
             await addDoc(salesCollection, orderData);
@@ -56,12 +60,17 @@ const Location = () => {
             const userPurchasesCollection = collection(fireStore, 'users', userId, 'compras');
             await addDoc(userPurchasesCollection, {
                 orderData: orderData,
-                timestamp: new Date(), 
+                timestamp: new Date(),
             });
             navigate('/confirmation', { state: orderData });
         } catch (error) {
             console.error("Error al guardar los datos de la venta en Firestore:", error);
         }
+    };
+
+    const handleAddNewAddress = () => {
+        setSelectedAddress(newAddress);
+        setShowAddAddressForm(false);
     };
 
     return (
@@ -75,20 +84,31 @@ const Location = () => {
                     <div className='flex flex-col gap-8'>
                         <h2 className='font-semibold'>Elige la dirección de entrega</h2>
                         <div
-                            onClick={() => handleAddress('Cra 47 # 16-12 Medellín, Antioquia')}
-                            className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === 'Cra 47 # 16-12 Medellín, Antioquia' ? 'selectedAddress' : ''}`}
+                            onClick={() => handleAddress(userLogged.address)}
+                            className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === userLogged.address ? 'selectedAddress' : ''}`}
                         >
                             <img className='w-4 object-contain' src={loc} alt="" />
-                            Cra 47 # 16-12
-                            Medellín, Antioquia
+                            {userLogged.address}
                         </div>
-                        <div
-                            onClick={() => handleAddress('Otra dirección')}
-                            className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === 'Otra dirección' ? 'selectedAddress' : ''}`}
-                        >
-                            <img className='w-4 object-contain' src={add} alt="" />
-                            Agregar otra dirección
-                        </div>
+                        {showAddAddressForm ? (
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Nueva dirección"
+                                    value={newAddress}
+                                    onChange={(e) => setNewAddress(e.target.value)}
+                                />
+                                <button onClick={handleAddNewAddress}>Guardar</button>
+                            </div>
+                        ) : (
+                            <div
+                                onClick={() => setShowAddAddressForm(true)}
+                                className="container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer"
+                            >
+                                <img className='w-4 object-contain' src={add} alt="" />
+                                Agregar otra dirección
+                            </div>
+                        )}
                     </div>
 
                     <div className='flex flex-col gap-8'>
