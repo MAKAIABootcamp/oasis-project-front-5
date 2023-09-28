@@ -89,6 +89,10 @@ const Location = () => {
         setShowCreditCardForm(true);
     };
 
+    const handleCloseCreditCardForm = () => {
+        setShowCreditCardForm(false);
+    };
+
     const handleCreditCardInputChange = (e) => {
         const { name, value } = e.target;
         setCreditCardData({
@@ -219,6 +223,9 @@ const Location = () => {
             {showCreditCardForm && (
                 <div className='credit-card-form-overlay'>
                     <div className='credit-card-form'>
+                        <button className="close-button" onClick={handleCloseCreditCardForm}>
+                            X
+                        </button>
                         <h2>Ingresa los datos de la tarjeta</h2>
 
                         <input
