@@ -21,7 +21,8 @@ const Location = () => {
     const { cartData, total } = location.state || {};
     const userLogged = useSelector((state) => state.auth.userLogged);
     const [showAddAddressForm, setShowAddAddressForm] = useState(false);
-    const [newAddress, setNewAddress] = useState('')
+    const [newAddress, setNewAddress] = useState('');
+    const [addresses, setAddresses] = useState([]);
 
     const handleAddress = (address) => {
         setSelectedAddress(address);
@@ -69,8 +70,10 @@ const Location = () => {
     };
 
     const handleAddNewAddress = () => {
+        setAddresses([...addresses, newAddress]);
         setSelectedAddress(newAddress);
         setShowAddAddressForm(false);
+        setNewAddress('');
     };
 
     return (
@@ -90,6 +93,16 @@ const Location = () => {
                             <img className='w-4 object-contain' src={loc} alt="" />
                             {userLogged.address}
                         </div>
+                        {addresses.map((address, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handleAddress(address)}
+                                className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === address ? 'selectedAddress' : ''}`}
+                            >
+                                <img className='w-4 object-contain' src={loc} alt="" />
+                                {address}
+                            </div>
+                        ))}
                         {showAddAddressForm ? (
                             <div>
                                 <input
@@ -153,7 +166,7 @@ const Location = () => {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default Location;
