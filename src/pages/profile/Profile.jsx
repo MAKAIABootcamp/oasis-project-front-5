@@ -27,7 +27,7 @@ const Profile = () => {
     <div className="profile relative flex flex-col items-center">
            <div className="container__login">
         <div className="back">
-          <img className="backArrow " onClick={() => navigate(-1)} src={back} alt="" />
+          <img className="backArrow " onClick={() => navigate('/products')} src={back} alt="" />
           <div>
             <h1>{userLogged.displayName}</h1>
           </div>

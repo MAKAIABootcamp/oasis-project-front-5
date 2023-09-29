@@ -1,20 +1,38 @@
-import React from "react";
-import { logout } from "../../redux/store/auth/authActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { collection, query, getDocs, where } from 'firebase/firestore';
+import { fireStore, auth } from "../../firebase/firebaseConfig";
 import back from "../../assets/back.png";
-import user from "../../assets/user.png";
-import next from "../../assets/next.png";
-import cash from "../../assets/cash.png";
 import bag from "../../assets/bag.png";
-import out from "../../assets/logout.png";
-import sale from "../../assets/sale.png";
+import cash from "../../assets/cash.png";
 import './orders.scss'
+import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const userLogged = useSelector((state) => state.auth.userLogged);
+    const [userOrders, setUserOrders] = useState([]);
+
+    useEffect(() => {
+        if (!userLogged) {
+            return;
+        }
+
+       const fetchUserOrders = async () => {
+            const userId = auth.currentUser.uid;
+            const ordersQuery = query(collection(fireStore, 'users', userId, 'compras'));
+
+            try {
+                const querySnapshot = await getDocs(ordersQuery);
+                const ordersData = querySnapshot.docs.map((doc) => doc.data());
+                setUserOrders(ordersData);
+            } catch (error) {
+                console.error("Error al obtener los pedidos del usuario:", error);
+            }
+        };
+
+        fetchUserOrders();
+    }, [userLogged]);
 
     if (!userLogged) {
         return (
@@ -32,25 +50,26 @@ const Orders = () => {
                         <h1> MIS COMPRAS </h1>
                     </div>
                 </div>
-                {/* <div className='w-20 h-20 rounded-full overflow-hidden'>
-          <img
-            src={userLogged.photoURL}
-            alt='Foto de perfil'
-            className='w-full h-full object-cover'
-          />
-        </div> */}
-                <div className='flex justify-between order-item'>
-                    <div className='flex gap-5'>
-                        <img className="w-40 object-contain" src={bag} alt="" />
-                        <div className='flex flex-col'>
-                            <span className='text-[14px] font-semibold'>{userLogged.displayName}</span>
-                            <span className='text-[14px] text-gray-400'>{userLogged.displayName}</span>
+                <div className="order-list">
+                {userOrders.map((order, index) => (
+                        <div key={index} className='flex justify-between order-item'>
+                            <div className='flex gap-5'>
+                                <img className="w-20 object-contain" src={order.orderData.cartData[0].gallery.poster} alt="" />
+                                <div className='flex flex-col'>
+                                <span className='text-[14px] font-semibold'>{order.orderData.cartData[0].name}</span>
+                            <span className='text-[14px] text-gray-400'> Total: {order.orderData.total}</span>
+                            <span className='text-[14px] text-gray-400'>
+                    {new Date(order.timestamp.toDate()).toLocaleString()} 
+                </span>
+
+                                </div>
+                            </div>
+                            <div className='flex gap-2 items-center'>
+                                <span className='text-lime-400 text-[10px]'>Finalizado</span>
+                                <img className='w-4 object-contain' src={cash} alt="" />
+                            </div>
                         </div>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <span className='text-lime-400 text-[10px]'>Finalizado</span>
-                        <img className=' w-4 object-contain' src={cash} alt="" />
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
@@ -58,4 +77,3 @@ const Orders = () => {
 };
 
 export default Orders;
-
