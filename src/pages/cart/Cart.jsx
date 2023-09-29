@@ -6,7 +6,7 @@ import './cart.scss';
 import Header from '../../components/header/Header';
 import Sidebar from '../../components/sidebar/Sidebar';
 import { fireStore, auth } from '../../firebase/firebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Cart = () => {
@@ -35,8 +35,19 @@ const Cart = () => {
     const envio = 5000;
     const total = cartProducts.reduce((acc, item) => acc + parseFloat(item.price), 0) + envio;
 
-    const handleRemoveFromCart = (productId) => {
-        dispatch(removeFromCart({ id: productId }));
+    const handleRemoveFromCart = async (productId) => {
+        try {
+
+            const userCartCollection = collection(fireStore, 'users', user.uid, 'cart');
+            const productDoc = doc(userCartCollection, productId.toString());
+            await deleteDoc(productDoc);
+            
+            setCartProducts((prevCart) => prevCart.filter((item) => item.id !== productId));
+
+            dispatch(removeFromCart({ id: productId }));
+        } catch (error) {
+            console.error("Error al eliminar el producto del carrito en Firestore:", error);
+        }
     };
 
     const handleAddToCart = () => {
@@ -112,4 +123,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
