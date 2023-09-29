@@ -22,6 +22,7 @@ import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
 import Admin from "../pages/admin/Admin";
 import Footer from "../components/footer/Footer";
+import Orders from "../pages/orders/Orders";
 
 
 const Router = () => {
@@ -87,6 +88,8 @@ const Router = () => {
           {isLogged ? (
             <Route>
               <Route path="profile" element={<Profile />} />
+              <Route path="orders" element={<Orders />} />
+
               {/* <Route path="personal" element={<PersonalData />} /> */}
             </Route>
           ) : (
