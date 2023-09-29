@@ -7,11 +7,17 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { fireStore, auth } from '../../firebase/firebaseConfig';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/store/cart/cartSlice';
 
 const Favorites = () => {
     const [favoriteProducts, setFavoriteProducts] = useState([]);
     const user = auth.currentUser;
+    const dispatch = useDispatch();
 
+    const addToCartHandler = (product) => {
+      dispatch(addToCart(product)); 
+    };
     useEffect(() => {
         const fetchFavoriteProducts = async () => {
             if (user) {
@@ -68,8 +74,8 @@ const Favorites = () => {
                                                     <p>Talla {product.size}</p>
                                                     <img className='w-5 cursor-pointer object-contain' src={heart} alt="" onClick={() => removeFromFavorites(product.id)} />
                                                 </div>
-                                                <div className='flex gap-2 cursor-pointer items-center'>
-                                                    <img className='w-5 object-contain' src={bag} alt="" />
+                                                <div className='flex gap-2 cursor-pointer items-center' onClick={() => addToCartHandler(product)}>
+                                                    <img className='w-5 object-contain' src={bag} alt=""  />
                                                     <p className='font-semibold'>Añadir a la bolsa</p>
                                                 </div>
                                             </div>
