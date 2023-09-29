@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import loc from '../../assets/location.png';
 import add from '../../assets/add.png';
-import transfer from '../../assets/transfer.png';
 import cash from '../../assets/cash.png';
 import creditCardIcon from '../../assets/credit.png';
 import './location.scss';
@@ -10,9 +9,10 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Paragraph from '../../components/paragraph/Paragraph';
 import Header from '../../components/header/Header';
 import { clearCartInFirestore } from '../../redux/store/cart/cart'
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, query, getDocs, where, doc, updateDoc } from 'firebase/firestore';
 import { fireStore, auth } from "../../firebase/firebaseConfig.js";
 import { useSelector } from "react-redux";
+import Swal from 'sweetalert2';
 
 const Location = () => {
     const navigate = useNavigate();
@@ -59,7 +59,18 @@ const Location = () => {
             return;
         }
 
-        const orderData = {
+    const productsAlreadySold = cartData.some(product => product.sold);
+
+    if (productsAlreadySold) {
+            Swal.fire({
+            icon: 'error',
+            title: 'Producto Vendido',
+            text: 'Este producto se encuentra agotado',
+        });
+        return;
+    }
+
+    const orderData = {
             cartData,
             total,
             selectedAddress,
@@ -80,6 +91,25 @@ const Location = () => {
                 orderData: orderData,
                 timestamp: new Date(),
             });
+
+            for (const product of cartData) {
+                const productId = product.id;
+
+                const itemsCollectionRef = collection(fireStore, 'items');
+                const itemQuery = query(itemsCollectionRef, where('id', '==', productId));
+                const itemQuerySnapshot = await getDocs(itemQuery);
+
+                if (!itemQuerySnapshot.empty) {
+                    const itemDoc = itemQuerySnapshot.docs[0];
+                    const itemDocRef = doc(fireStore, 'items', itemDoc.id);
+                    await updateDoc(itemDocRef, {
+                        sold: true,
+                    });
+                } else {
+                    console.error('No se encontró ningún producto con el ID especificado en la colección "items".');
+                }
+            }
+
             navigate('/confirmation', { state: orderData });
         } catch (error) {
             console.error("Error al guardar los datos de la venta en Firestore:", error);
