@@ -33,7 +33,12 @@
     }
 }
 
-
+    .sold {
+      opacity: 0.5; 
+      cursor: not-allowed; 
+    }
+  
+   
 .selected {
         color: #288e7c;
         text-decoration: underline;

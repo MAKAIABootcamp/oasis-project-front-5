@@ -60,11 +60,9 @@ const Products = () => {
             text: 'No se encontraron productos que coincidan con la búsqueda.',
         });
     };
-
     return (
         <>
             <Header searchTerm={localSearchTerm} onSearchChange={(term) => setLocalSearchTerm(term)} />
-
             <div className="products">
                 <div className="products__container">
                     <Sidebar />
@@ -74,20 +72,34 @@ const Products = () => {
                                 {showNoResultsAlert()}
                             </div>
                         ) : (
-
                             filteredProducts.map((product, index) => (
-                                <div className="flex flex-col gap-2" key={index}>
-                                    <Link to={`/details/${product.id}`}>
-                                        <img
-                                            className="w-80 h-80 object-cover rounded-md cursor-pointer"
-                                            src={product.gallery.poster}
-                                        />
-                                    </Link>
-                                    <div>
-                                       <p className="font-semibold">{product.name} </p>
-                                        <span>{product.status}</span>                                   
-                                        <p>${product.price}</p>
-                                    </div>
+                                <div className={`flex flex-col gap-2 ${product.sold ? 'sold' : ''}`} key={index}>
+                                    {product.sold ? (
+                                        <div>
+                                            <img
+                                                className="w-80 h-80 object-cover rounded-md cursor-not-allowed"
+                                                src={product.gallery.poster}
+                                                alt={product.name}
+                                            />
+                                            <p className="font-semibold text-red-500">AGOTADO</p>
+                                            <p className="font-semibold">{product.name}</p>
+                                            <span>{product.status}</span>
+                                            <p>${product.price}</p>
+                                        </div>
+                                    ) : (
+                                        <div className=" hover:transform hover:scale-105 transition-transform">  
+                                        <Link to={`/details/${product.id}`}>
+                                            <img
+                                                className="w-80 h-80 object-cover rounded-md cursor-pointer "
+                                                src={product.gallery.poster}
+                                                alt={product.name}
+                                            />
+                                            <p className="font-semibold">{product.name}</p>
+                                            <span>{product.status}</span>
+                                            <p>${product.price}</p>
+                                        </Link>
+                                        </div>
+                                    )}
                                 </div>
                             ))
                         )}

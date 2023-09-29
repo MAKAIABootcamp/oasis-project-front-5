@@ -18,7 +18,7 @@ const Orders = () => {
             return;
         }
 
-       const fetchUserOrders = async () => {
+        const fetchUserOrders = async () => {
             const userId = auth.currentUser.uid;
             const ordersQuery = query(collection(fireStore, 'users', userId, 'compras'));
 
@@ -50,27 +50,35 @@ const Orders = () => {
                         <h1> MIS COMPRAS </h1>
                     </div>
                 </div>
-                <div className="order-list">
-                {userOrders.map((order, index) => (
-                        <div key={index} className='flex justify-between order-item'>
-                            <div className='flex gap-5'>
-                                <img className="w-20 object-contain" src={order.orderData.cartData[0].gallery.poster} alt="" />
-                                <div className='flex flex-col'>
-                                <span className='text-[14px] font-semibold'>{order.orderData.cartData[0].name}</span>
-                            <span className='text-[14px] text-gray-400'> Total: {order.orderData.total}</span>
-                            <span className='text-[14px] text-gray-400'>
-                    {new Date(order.timestamp.toDate()).toLocaleString()} 
-                </span>
-
+                {userOrders.length === 0 ? (
+                    <div className='flex gap-5 items-center'>
+                        <img className="w-20 object-contain" src={bag} alt="" />
+                        <span className='text-[14px] text-gray-400'>
+                               Aún no ha realizado su primera compra.
+                            </span>
+                    </div>
+                ) : (
+                    <div className="order-list">
+                        {userOrders.map((order, index) => (
+                            <div key={index} className='flex justify-between order-item'>
+                                <div className='flex gap-5'>
+                                    <img className="w-20 object-contain" src={order.orderData.cartData[0].gallery.poster} alt="" />
+                                    <div className='flex flex-col'>
+                                        <span className='text-[14px] font-semibold'>{order.orderData.cartData[0].name}</span>
+                                        <span className='text-[14px] text-gray-400'> Total: {order.orderData.total}</span>
+                                        <span className='text-[14px] text-gray-400'>
+                                            {new Date(order.timestamp.toDate()).toLocaleString()}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className='flex gap-2 items-center'>
+                                    <span className='text-lime-400 text-[10px]'>Finalizado</span>
+                                    <img className='w-4 object-contain' src={cash} alt="" />
                                 </div>
                             </div>
-                            <div className='flex gap-2 items-center'>
-                                <span className='text-lime-400 text-[10px]'>Finalizado</span>
-                                <img className='w-4 object-contain' src={cash} alt="" />
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
