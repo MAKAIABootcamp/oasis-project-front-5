@@ -8,6 +8,7 @@ import logo from "../../assets/logo-circle.svg";
 import { fireStore } from '../../firebase/firebaseConfig';
 import './blog.scss';
 import { collection, getDocs, updateDoc, doc, } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
 
 const Blog = () => {
     const navigate = useNavigate();
@@ -19,7 +20,17 @@ const Blog = () => {
         text: '',
     });
     const [isEditing, setIsEditing] = useState(false);
-
+ 
+    const { isLogged } = useSelector((state) => state.auth); 
+    const handlePerfilClick = () => {
+        if (isLogged) {
+  
+            navigate('/profile');
+        } else {
+           
+            navigate('/login');
+        }
+    };
     useEffect(() => {
         const getArticles = async () => {
             try {
@@ -105,10 +116,10 @@ const Blog = () => {
                         <p onClick={() => navigate('/products')} className='blog__buttonText'>Nuestra tienda</p>
                     </div>
                     <div className='blog__option flex items-center gap-2 w-[200px]'>
-                        <button onClick={() => navigate('/login')}>
+                        <button onClick={handlePerfilClick}>
                             <img className="blog__icon" src={user} alt="" />
                         </button>
-                        <p onClick={() => navigate('/login')} className='blog__buttonText'>Ingresa</p>
+                        <p onClick={handlePerfilClick} className='blog__buttonText'>Ingresa</p>
                     </div>
                 </div>
 
