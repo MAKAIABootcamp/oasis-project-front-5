@@ -4,10 +4,9 @@ import heart from '../../assets/like.png';
 import './favorites.scss';
 import Header from '../../components/header/Header';
 import Sidebar from "../../components/sidebar/Sidebar";
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { fireStore, auth } from '../../firebase/firebaseConfig';
 import { Link } from 'react-router-dom';
-
 
 const Favorites = () => {
     const [favoriteProducts, setFavoriteProducts] = useState([]);
@@ -28,6 +27,19 @@ const Favorites = () => {
         };
         fetchFavoriteProducts();
     }, [user]);
+
+    const removeFromFavorites = async (productId) => {
+        try {
+           const userFavoritesCollection = collection(fireStore, 'users', user.uid, 'favorites');
+          const docRef = doc(userFavoritesCollection, productId.toString());
+          await deleteDoc(docRef);
+      
+          setFavoriteProducts((prevFavorites) => prevFavorites.filter((product) => product.id !== productId));
+        } catch (error) {
+          console.error("Error al eliminar de favoritos en Firestore:", error);
+        }
+      };
+      
 
 
     return (
@@ -54,7 +66,7 @@ const Favorites = () => {
                                                     <p className='font-semibold text-[18px]'>$ {product.price}</p>
                                                     <p className='font-semibold'>{product.name}</p>
                                                     <p>Talla {product.size}</p>
-                                                    <img className='w-5 cursor-pointer object-contain' src={heart} alt="" />
+                                                    <img className='w-5 cursor-pointer object-contain' src={heart} alt="" onClick={() => removeFromFavorites(product.id)} />
                                                 </div>
                                                 <div className='flex gap-2 cursor-pointer items-center'>
                                                     <img className='w-5 object-contain' src={bag} alt="" />
