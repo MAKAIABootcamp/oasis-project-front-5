@@ -49,7 +49,7 @@ const Favorites = () => {
 
     return (
         <>
-            <Header />
+          <Header showSearchBar={false} />
             <div className='favorites flex flex-col'>
                 <h1 className='font-semibold self-center'>FAVORITOS</h1>
                 <div className='favorites__container flex'>

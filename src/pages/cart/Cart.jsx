@@ -60,7 +60,7 @@ const Cart = () => {
 
     return (
         <>
-            <Header />
+           <Header showSearchBar={false} />
             <div className="cart flex flex-col">
                 <h1 className="title self-center">CARRITO</h1>
                 <div className="cart__container">

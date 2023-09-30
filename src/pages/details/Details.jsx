@@ -21,8 +21,8 @@ const Details = () => {
   const product = products.find((p) => p.id === parseInt(id));
   const userLogged = useSelector((state) => state.auth.userLogged);
   const userFavorites = useSelector((state) => state.favorites.userFavorites) || [];
-  const isFavorite = userFavorites.some((item) => item.id === product.id);
-  //const [isFavorite, setIsFavorite] = useState(false);
+  const favorite = userFavorites.some((item) => item.id === product.id);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (userLogged) {
@@ -67,23 +67,24 @@ const Details = () => {
 
    const userFavoritesCollection = collection(fireStore, 'users', userLogged.id, 'favorites');
    const productDocRef = doc(userFavoritesCollection, product.id.toString());
-
-    try {
-      if (isFavorite) {
-        await deleteDoc(productDocRef);
-        dispatch(removeFromFavorites(product));
-      } else {
-        await setDoc(productDocRef, {
-          id: product.id,
-          name: product.name,
-        });
-     setIsFavorite(true);
-        dispatch(addToFavorites(product));
-      }
-    } catch (error) {
-      console.error('Error al agregar/quitar de favoritos en Firestore:', error);
+    
+  try {
+    if (favorite) {
+      await deleteDoc(productDocRef);
+      dispatch(removeFromFavorites(product));
+      setIsFavorite(false); 
+    } else {
+      await setDoc(productDocRef, {
+        id: product.id,
+        name: product.name,
+      });
+      setIsFavorite(true);
+      dispatch(addToFavorites(product));
     }
+  } catch (error) {
+    console.error('Error al agregar/quitar de favoritos en Firestore:', error);
   }
+};
 
   const handleToggleFavorite = () => {
     toggleFavoriteInFirestore();
@@ -151,7 +152,7 @@ const Details = () => {
                 <p className="details__price">$ {product.price}</p>
                 {userLogged ? (
                   <img
-                    src={isFavorite ? like : heart}
+                    src={favorite ? like : heart}
                     alt=""
                     onClick={handleToggleFavorite}
                     className='heart-icon'
@@ -164,7 +165,7 @@ const Details = () => {
                     className='heart-icon'
                   />
                 )}
-              </div>
+            </div>
             </div>
             <p className="font-semibold">{product.title}</p>
 
