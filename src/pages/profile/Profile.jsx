@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import back from "../../assets/back.png";
 import user from "../../assets/user.png";
 import next from "../../assets/next.png";
-import cash from "../../assets/cash.png";
 import bag from "../../assets/bag.png";
 import out from "../../assets/logout.png";
 import sale from "../../assets/sale.png";
@@ -51,20 +50,8 @@ const Profile = () => {
             </div>
             <img className="icons" src={next} alt="" />
           </div>
-
           <hr />
-
-          <div className="flex justify-between cursor-pointer">
-            <div className="flex gap-2">
-              <img className="w-4 object-contain" src={cash} alt="" />
-              <p>Métodos de pago</p>
-            </div>
-            <img className="icons" src={next} alt="" />
-          </div>
-
-          <hr />
-
-          <div className="flex justify-between cursor-pointer" onClick={() => navigate("/orders")}>
+           <div className="flex justify-between cursor-pointer" onClick={() => navigate("/orders")}>
             <div className="flex gap-2">
               <img className="w-4 object-contain" src={bag} alt="" />
               <p>Mis compras</p>
@@ -81,9 +68,7 @@ const Profile = () => {
             </div>
             <img className="icons" src={next} alt="" />
           </div>
-
           <hr />
-
           <div
             className="flex justify-between cursor-pointer"
             onClick={() => {

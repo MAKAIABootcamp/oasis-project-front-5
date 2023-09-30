@@ -44,8 +44,7 @@ const Favorites = () => {
         } catch (error) {
           console.error("Error al eliminar de favoritos en Firestore:", error);
         }
-      };
-      
+    };
 
 
     return (
