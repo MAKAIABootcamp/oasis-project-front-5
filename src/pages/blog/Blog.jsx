@@ -19,9 +19,10 @@ const Blog = () => {
         commentIndex: -1,
         text: '',
     });
+
     const [isEditing, setIsEditing] = useState(false);
- 
-    const { isLogged } = useSelector((state) => state.auth); 
+    const { isLogged, userLogged } = useSelector((state) => state.auth); 
+
     const handlePerfilClick = () => {
         if (isLogged) {
   
@@ -182,9 +183,10 @@ const Blog = () => {
                                         <input
                                             type='text'
                                             placeholder='Nombre'
-                                            value={commentData.name}
+                                            value={isLogged ? userLogged.displayName : commentData.name}
                                             onChange={(e) => setCommentData({ ...commentData, name: e.target.value })}
                                             required
+                                            disabled={isLogged} 
                                         />
                                     </div>
                                     <div className='comment-input'>
