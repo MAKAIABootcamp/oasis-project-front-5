@@ -44,13 +44,12 @@ const Favorites = () => {
         } catch (error) {
           console.error("Error al eliminar de favoritos en Firestore:", error);
         }
-      };
-      
+    };
 
 
     return (
         <>
-            <Header />
+          <Header showSearchBar={false} />
             <div className='favorites flex flex-col'>
                 <h1 className='font-semibold self-center'>FAVORITOS</h1>
                 <div className='favorites__container flex'>

@@ -9,7 +9,9 @@ import { addToFavorites, removeFromFavorites } from '../../redux/store/favorites
 import { addToCart } from '../../redux/store/cart/cartSlice';
 import heart from '../../assets/heart.png';
 import like from '../../assets/like.png';
-
+import Swal from 'sweetalert2';
+import { collection, doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
+import { fireStore } from '../../firebase/firebaseConfig';
 
 const Details = () => {
   const { id } = useParams();
@@ -19,12 +21,25 @@ const Details = () => {
   const product = products.find((p) => p.id === parseInt(id));
   const userLogged = useSelector((state) => state.auth.userLogged);
   const userFavorites = useSelector((state) => state.favorites.userFavorites) || [];
-  const isFavorite = userFavorites.some((item) => item.id === product.id);
-  const storedHeartOrLikeImage = localStorage.getItem('heartOrLikeImage');
-  const initialHeartOrLikeImage = storedHeartOrLikeImage ? JSON.parse(storedHeartOrLikeImage) : heart;
-  const [heartOrLikeImage, setHeartOrLikeImage] = useState(initialHeartOrLikeImage);
+  const favorite = userFavorites.some((item) => item.id === product.id);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-
+  useEffect(() => {
+    if (userLogged) {
+      const userFavoritesCollection = collection(fireStore, 'users', userLogged.id, 'favorites');
+      const productDocRef = doc(userFavoritesCollection, product.id.toString());
+        getDoc(productDocRef)
+        .then((docSnapshot) => {
+          if (docSnapshot.exists()) {
+            dispatch(addToFavorites(product));
+          }
+        })
+        .catch((error) => {
+          console.error('Error al cargar datos de favoritos desde Firestore:', error);
+        });
+    }
+  }, [userLogged, product, dispatch]);
+  
   useEffect(() => {
     if (products.length === 0) {
       dispatch(fetchItems());
@@ -40,26 +55,48 @@ const Details = () => {
     }
   }, [dispatch, id, products]);
 
-  const handleToggleFavorite = () => {
+  const toggleFavoriteInFirestore = async () => {
     if (!userLogged) {
-      alert('Para agregar un producto a favoritos, debes iniciar sesión.');
+      Swal.fire({
+        icon: 'info',
+        title: 'Inicia sesión',
+        text: 'Para agregar a favoritos debes registrarte o iniciar sesión',
+      });
       return;
     }
 
-    if (isFavorite) {
+   const userFavoritesCollection = collection(fireStore, 'users', userLogged.id, 'favorites');
+   const productDocRef = doc(userFavoritesCollection, product.id.toString());
+    
+  try {
+    if (favorite) {
+      await deleteDoc(productDocRef);
       dispatch(removeFromFavorites(product));
-      setHeartOrLikeImage(heart);
-      localStorage.removeItem('heartOrLikeImage');
+      setIsFavorite(false); 
     } else {
+      await setDoc(productDocRef, {
+        id: product.id,
+        name: product.name,
+      });
+      setIsFavorite(true);
       dispatch(addToFavorites(product));
-      setHeartOrLikeImage(like);
-      localStorage.setItem('heartOrLikeImage', JSON.stringify(like));
     }
+  } catch (error) {
+    console.error('Error al agregar/quitar de favoritos en Firestore:', error);
+  }
+};
+
+  const handleToggleFavorite = () => {
+    toggleFavoriteInFirestore();
   }
 
   const handleAddToCart = () => {
     if (!userLogged) {
-      alert('Para agregar un producto al carrito, debes iniciar sesión.');
+      Swal.fire({
+        icon: 'info',
+        title: 'Inicia sesión',
+        text: 'Para agregar un producto al carrito, debes iniciar sesión.',
+      });
       return;
     }
     dispatch(addToCart(product));
@@ -113,10 +150,22 @@ const Details = () => {
               <h2 className="details__name font-semibold">{product.name}</h2>
               <div className="flex justify-between">
                 <p className="details__price">$ {product.price}</p>
-                <img src={heartOrLikeImage}  alt=""
-                  onClick={handleToggleFavorite}
-                  className='heart-icon'/>
-              </div>
+                {userLogged ? (
+                  <img
+                    src={favorite ? like : heart}
+                    alt=""
+                    onClick={handleToggleFavorite}
+                    className='heart-icon'
+                  />
+                ) : (
+                  <img
+                    src={heart}
+                    alt=""
+                    onClick={handleToggleFavorite}
+                    className='heart-icon'
+                  />
+                )}
+            </div>
             </div>
             <p className="font-semibold">{product.title}</p>
 
@@ -136,5 +185,3 @@ const Details = () => {
 };
 
 export default Details;
-
-
