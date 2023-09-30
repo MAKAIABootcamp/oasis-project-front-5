@@ -5,7 +5,7 @@
 
     &__container {
         display: flex;
-        margin: 0px 50px;
+        margin: 0px 2%;
         gap: 2rem;
     }
 
@@ -60,6 +60,8 @@
     fill: red; 
     stroke: none; 
   }
+
+
   
 @media (max-width:850px) {
 

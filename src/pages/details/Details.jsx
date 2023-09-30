@@ -116,7 +116,7 @@ const Details = () => {
       <div className="details">
         <Sidebar />
         <div className="details__container">
-          <div className="paragraph" style={{ textAlign: 'justify' }}>
+          <div className="paragraph">
             <span className="details__name font-semibold">COMPOSICIÓN</span>
             <p>{product.text}</p>
           </div>
