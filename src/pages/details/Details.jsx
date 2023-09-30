@@ -121,23 +121,23 @@ const Details = () => {
             <p>{product.text}</p>
           </div>
           <div className="details__photosContainer flex gap-6">
-            <img className="w-80" src={selectedImage || product.gallery.poster} alt={product.name} />
+            <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} />
 
             <div className="details__photos">
               <img
-                className="w-[80%] cursor-pointer"
+                className="w-[90px] cursor-pointer"
                 src={product.gallery.frontPage}
                 alt={product.name}
                 onClick={() => handleThumbnailClick(product.gallery.frontPage)}
               />
               <img
-                className="w-[80%]  cursor-pointer"
+                className="w-[90px]  cursor-pointer"
                 src={product.gallery.imgTwo}
                 alt={product.name}
                 onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
               />
               <img
-                className="w-[80%]  cursor-pointer"
+                className="w-[90px]  cursor-pointer"
                 src={product.gallery.imgOne}
                 alt={product.name}
                 onClick={() => handleThumbnailClick(product.gallery.imgOne)}
@@ -145,7 +145,7 @@ const Details = () => {
             </div>
           </div>
 
-          <div className="details__info flex flex-col justify-between">
+          <div className="details__info flex flex-col gap-10">
             <div>
               <h2 className="details__name font-semibold">{product.name}</h2>
               <div className="flex justify-between">
