@@ -153,7 +153,7 @@ const Location = () => {
 
     return (
         <>
-            <Header />
+            <Header showSearchBar={false} />
             <div className='location flex flex-col'>
                 <h1 className='title self-center'>CONFIRMAR PEDIDO</h1>
                 <div className='location__container'>

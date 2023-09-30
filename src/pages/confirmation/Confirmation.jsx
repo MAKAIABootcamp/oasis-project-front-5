@@ -17,7 +17,7 @@ const Confirmation = () => {
 
     return (
         <>
-            <Header />
+            <Header showSearchBar={false} />
             <div className='confirmation flex flex-col items-center'>
                 <div className='flex gap-4 '>
                     <img className='w-5 object-contain' src={happy} alt="" />

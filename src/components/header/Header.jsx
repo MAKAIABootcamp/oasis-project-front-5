@@ -23,7 +23,7 @@ const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
 
   const handleSearchChange = (event) => {
     const searchTerm = event.target.value;
-    setLocalSearchTerm(searchTerm); 
+    setLocalSearchTerm(searchTerm);
     onSearchChange(searchTerm);
   };
 
@@ -31,38 +31,40 @@ const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
     <div className="header flex justify-between items-center flex-wrap gap-3">
       <img className="backArrow" onClick={() => navigate(-1)} src={back} alt="" />
 
-      <ul className="header__categories flex gap-5 font-semibold">
-        <li
-          className={`products__li ${selectedCategory === 'Todo' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('Todo')}
-        >
-          Todo
-        </li>
-        <li
-          className={`products__li ${selectedCategory === 'Mujer' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('Mujer')}
-        >
-          Mujer
-        </li>
-        <li
-          className={`products__li ${selectedCategory === 'Hombre' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('Hombre')}
-        >
-          Hombre
-        </li>
-        <li
-          className={`products__li ${selectedCategory === 'Niños' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('Niños')}
-        >
-          Niños
-        </li>
-        <li
-          className={`products__li ${selectedCategory === 'Accesorios' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('Accesorios')}
-        >
-          Accesorios
-        </li>
-      </ul>
+      {showSearchBar && (
+        <ul className="header__categories flex gap-5 font-semibold">
+          <li
+            className={`products__li ${selectedCategory === 'Todo' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('Todo')}
+          >
+            Todo
+          </li>
+          <li
+            className={`products__li ${selectedCategory === 'Mujer' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('Mujer')}
+          >
+            Mujer
+          </li>
+          <li
+            className={`products__li ${selectedCategory === 'Hombre' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('Hombre')}
+          >
+            Hombre
+          </li>
+          <li
+            className={`products__li ${selectedCategory === 'Niños' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('Niños')}
+          >
+            Niños
+          </li>
+          <li
+            className={`products__li ${selectedCategory === 'Accesorios' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('Accesorios')}
+          >
+            Accesorios
+          </li>
+        </ul>
+      )}
 
       {showSearchBar && (
         <div className="header__input relative flex items-center">
