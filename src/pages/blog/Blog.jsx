@@ -21,14 +21,14 @@ const Blog = () => {
     });
 
     const [isEditing, setIsEditing] = useState(false);
-    const { isLogged, userLogged } = useSelector((state) => state.auth); 
+    const { isLogged, userLogged } = useSelector((state) => state.auth);
 
     const handlePerfilClick = () => {
         if (isLogged) {
-  
+
             navigate('/profile');
         } else {
-           
+
             navigate('/login');
         }
     };
@@ -109,8 +109,8 @@ const Blog = () => {
                     <h1 className='blog__title'  >OASIS</h1>
                 </div>
 
-                <div className='flex'>
-                    <div className='blog__option flex items-center gap-2 w-[200px]'>
+                <div className='flex blog__icons'>
+                    <div className='blog__option  flex items-center gap-2 w-[200px]'>
                         <button onClick={() => navigate('/products')}>
                             <img className='blog__icon' src={bag} alt='' />
                         </button>
@@ -144,14 +144,14 @@ const Blog = () => {
                                 <h2 className='blog__subtitle font-bold'>{article.title}</h2>
                                 <a href={article.originalUrl} className='blog__a' target='_blank' rel='noopener noreferrer'>
                                     <img
-                                        className='w-[30%] h-[200px] object-cover rounded-md cursor-pointer'
+                                        className='blog__image'
                                         src={article.imageUrl}
                                         alt={article.title}
                                     />
                                     <p className='blog__paragraph'>{article.description}</p>
                                 </a>
                             </div>
-                            
+
                             <div className='blog__comments'>
                                 <h3 className='font-bold'>Comentarios</h3>
                                 {article.comments &&
@@ -186,7 +186,7 @@ const Blog = () => {
                                             value={isLogged ? userLogged.displayName : commentData.name}
                                             onChange={(e) => setCommentData({ ...commentData, name: e.target.value })}
                                             required
-                                            disabled={isLogged} 
+                                            disabled={isLogged}
                                         />
                                     </div>
                                     <div className='comment-input'>
