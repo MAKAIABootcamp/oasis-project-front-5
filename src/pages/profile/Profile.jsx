@@ -81,11 +81,12 @@ const Profile = () => {
 
           <div className="flex justify-between cursor-pointer">
           
-            <div className="flex gap-2">
+            <div className="flex gap-2" onClick={() => navigate("/venta")}>
               <img className="w-4 object-contain" src={sale} alt="" />
               <p>Mis ventas</p>
             </div>
             <img className="icons" src={next} alt="" />
+            
           </div>}
 
           <hr />

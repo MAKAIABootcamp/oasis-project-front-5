@@ -26,6 +26,7 @@ import Swal from "sweetalert2";
 import Admin from "../pages/admin/Admin";
 import Footer from "../components/footer/Footer";
 import NoFound from "../pages/noFound/NoFound";
+import NewForm from "../pages/newForm/NewForm";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -94,6 +95,7 @@ const Router = () => {
                   <Route path="confirmation" element={<Confirmation />} />
                   <Route path="favorites" element={<Favorites />} />
                   <Route path="location" element={<Location />} />
+                  <Route path="venta" element={<NewForm />} />
                 </>
               )}
             </>

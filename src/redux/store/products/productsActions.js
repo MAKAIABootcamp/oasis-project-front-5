@@ -30,3 +30,21 @@ export const fetchItems = (category) => {
     }
   };
 };
+
+export const createAnItem = (newItem) => {
+  return async (dispatch) => {
+      try {
+          const createdItem = await createAnItemInCollection(item.uid, {...newItem, state:'enRevision'});
+          console.log("respuesta firebase", item);
+          console.log("respuesta firestore", createdItem);
+      } catch (error) {
+          console.log(error);
+          dispatch(setError({
+              error: true,
+              code: error.code,
+              message: error.message,
+          }))
+      }
+  }
+}
+

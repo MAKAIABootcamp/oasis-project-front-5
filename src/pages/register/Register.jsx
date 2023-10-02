@@ -96,13 +96,13 @@ const Register = () => {
                 {...register("phoneNumber")}
               />
             </div>
-            <div className="flex flex-col">
+            <div className="box flex flex-col">
               <label className="text-gray-400 text-[14px]  login__label">
                 Foto
               </label>
               <input
                 type="file"
-                className="border-b border-gray-300 mb-2 outline-none"
+                className="box__file border-b border-gray-300 mb-2 outline-none"
                 {...register("photoURL")}
               />
             </div>

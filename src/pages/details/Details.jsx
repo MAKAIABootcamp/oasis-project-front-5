@@ -117,6 +117,15 @@ const Details = () => {
                   onClick={handleToggleFavorite}
                   className='heart-icon'/>
               </div>}
+              {userLogged?.role === `admin` && <div className="flex justify-between">
+                <p className="details__price">$ {product.price}</p>
+                <img
+                                    className='w-4 object-contain cursor-pointer'
+                                    src={edit}
+                                    alt=''
+                                    // onClick={() => handleEdit('displayName')}
+                                />
+              </div>}
             </div>
             <p className="font-semibold">{product.title}</p>
 
