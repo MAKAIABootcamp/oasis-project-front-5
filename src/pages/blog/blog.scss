@@ -126,6 +126,11 @@
 
 .comment-user {
     font-weight: bold;
+    font-size: 14px;
+}
+
+.comment-text {
+    font-size: 14px;
 }
 
 .comment-image {
@@ -140,6 +145,7 @@
     padding: 2px 10px;
     border: none;
     outline: none;
+    font-size: 14px;
 }
 
 @media (max-width: 650px) {
