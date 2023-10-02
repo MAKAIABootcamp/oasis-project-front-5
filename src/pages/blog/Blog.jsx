@@ -128,7 +128,7 @@ const Blog = () => {
                             <img className="blog__icon" src={user} alt="" />
                         </button>
                         <p onClick={handlePerfilClick} className="blog__buttonText">
-                            Ingresa
+                            {isLogged ? userLogged.displayName : "Ingresa"}
                         </p>
                     </div>
                 </div>
@@ -177,8 +177,8 @@ const Blog = () => {
                                     Array.isArray(article.comments) &&
                                     article.comments.map((comment, commentIndex) => (
                                         <div key={commentIndex} className="comment">
-                                            <p className="comment-user">
-                                                {comment.name}
+                                            <p className="comment-user fontGreen">
+                                                {comment.name}:
                                             </p>
                                             <p className="comment-text">{comment.text}</p>
                                             {isCommentEditableOrDeletable(comment.timestamp) && (

@@ -84,7 +84,7 @@ const Cart = () => {
                                         <div className="flex flex-col gap-14">
                                             <div className="flex flex-col gap-4">
                                                 <p className="font-semibold">$ {item.price}</p>
-                                                <p className="font-semibold">{item.name}</p>
+                                                <p className="fontGreen">{item.name}</p>
                                                 <p>Talla {item.size}</p>
                                                 <button
                                                     onClick={() => handleRemoveFromCart(item.id)}

@@ -160,7 +160,7 @@ const Location = () => {
                     <Sidebar />
                     <Paragraph />
                     <div className='flex flex-col gap-8'>
-                        <h2 className='font-semibold'>Elige la dirección de entrega</h2>
+                        <h2 className='fontGreen'>Elige la dirección de entrega</h2>
                         <div
                             onClick={() => handleAddress(userLogged.address)}
                             className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === userLogged.address ? 'selectedAddress' : ''}`}
@@ -200,7 +200,7 @@ const Location = () => {
                     </div>
 
                     <div className='flex flex-col gap-8'>
-                        <h2 className='font-semibold'>Elige un medio de pago</h2>
+                        <h2 className='fontGreen'>Elige un medio de pago</h2>
                         <div
                             className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Efectivo' ? 'selectedPayment' : ''}`}
                             onClick={() => handlePayment('Efectivo')}

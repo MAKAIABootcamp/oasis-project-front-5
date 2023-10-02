@@ -28,13 +28,13 @@ const Confirmation = () => {
                     <Paragraph />
                     <div className='flex flex-col gap-8'>
                         <div className='flex flex-col gap-4'>
-                            <h2 className='font-semibold mb-6'>Detalles de tu compra</h2>
+                            <h2 className='fontGreen mb-6'>Detalles de tu compra</h2>
                             {cartData.map((item) => (
                                 <div key={item.id} className='flex gap-6'>
                                     <img className='w-20 rounded-md' src={item.gallery.poster} alt="" />
                                     <div className='flex flex-col gap-2'>
-                                        <p className='font-semibold text-[18px]'>$ {item.price}</p>
-                                        <p className='font-semibold'>{item.name}</p>
+                                        <p className='text-[18px]'>$ {item.price}</p>
+                                        <p>{item.name}</p>
                                         <p>Talla {item.size}</p>
                                     </div>
                                 </div>
@@ -57,14 +57,14 @@ const Confirmation = () => {
                             <div className='flex gap-4'>
                                 <img className='w-4 object-contain' src={location} alt="" />
                                 <div>
-                                    <p className='font-bold'>Dirección de entrega:</p>
+                                    <p className='fontGreen'>Dirección de entrega:</p>
                                     <p>{selectedAddress}</p>
                                 </div>
                             </div>
                             <div className='flex gap-4'>
                                 <img className='w-4 object-contain' src={cash} alt="" />
                                 <div>
-                                    <p className='font-bold'>Método de pago:</p>
+                                    <p className='fontGreen'>Método de pago:</p>
                                     <p>{selectedPayment}</p>
                                 </div>
                             </div>

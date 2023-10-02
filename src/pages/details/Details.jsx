@@ -117,7 +117,7 @@ const Details = () => {
         <Sidebar />
         <div className="details__container">
           <div className="paragraph">
-            <span className="details__name font-semibold">COMPOSICIÓN</span>
+            <span className="details__name fontGreen">COMPOSICIÓN</span>
             <p>{product.text}</p>
           </div>
           <div className="details__photosContainer flex gap-6">
@@ -167,7 +167,7 @@ const Details = () => {
                 )}
             </div>
             </div>
-            <p className="font-semibold">{product.title}</p>
+            <p className="fontGreen">{product.title}</p>
 
             <p>{product.description}</p>
 
