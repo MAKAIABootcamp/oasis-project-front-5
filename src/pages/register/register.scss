@@ -3,6 +3,7 @@
     background-image: url('../../assets/ground.png');
     height: 100vh;
     background-size: cover;
+    margin-bottom: 40px;
 
     .back {
         margin-top: 25px;
@@ -11,6 +12,10 @@
         align-self: start;
         align-items: center;
         margin-left: 10px;
+    }
+
+    &__button {
+        margin-bottom: 20px;
     }
 }
 
@@ -21,6 +26,10 @@
         &__back {
             left: 20px;
             top: 20px;
+        }
+
+        &__form {
+            margin-bottom: 80px;
         }
     }
 
