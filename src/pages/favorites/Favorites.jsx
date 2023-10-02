@@ -53,14 +53,14 @@ const Favorites = () => {
         <>
             <Header showSearchBar={false} />
             <div className='favorites flex flex-col'>
-                <h1 className='font-semibold self-center'>FAVORITOS</h1>
+                <h1 className='title self-center'>FAVORITOS</h1>
                 <div className='favorites__container flex'>
                     <Sidebar />
                     <div className={`favorites__card `}>
                         {favoriteProducts.length === 0 ? (
                             <div className='favorites__info cart__infoEmpty flex flex-col items-center gap-4'>
                                 <img className='cart__empty flex self-center' src={empty} alt="" />
-                                <p className='font-bold'>No tienes productos agregados </p>
+                                <p className='font-bold text-center'>No tienes productos agregados </p>
                                 <p className='flex text-center'>¡Aprovecha! Tenemos miles de productos y oportunidades únicas.</p>
                                 <button className='button__page cart__button' onClick={() => navigate('/products')}>Ver productos</button>
                             </div>

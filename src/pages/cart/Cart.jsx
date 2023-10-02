@@ -70,7 +70,7 @@ const Cart = () => {
                         {cartProducts.length === 0 ? (
                             <div className='cart__info cart__infoEmpty flex flex-col items-center gap-4'>
                                 <img className='cart__empty flex self-center' src={empty} alt="" />
-                                <p className='font-bold'>Tu carrito está vacío </p>
+                                <p className='font-bold text-center'>Tu carrito está vacío </p>
                                 <p className='flex text-center'>¡Aprovecha! Tenemos miles de productos y oportunidades únicas.</p>
                                 <button className='button__page cart__button' onClick={() => navigate('/products')}>Ver productos</button>
                             </div>
