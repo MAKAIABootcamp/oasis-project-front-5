@@ -64,10 +64,10 @@ const AdminPanel = () => {
         searchTerm={localSearchTerm}
         onSearchChange={(term) => setLocalSearchTerm(term)}
       />
-      <div className="products">
-        <div className="products__container">
+      <div className="products adminProduct">
+        <div className="adminProduct__container">
           <Sidebar />
-          <div className="product-list">
+          <div className="adminProduct__list">
             {localSearchTerm && noResults ? (
               <div className="no-results-message">
                 Lo siento, no se encontraron productos.
@@ -75,13 +75,12 @@ const AdminPanel = () => {
             ) : (
               filteredProducts.map((product, index) => (
                 <div
-                  className={`product-item flex gap-2 ${
-                    product.sold ? "sold" : ""
-                  }`}
+                  className={`adminProduct__div flex gap-2 ${product.sold ? "sold" : ""
+                    }`}
                   key={index}
                 >
                   {product.sold ? (
-                    <div>
+                    <div >
                       <img
                         className="w-80 h-80 object-cover rounded-md cursor-not-allowed"
                         src={product.gallery.poster}
@@ -93,16 +92,17 @@ const AdminPanel = () => {
                       <p>${product.price}</p>
                     </div>
                   ) : (
-                    <div className=" hover:transform hover:scale-105 transition-transform">
-                      <Link to={`/details/${product.id}`}>
+                    <div>
+                      <Link className="adminProduct__item" to={`/details/${product.id}`}>
                         <img
-                          className="w-80 h-80 object-cover rounded-md cursor-pointer "
+                          className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer "
                           src={product.gallery.poster}
                           alt={product.name}
                         />
-                        <p className="fontGreen">{product.name}</p>
-                        <span>{product.status}</span>
-                        <p className="fontGreen">${product.price}</p>
+                        <p className="fontGreen w-[150px]">{product.title}</p>
+                        <span className="w-[150px]">{product.status}</span>
+                        <p className="fontGreen w-[150px]">${product.price}</p>
+                        <p className="w-[150px]">{product.genre}</p>
                       </Link>
                     </div>
                   )}
