@@ -72,7 +72,7 @@
 
     .container__login {
         border: none;
-        margin-top: 3rem;
+        margin-top: 0;
     }
 
     .icons {

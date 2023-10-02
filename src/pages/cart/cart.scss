@@ -38,7 +38,11 @@
             margin: 5px;
             display: flex;
             flex-direction: column;
-            gap: 4rem;
+            gap: 2rem;
+        }
+
+        &__card {
+            width: 100%;
         }
     }
 }

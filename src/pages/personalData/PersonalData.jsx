@@ -112,9 +112,8 @@ const PersonalData = () => {
     return (
         <div className='personal relative flex flex-col items-center'>
             <div className='container__login'>
-                <div className='back'>
-                    <img
-                        className='backArrow '
+            <img
+                        className='backArrow back '
                         onClick={() => navigate(-1)}
                         src={back}
                         alt=''
@@ -122,7 +121,6 @@ const PersonalData = () => {
                     <div>
                         <h1>DATOS PERSONALES</h1>
                     </div>
-                </div>
                 <div className='w-20 h-20 rounded-full overflow-hidden'>
                     <input
                         type="file"
