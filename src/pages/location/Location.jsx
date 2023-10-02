@@ -12,7 +12,6 @@ import { clearCartInFirestore } from '../../redux/store/cart/cart'
 import { collection, addDoc, query, getDocs, where, doc, updateDoc } from 'firebase/firestore';
 import { fireStore, auth } from "../../firebase/firebaseConfig.js";
 import { useSelector } from "react-redux";
-import Swal from 'sweetalert2';
 
 const Location = () => {
     const navigate = useNavigate();
@@ -58,17 +57,6 @@ const Location = () => {
             console.error("Usuario no autenticado.");
             return;
         }
-
-    const productsAlreadySold = cartData.some(product => product.sold);
-
-    if (productsAlreadySold) {
-            Swal.fire({
-            icon: 'error',
-            title: 'Producto Vendido',
-            text: 'Este producto se encuentra agotado',
-        });
-        return;
-    }
 
     const orderData = {
             cartData,
