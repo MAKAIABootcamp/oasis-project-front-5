@@ -69,6 +69,7 @@
 
     &__titleImage {
         border-radius: 8px;
+        margin-bottom: 4rem;
 
         img {
             max-width: 100%;
@@ -125,6 +126,20 @@
 
 .comment-user {
     font-weight: bold;
+}
+
+.comment-image {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.input {
+    border-radius: 50px;
+    padding: 2px 10px;
+    border: none;
+    outline: none;
 }
 
 @media (max-width: 650px) {

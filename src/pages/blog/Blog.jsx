@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import bag from '../../assets/bag.png';
-import user from '../../assets/user.png'
-import deleteIcon from '../../assets/delete.png';
-import editIcon from '../../assets/edit.png';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import bag from "../../assets/bag.png";
+import user from "../../assets/user.png";
+import deleteIcon from "../../assets/delete.png";
+import editIcon from "../../assets/edit.png";
 import logo from "../../assets/logo-circle.svg";
-import { fireStore } from '../../firebase/firebaseConfig';
-import './blog.scss';
-import { collection, getDocs, updateDoc, doc, } from 'firebase/firestore';
-import { useSelector } from 'react-redux';
+import { fireStore } from "../../firebase/firebaseConfig";
+import "./blog.scss";
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 const Blog = () => {
     const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
-    const [commentData, setCommentData] = useState({ name: '', text: '' });
+    const [commentData, setCommentData] = useState({ name: "", text: "" });
     const [editingComment, setEditingComment] = useState({
         index: -1,
         commentIndex: -1,
-        text: '',
+        text: "",
     });
 
     const [isEditing, setIsEditing] = useState(false);
@@ -25,17 +25,15 @@ const Blog = () => {
 
     const handlePerfilClick = () => {
         if (isLogged) {
-
-            navigate('/profile');
+            navigate("/profile");
         } else {
-
-            navigate('/login');
+            navigate("/login");
         }
     };
     useEffect(() => {
         const getArticles = async () => {
             try {
-                const querySnapshot = await getDocs(collection(fireStore, 'articles'));
+                const querySnapshot = await getDocs(collection(fireStore, "articles"));
                 const articleData = [];
                 querySnapshot.forEach((doc) => {
                     const article = doc.data();
@@ -44,7 +42,7 @@ const Blog = () => {
                 });
                 setArticles(articleData);
             } catch (error) {
-                console.error('Error al obtener los artículos desde Firestore:', error);
+                console.error("Error al obtener los artículos desde Firestore:", error);
             }
         };
 
@@ -62,23 +60,27 @@ const Blog = () => {
             const commentIndex = editingComment.commentIndex;
             updatedArticles[index].comments[commentIndex].text = commentData.text;
         } else {
-            const newComment = { name: commentData.name, text: commentData.text, timestamp: Date.now() };
+            const newComment = {
+                name: isLogged ? userLogged.displayName || "Anónimo" : "Anónimo",
+                text: commentData.text,
+                timestamp: Date.now(),
+            };
             updatedArticles[index].comments.push(newComment);
         }
-        const articleRef = doc(fireStore, 'articles', articleId);
+        const articleRef = doc(fireStore, "articles", articleId);
         await updateDoc(articleRef, {
             comments: updatedArticles[index].comments,
         });
         setArticles(updatedArticles);
-        setCommentData({ name: '', text: '' });
-        setEditingComment({ index: -1, commentIndex: -1, text: '' });
+        setCommentData({ name: "", text: "" });
+        setEditingComment({ index: -1, commentIndex: -1, text: "" });
         setIsEditing(false);
     };
 
     const handleCommentEdit = (index, commentIndex) => {
         const commentText = articles[index].comments[commentIndex].text;
         setEditingComment({ index, commentIndex, text: commentText });
-        setCommentData({ name: '', text: commentText });
+        setCommentData({ name: "", text: commentText });
         setIsEditing(true);
     };
 
@@ -86,7 +88,7 @@ const Blog = () => {
         const updatedArticles = [...articles];
         const articleId = updatedArticles[index].id;
         const commentId = updatedArticles[index].comments[commentIndex].id;
-        const articleRef = doc(fireStore, 'articles', articleId);
+        const articleRef = doc(fireStore, "articles", articleId);
         updatedArticles[index].comments.splice(commentIndex, 1);
         await updateDoc(articleRef, {
             comments: updatedArticles[index].comments,
@@ -102,103 +104,142 @@ const Blog = () => {
     };
 
     return (
-        <div className='blog flex flex-col'>
-            <div className='blog__header'>
-                <div className=' flex items-center w-[200px]' >
+        <div className="blog flex flex-col">
+            <div className="blog__header">
+                <div className=" flex items-center w-[200px]">
                     <img className="w-[50%]" src={logo} alt="" />
-                    <h1 className='blog__title'  >OASIS</h1>
+                    <h1 className="blog__title">OASIS</h1>
                 </div>
 
-                <div className='flex blog__icons'>
-                    <div className='blog__option  flex items-center gap-2 w-[200px]'>
-                        <button onClick={() => navigate('/products')}>
-                            <img className='blog__icon' src={bag} alt='' />
+                <div className="flex blog__icons">
+                    <div className="blog__option  flex items-center gap-2 w-[200px]">
+                        <button onClick={() => navigate("/products")}>
+                            <img className="blog__icon" src={bag} alt="" />
                         </button>
-                        <p onClick={() => navigate('/products')} className='blog__buttonText'>Nuestra tienda</p>
+                        <p
+                            onClick={() => navigate("/products")}
+                            className="blog__buttonText"
+                        >
+                            Nuestra tienda
+                        </p>
                     </div>
-                    <div className='blog__option flex items-center gap-2 w-[200px]'>
+                    <div className="blog__option flex items-center gap-2 w-[200px]">
                         <button onClick={handlePerfilClick}>
                             <img className="blog__icon" src={user} alt="" />
                         </button>
-                        <p onClick={handlePerfilClick} className='blog__buttonText'>Ingresa</p>
+                        <p onClick={handlePerfilClick} className="blog__buttonText">
+                            Ingresa
+                        </p>
                     </div>
                 </div>
-
             </div>
-            <div className='blog__container'>
-                <div className='blog__button'>
-                    <p className='blog__transform'>Transformemos la forma en que concebimos la moda !</p>
+            <div className="blog__container">
+                <div className="blog__button">
+                    <p className="blog__transform">
+                        Transformemos la forma en que concebimos la moda !
+                    </p>
                     <div>
-                        ¿Sabías que la industria de la moda genera aproximadamente 92 millones de toneladas de desechos textiles al
-                        año, lo que contribuye significativamente a problemas ambientales como la contaminación del agua, las
-                        emisiones de gases de efecto invernadero y la agotación de recursos naturales? Es hora de hacer un cambio,
-                        y OASIS está aquí para liderarlo, Únete a nosotros y sé parte de la revolución de la moda sostenible.
+                        ¿Sabías que la industria de la moda genera aproximadamente 92
+                        millones de toneladas de desechos textiles al año, lo que contribuye
+                        significativamente a problemas ambientales como la contaminación del
+                        agua, las emisiones de gases de efecto invernadero y la agotación de
+                        recursos naturales? Es hora de hacer un cambio, y OASIS está aquí
+                        para liderarlo, Únete a nosotros y sé parte de la revolución de la
+                        moda sostenible.
                     </div>
                 </div>
-
 
                 <div>
                     {articles.map((article, index) => (
-                        <div key={article.id} className='blog__item flex flex-col'>
-                            <div className='blog__titleImage flex flex-col gap-4'>
-                                <h2 className='blog__subtitle font-bold'>{article.title}</h2>
-                                <a href={article.originalUrl} className='blog__a' target='_blank' rel='noopener noreferrer'>
+                        <div key={article.id} className="blog__item flex flex-col">
+                            <div className="blog__titleImage flex flex-col gap-4">
+                                <h2 className="blog__subtitle font-bold">{article.title}</h2>
+                                <a
+                                    href={article.originalUrl}
+                                    className="blog__a"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     <img
-                                        className='blog__image'
+                                        className="blog__image"
                                         src={article.imageUrl}
                                         alt={article.title}
                                     />
-                                    <p className='blog__paragraph'>{article.description}</p>
+                                    <p className="blog__paragraph">{article.description}</p>
                                 </a>
                             </div>
 
-                            <div className='blog__comments'>
-                                <h3 className='font-bold'>Comentarios</h3>
+                            <hr />
+
+                            <div className="blog__comments">
+                                <h3 className="blog__subtitle font-bold">Comentarios</h3>
                                 {article.comments &&
                                     Array.isArray(article.comments) &&
                                     article.comments.map((comment, commentIndex) => (
-                                        <div key={commentIndex} className='comment'>
-                                            <p className='comment-user'>{comment.name}:</p>
-                                            <p className='comment-text'>{comment.text}</p>
+                                        <div key={commentIndex} className="comment">
+                                            <p className="comment-user">
+                                                {comment.name}
+                                            </p>
+                                            <p className="comment-text">{comment.text}</p>
                                             {isCommentEditableOrDeletable(comment.timestamp) && (
                                                 <>
                                                     <button
-                                                        className='comment-delete'
-                                                        onClick={() => handleCommentDelete(index, commentIndex)}
+                                                        className="comment-delete ml-4"
+                                                        onClick={() =>
+                                                            handleCommentDelete(index, commentIndex)
+                                                        }
                                                     >
-                                                        <img src={deleteIcon} className='deleteIcon w-5' alt='Eliminar' />
+                                                        <img
+                                                            src={deleteIcon}
+                                                            className="deleteIcon w-3"
+                                                            alt="Eliminar"
+                                                        />
                                                     </button>
                                                     <button
-                                                        className='comment-edit'
-                                                        onClick={() => handleCommentEdit(index, commentIndex)}
+                                                        className="comment-edit"
+                                                        onClick={() =>
+                                                            handleCommentEdit(index, commentIndex)
+                                                        }
                                                     >
-                                                        <img src={editIcon} className='editIcon w-5' alt='Editar' />
+                                                        <img
+                                                            src={editIcon}
+                                                            className="editIcon w-3"
+                                                            alt="Editar"
+                                                        />
                                                     </button>
                                                 </>
                                             )}
                                         </div>
                                     ))}
-                                <form onSubmit={(e) => handleCommentSubmit(e, index)}>
-                                    <div className='comment-input'>
+                                <form onSubmit={(e) => handleCommentSubmit(e, index)} className="flex gap-1">
+                                    <div className="comment-input">
+                                        {isLogged && (
+                                            <img
+                                                className="comment-image"
+                                                src={isLogged ? userLogged.photoURL : commentData.photoURL}
+                                                alt="Nombre"
+                                                onChange={(e) =>
+                                                    setCommentData({
+                                                        ...commentData,
+                                                        photoURL: e.target.value,
+                                                    })
+                                                }
+                                                required
+                                                disabled={isLogged}
+                                            />
+                                        )}
+
+                                    </div>
+                                    <div className="comment-input">
                                         <input
-                                            type='text'
-                                            placeholder='Nombre'
-                                            value={isLogged ? userLogged.displayName : commentData.name}
-                                            onChange={(e) => setCommentData({ ...commentData, name: e.target.value })}
-                                            required
-                                            disabled={isLogged}
-                                        />
-                                    </div>
-                                    <div className='comment-input'>
-                                        <textarea
-                                            placeholder='Escribe tu comentario...'
+                                            className="input"
+                                            placeholder="Escribe tu comentario..."
                                             value={commentData.text}
-                                            onChange={(e) => setCommentData({ ...commentData, text: e.target.value })}
+                                            onChange={(e) =>
+                                                setCommentData({ ...commentData, text: e.target.value })
+                                            }
                                             required
                                         />
-                                    </div>
-                                    <div className='comment-button'>
-                                        <button type='submit'>{isEditing ? 'Guardar cambios' : 'Enviar'}</button>
                                     </div>
                                 </form>
                             </div>
@@ -211,3 +252,4 @@ const Blog = () => {
 };
 
 export default Blog;
+
