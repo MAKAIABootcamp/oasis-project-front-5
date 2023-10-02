@@ -46,7 +46,7 @@ const Register = () => {
 
           <img className="w-[26%]" src={logo} alt="" />
         </div>
-        <form className="w-[80%]" onSubmit={handleSubmit(userRegister)}>
+        <form className="w-[80%] register__form" onSubmit={handleSubmit(userRegister)}>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col">
               <label className="text-gray-400 text-[14px]  login__label">
@@ -108,7 +108,7 @@ const Register = () => {
             </div>
           </div>
           <div className="flex flex-col w-[100%] mt-8 items-center">
-            <button type="submit" className="button__login">
+            <button type="submit" className="button__login register__button">
               Crear cuenta
             </button>
           </div>
