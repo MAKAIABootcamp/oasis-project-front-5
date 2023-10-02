@@ -10,7 +10,7 @@ import Paragraph from '../../components/paragraph/Paragraph';
 import Header from '../../components/header/Header';
 import {clearCartInFirestore} from '../../redux/store/cart/cart'
 import { collection, addDoc } from 'firebase/firestore';
-import { fireStore } from "../../firebase/firebaseConfig.js";
+import { fireStore, auth } from "../../firebase/firebaseConfig.js";
 
 const Location = () => {
     const navigate = useNavigate();
@@ -30,17 +30,34 @@ const Location = () => {
     const isButtonDisabled = !(selectedAddress && selectedPayment);
 
     const handleConfirmOrder = async () => {
+        const user = auth.currentUser;
+
+        if (!user) {
+            console.error("Usuario no autenticado.");
+            return;
+        }
+
         const orderData = {
             cartData,
             total,
             selectedAddress,
             selectedPayment,
+            nombre: user.displayName || '',
+            correo: user.email || '',
+            celular: user.phoneNumber || '',
         };
+    
         await clearCartInFirestore();
+    
         try {
             const salesCollection = collection(fireStore, 'ventas');
             await addDoc(salesCollection, orderData);
-    
+            const userId = auth.currentUser.uid;
+            const userPurchasesCollection = collection(fireStore, 'users', userId, 'compras');
+            await addDoc(userPurchasesCollection, {
+                orderData: orderData,
+                timestamp: new Date(), 
+            });
             navigate('/confirmation', { state: orderData });
         } catch (error) {
             console.error("Error al guardar los datos de la venta en Firestore:", error);

@@ -13,7 +13,7 @@ const Products = () => {
   const selectedCategory = useSelector(
     (state) => state.products.selectedCategory
   );
-  
+
   const userLogged = useSelector((state) => state.auth.userLogged);
 
   const [localSelectedCategory, setLocalSelectedCategory] =
@@ -67,7 +67,7 @@ const Products = () => {
   };
 
   return (
-    <>
+      <>
       <Header
         searchTerm={localSearchTerm}
         onSearchChange={(term) => setLocalSearchTerm(term)}
@@ -76,54 +76,61 @@ const Products = () => {
       <div className="products">
         <div className="products__container">
           <Sidebar />
-          {userLogged?.role === `client` && 
-          <div className="flex gap-10 flex-wrap justify-center">
-            {localSearchTerm && noResults ? (
-              <div>{showNoResultsAlert()}</div>
-            ) : (
-              filteredProducts.map((product, index) => (
-                <div className="flex flex-col gap-2" key={index}>
-                  <Link to={`/details/${product.id}`}>
-                    <img
-                      className="w-80 h-80 object-cover rounded-md cursor-pointer"
-                      src={product.gallery.poster}
-                    />
-                  </Link>
-                  <div>
-                    <p className="font-semibold">{product.name}</p>
-                    <p>${product.price}</p>
+
+          {userLogged?.role === `client` && (
+            <div className="flex gap-10 flex-wrap justify-center">
+              {localSearchTerm && noResults ? (
+                <div>{showNoResultsAlert()}</div>
+              ) : (
+                filteredProducts.map((product, index) => (
+                  <div className="flex flex-col gap-2" key={index}>
+                    <Link to={`/details/${product.id}`}>
+                      <img
+                        className="w-80 h-80 object-cover rounded-md cursor-pointer"
+                        src={product.gallery.poster}
+                      />
+                    </Link>
+                    <div>
+                      <p className="font-semibold">{product.name}</p>
+                      <span>{product.status}</span>
+                      <p>${product.price}</p>
+                    </div>
                   </div>
-                </div>
-              ))
-            )}
-          </div>}
-          {userLogged?.role === `admin` && 
-          <div className="flex gap-10 flex-wrap justify-center">
-          {localSearchTerm && noResults ? (
-            <div>{showNoResultsAlert()}</div>
-          ) : (
-            filteredProducts.map((product, index) => (
-                
-              <ul className="flex flex-direction column border w-100" key={index}>
-                <Link to={`/details/${product.id}`}>
-                  <img
-                    className="w-20 h-20 object-cover rounded-md cursor-pointer"
-                    src={product.gallery.poster}
-                  />
-                </Link>
-                <div>
-                  <p className="font-semibold">{product.name}</p>
-                  <p>${product.price}</p>
-                </div>
-              </ul>
-            ))
+                ))
+              )}
+            </div>
           )}
-        </div>}
+        
+          {userLogged?.role === `admin` && (
+            <div className="flex gap-10 flex-wrap justify-center">
+              {localSearchTerm && noResults ? (
+                <div>{showNoResultsAlert()}</div>
+              ) : (
+                filteredProducts.map((product, index) => (
+                  <ul
+                    className="flex flex-direction column border w-100"
+                    key={index}
+                  >
+                    <Link to={`/details/${product.id}`}>
+                      <img
+                        className="w-20 h-20 object-cover rounded-md cursor-pointer"
+                        src={product.gallery.poster}
+                      />
+                    </Link>
+                    <div>
+                      <p className="font-semibold">{product.name}</p>
+                      <span>{product.status}</span>
+                      <p>${product.price}</p>
+                    </div>
+                  </ul>
+                ))
+              )}
+            </div>
+          )}
         </div>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
-
 export default Products;

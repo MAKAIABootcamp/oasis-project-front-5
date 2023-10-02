@@ -46,6 +46,7 @@ const Cart = () => {
         };
         navigate('/location', { state: locationState });
     };
+
     return (
         <>
             <Header />
@@ -81,27 +82,29 @@ const Cart = () => {
                             </div>
                         )}
                     </div>
-                    <div className="flex flex-col gap-8">
-                        <div className="flex flex-col gap-4 ">
-                            <div className='flex gap-2 justify-between'>
-                                <p>Valor de envío</p>
-                                <p>$ 5000</p>
-                            </div>
-                            <div className='flex justify-between'>
-                                <div className="flex gap-2">
-                                    <p className="font-semibold">Total</p>
-                                    <p>(+ envío)</p>
+                    {cartProducts.length > 0 && (
+                        <div className="flex flex-col gap-8">
+                            <div className="flex flex-col gap-4 ">
+                                <div className='flex gap-2 justify-between'>
+                                    <p>Valor de envío</p>
+                                    <p>$ 5000</p>
                                 </div>
-                                <p className="font-semibold">$ {total}</p>
+                                <div className='flex justify-between'>
+                                    <div className="flex gap-2">
+                                        <p className="font-semibold">Total</p>
+                                        <p>(+ envío)</p>
+                                    </div>
+                                    <p className="font-semibold">$ {total}</p>
+                                </div>
                             </div>
+                            <button
+                                className="button__page px-6 py-1.5 w-[100%]"
+                                onClick={handleAddToCart}
+                            >
+                                Continuar con la compra
+                            </button>
                         </div>
-                        <button
-                            className="button__page px-6 py-1.5 w-[100%]"
-                            onClick={handleAddToCart}
-                        >
-                            Continuar con la compra
-                        </button>
-                    </div>
+                    )}
                 </div>
             </div>
         </>
@@ -109,3 +112,4 @@ const Cart = () => {
 };
 
 export default Cart;
+
