@@ -93,7 +93,7 @@ const AdminPanel = () => {
                     </div>
                   ) : (
                     <div>
-                      <Link className="adminProduct__item" to={`/details/${product.id}`}>
+                      <Link className="adminProduct__item" to={`/admin-details/${product.id}`}>
                         <img
                           className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer "
                           src={product.gallery.poster}

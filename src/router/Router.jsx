@@ -19,10 +19,10 @@ import Favorites from "../pages/favorites/Favorites";
 import Blog from "../pages/blog/Blog";
 import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
-import Admin from "../pages/admin/Admin";
 import Footer from "../components/footer/Footer";
 import Orders from "../pages/orders/Orders";
 import AdminPanel from "../pages/adminPanel/AdminPanel";
+import DetailsAdmin from "../pages/detailsAdmin/DetailsAdmin";
 
 
 const Router = () => {
@@ -87,23 +87,23 @@ const Router = () => {
           <Route path="confirmation" element={<Confirmation />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="admin" element={<AdminPanel />} />
+          <Route path="admin-details/:id" element={<DetailsAdmin />} />
           <Route path="location" element={<Location />} />
           <Route path="profile" element={<Profile />} />
           <Route path="personal" element={<PersonalData />} />
           {isLogged ? (
-           <Route> 
-           <Route path="profile" element={<Profile />} /> 
-           <Route path="orders" element={<Orders />} /> 
-
-           <Route path="personal" element={<PersonalData />} /> 
-           </Route> 
-           ) : ( 
-           <Route> 
-           <Route path="login" element={<Login />} /> 
-           <Route path="register" element={<Register />} />
-            </Route> 
-           )} 
-           </Route>
+            <Route>
+              <Route path="profile" element={<Profile />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="personal" element={<PersonalData />} />
+            </Route>
+          ) : (
+            <Route>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+            </Route>
+          )}
+        </Route>
       </Routes>
       <Footer />
     </>
