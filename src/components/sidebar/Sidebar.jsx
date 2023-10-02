@@ -4,41 +4,108 @@ import comunity from '../../assets/comunity.png'
 import user from '../../assets/user.png'
 import './sidebar.scss'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import sales from '../../assets/sales.png';
+import add from '../../assets/addProducts.png';
+import requests from '../../assets/requests.png';
+import admin from '../../assets/adminProfile.png'
+import out from "../../assets/logout.png";
+import exit from "../../assets/exit.png";
+import { logout } from '../../redux/store/auth/authActions'
+
 
 const sidebar = () => {
     const navigate = useNavigate();
-    const { isLogged } = useSelector((state) => state.auth); 
+    const dispatch = useDispatch();
+
+    const { isLogged, userLogged } = useSelector((state) => state.auth);
+
     const handlePerfilClick = () => {
         if (isLogged) {
-  
+
             navigate('/profile');
         } else {
-           
+
             navigate('/login');
         }
     };
+
     return (
         <div>
             <div className="sidebar flex flex-col gap-6">
                 <h2 className="products__categories text-[20px] font-semibold">Oasis</h2>
-                <ul className="products__ul  gap-5">
-                    <li className="flex gap-2 selected" onClick={() => navigate('/products')}>
-                        <img className="w-5 object-contain" src={home} alt="" />
-                        <p className="products__li">Home</p>
-                    </li>
-                    <li className="flex gap-2" onClick={() => navigate('/')}>
-                        <img className="w-6 object-contain"  src={comunity} alt="" />
-                        <p className="products__li"> Blog</p>
-                    </li>
-                    <li className="flex gap-2" onClick={handlePerfilClick}>
-                        <img className="w-5 object-contain" src={user} alt="" />
-                        <p className="products__li"> Perfil</p>
-                    </li>
+                <ul className="products__ul gap-5">
+                    {!isLogged && (
+                        <>
+                            <li className="flex gap-2 selected" onClick={() => navigate('/products')}>
+                                <img className="w-5 object-contain" src={home} alt="" />
+                                <p className="products__li">Home</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => navigate('/')}>
+                                <img className="w-6 object-contain" src={comunity} alt="" />
+                                <p className="products__li"> Blog</p>
+                            </li>
+                            <li className="flex gap-2" onClick={handlePerfilClick}>
+                                <img className="w-5 object-contain" src={user} alt="" />
+                                <p className="products__li"> Perfil</p>
+                            </li>
+                        </>
+                    )}
+
+                    {isLogged && userLogged && userLogged.role === 'admin' && (
+                        <>
+                            <li className="flex gap-2" onClick={handlePerfilClick}>
+                                <img className="w-6 object-contain" src={admin} alt="" />
+                                <p className="products__li"> Perfil</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => navigate('/ventas')}>
+                                <img className="w-6 object-contain" src={sales} alt="" />
+                                <p className="products__li"> Ventas</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => navigate('/agregar')}>
+                                <img className="w-6 object-contain" src={add} alt="" />
+                                <p className="products__li"> Agregar</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => navigate('/solicitudes')}>
+                                <img className="w-6 object-contain" src={requests} alt="" />
+                                <p className="products__li"> Solicitudes</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => {
+                                dispatch(logout());
+                                navigate("/");
+                            }}>
+                                <img className="w-6 object-contain" src={exit} alt="" />
+                                <p className="products__li">Cerrar sesión</p>
+                            </li>
+                        </>
+                    )}
+
+                    {isLogged && userLogged && userLogged.role === 'client' && (
+                        <>
+                            <li className="flex gap-2 selected" onClick={() => navigate('/products')}>
+                                <img className="w-5 object-contain" src={home} alt="" />
+                                <p className="products__li">Home</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => navigate('/')}>
+                                <img className="w-6 object-contain" src={comunity} alt="" />
+                                <p className="products__li"> Blog</p>
+                            </li>
+                            <li className="flex gap-2" onClick={handlePerfilClick}>
+                                <img className="w-5 object-contain" src={user} alt="" />
+                                <p className="products__li"> Perfil</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => {
+                                dispatch(logout());
+                                navigate("/");
+                            }}>
+                                <img className="w-5 object-contain" src={out} alt="" />
+                                <p className="products__li">Cerrar sesión</p>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </div>
         </div>
-    )
-}
-
-export default sidebar
+    );
+};
+export default sidebar;
