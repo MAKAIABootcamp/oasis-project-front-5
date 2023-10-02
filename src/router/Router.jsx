@@ -23,6 +23,7 @@ import Swal from "sweetalert2";
 import Admin from "../pages/admin/Admin";
 import Footer from "../components/footer/Footer";
 import Orders from "../pages/orders/Orders";
+import AdminPanel from "../pages/adminPanel/AdminPanel";
 
 
 const Router = () => {
@@ -55,6 +56,11 @@ const Router = () => {
       "error"
     );
   }
+
+  if (userLogged && userLogged.role === "admin") {
+    navigate("/admin");
+  }
+
   if (error === false) {
     Swal.fire(
       "Excelente",
@@ -81,24 +87,24 @@ const Router = () => {
           <Route path="cart" element={<Cart />} />
           <Route path="confirmation" element={<Confirmation />} />
           <Route path="favorites" element={<Favorites />} />
-          <Route path="admin" element={<Admin />} />
+          <Route path="admin" element={<AdminPanel />} />
           <Route path="location" element={<Location />} />
           <Route path="profile" element={<Profile />} />
           <Route path="personal" element={<PersonalData />} />
           {isLogged ? (
-            <Route>
-              <Route path="profile" element={<Profile />} />
-              <Route path="orders" element={<Orders />} />
+           <Route> 
+           <Route path="profile" element={<Profile />} /> 
+           <Route path="orders" element={<Orders />} /> 
 
-              {/* <Route path="personal" element={<PersonalData />} /> */}
-            </Route>
-          ) : (
-            <Route>
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
-            </Route>
-          )}
-        </Route>
+           <Route path="personal" element={<PersonalData />} /> 
+           </Route> 
+           ) : ( 
+           <Route> 
+           <Route path="login" element={<Login />} /> 
+           <Route path="register" element={<Register />} />
+            </Route> 
+           )} 
+           </Route>
       </Routes>
       <Footer />
     </>

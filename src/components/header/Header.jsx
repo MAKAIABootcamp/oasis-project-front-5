@@ -2,6 +2,8 @@ import back from '../../assets/back.png';
 import search from '../../assets/search.png';
 import bag from '../../assets/bag.png';
 import heart from '../../assets/heart.png';
+import admin from '../../assets/adminPanel.png'
+import adminUser from '../../assets/loginAdmin.png'
 import { useNavigate } from 'react-router-dom';
 import './header.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +13,8 @@ import { useState } from 'react';
 const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector((state) => state.products.selectedCategory);
-  const navigate = useNavigate();
+  const { isLogged, userLogged } = useSelector((state) => state.auth);
+ const navigate = useNavigate();
 
   const handleCategoryChange = (category) => {
     navigate('/products')
@@ -29,8 +32,14 @@ const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
 
   return (
     <div className="header flex justify-between items-center flex-wrap gap-3">
-      <img className="backArrow" onClick={() => navigate(-1)} src={back} alt="" />
-
+      {isLogged && userLogged && userLogged.role === 'admin' ? (
+        <div className="admin-info flex items-center gap-2">
+          <img className="admin-icon" src={admin} alt="Admin Icon" />
+          <p> Administrador </p>
+        </div>
+      ) : (
+        <img className="backArrow" onClick={() => navigate(-1)} src={back} alt="" />
+      )}
       {showSearchBar && (
         <ul className="header__categories flex gap-5 font-semibold">
           <li
@@ -79,21 +88,32 @@ const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
       )}
 
       <div className="flex gap-6">
-        <img
-          className="w-7 object-contain cursor-pointer"
-          onClick={() => navigate('/favorites')}
-          src={heart}
-          alt=""
-        />
-        <img
-          className="w-5 object-contain cursor-pointer"
-          onClick={() => navigate('/cart')}
-          src={bag}
-          alt=""
-        />
+      {isLogged && userLogged && userLogged.role === 'admin' ? (
+          <div className="admin-icon" onClick={() => navigate('/admin')}>
+            <img className="w-7 object-contain cursor-pointer" src={adminUser} alt="Admin Icon" />
+          <p> {userLogged.displayName}</p>
+
+          </div>
+        ) : (
+          <>
+            <img
+              className="w-7 object-contain cursor-pointer"
+              onClick={() => navigate('/favorites')}
+              src={heart}
+              alt=""
+            />
+            <img
+              className="w-5 object-contain cursor-pointer"
+              onClick={() => navigate('/cart')}
+              src={bag}
+              alt=""
+            />
+          </>
+        )}
       </div>
     </div>
   );
 };
+
 
 export default Header;
