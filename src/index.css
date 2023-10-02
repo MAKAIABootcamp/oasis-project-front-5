@@ -7,6 +7,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
 }
 
 
@@ -18,6 +19,10 @@
     display: flex;
     justify-content: center;
     font-size: 14px;
+}
+
+.fontGreen {
+    color: #288e7c;
 }
 
 .container__login {

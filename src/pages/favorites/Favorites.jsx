@@ -75,8 +75,8 @@ const Favorites = () => {
                                             </Link>
                                             <div className='product-details flex flex-col justify-between'>
                                                 <div className='flex flex-col gap-2'>
-                                                    <p className='font-semibold text-[18px]'>$ {product.price}</p>
-                                                    <p className='font-semibold'>{product.name}</p>
+                                                    <p className='text-[18px]'>$ {product.price}</p>
+                                                    <p className='fontGreen'>{product.name}</p>
                                                     <p>Talla {product.size}</p>
                                                     <img className='w-5 cursor-pointer object-contain' src={heart} alt="" onClick={() => removeFromFavorites(product.id)} />
                                                 </div>

@@ -155,7 +155,7 @@ const PersonalData = () => {
                     ) : (
                         <div className='flex justify-between w-72'>
                             <div className='flex gap-2'>
-                                <p>Nombre:</p>
+                                <p className='fontGreen'>Nombre:</p>
                                 {isEditing && editingField === 'displayName' ? (
                                     <input
                                         type='text'
@@ -186,7 +186,7 @@ const PersonalData = () => {
                     <hr />
                     <div className='flex justify-between w-72'>
                         <div className='flex gap-2'>
-                            <p>Correo:</p>
+                            <p className='fontGreen' >Correo:</p>
                             <p>{userLogged.email}</p>
                         </div>
                     </div>
@@ -208,7 +208,7 @@ const PersonalData = () => {
                     ) : (
                         <div className='flex justify-between w-72'>
                             <div className='flex gap-2'>
-                                <p>Celular:</p>
+                                <p className='fontGreen' >Celular:</p>
                                 {isEditing && editingField === 'phoneNumber' ? (
                                     <input
                                         type='tel'
@@ -254,7 +254,7 @@ const PersonalData = () => {
                     ) : (
                         <div className='flex justify-between w-72'>
                             <div className='flex gap-2'>
-                                <p>Dirección:</p>
+                                <p className='fontGreen'>Dirección:</p>
                                 {isEditing && editingField === 'address' ? (
                                     <input
                                         type='text'

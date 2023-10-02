@@ -82,7 +82,7 @@ const Products = () => {
                                                 alt={product.name}
                                             />
                                             <p className="font-semibold text-red-500">AGOTADO</p>
-                                            <p className="font-semibold">{product.name}</p>
+                                            <p className="fontGreen">{product.name}</p>
                                             <span>{product.status}</span>
                                             <p>${product.price}</p>
                                         </div>
@@ -94,9 +94,9 @@ const Products = () => {
                                                 src={product.gallery.poster}
                                                 alt={product.name}
                                             />
-                                            <p className="font-semibold">{product.name}</p>
+                                            <p className="fontGreen">{product.name}</p>
                                             <span>{product.status}</span>
-                                            <p>${product.price}</p>
+                                            <p className="fontGreen">${product.price}</p>
                                         </Link>
                                         </div>
                                     )}
