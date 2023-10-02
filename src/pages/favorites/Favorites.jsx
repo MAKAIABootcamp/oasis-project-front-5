@@ -73,7 +73,7 @@ const Favorites = () => {
                                                     <p>Talla {product.size}</p>
                                                     <img className='w-5 cursor-pointer object-contain' src={heart} alt="" onClick={() => removeFromFavorites(product.id)} />
                                                 </div>
-                                                <div className='flex gap-2 cursor-pointer items-center' onClick={() => addToCartHandler(product)}>
+                                                <div className='flex gap-2 cursor-pointer' onClick={() => addToCartHandler(product)}>
                                                     <img className='w-5 object-contain' src={bag} alt=""  />
                                                     <p className='font-semibold'>Añadir a la bolsa</p>
                                                 </div>

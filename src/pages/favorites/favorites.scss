@@ -39,7 +39,23 @@
         margin: 20px;
 
         &__container {
-            margin: 60px 20px;
+            margin: 0 auto 60px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
+
+        &__description {
+            display: none;
+        }
+
+        &__dates {
+            width: 100%;
+        }
+
+        &__card {
+            gap: 2rem;
+        }
+
     }
 }
