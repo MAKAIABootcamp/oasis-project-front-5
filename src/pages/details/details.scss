@@ -65,6 +65,25 @@
     width: 300px;
 }
 
+.favorite-added-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 60px;
+    border: 1px solid #cccccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    color: #288e7c;
+    border-radius: 10px;
+  }
+
+  .opaque {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
 
 @media (max-width:1200px) {
 
@@ -93,8 +112,6 @@
     .paragraph {
         display: none;
     }
-
-
 }
 
 
@@ -124,6 +141,10 @@
         &__nameUp {
             display: flex;
         }
+    }
+
+    .favorite-added-message {
+        width: 80%;
     }
 
 }

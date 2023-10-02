@@ -15,7 +15,8 @@ const Favorites = () => {
     const [favoriteProducts, setFavoriteProducts] = useState([]);
     const user = auth.currentUser;
     const dispatch = useDispatch();
-        const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [isRemovedFromFavorites, setIsRemovedFromFavorites] = useState(false);
 
     const addToCartHandler = (product) => {
         dispatch(addToCart(product));
@@ -43,6 +44,10 @@ const Favorites = () => {
             await deleteDoc(docRef);
 
             setFavoriteProducts((prevFavorites) => prevFavorites.filter((product) => product.id !== productId));
+            setIsRemovedFromFavorites(true);
+            setTimeout(() => {
+                setIsRemovedFromFavorites('');
+              }, 1000);
         } catch (error) {
             console.error("Error al eliminar de favoritos en Firestore:", error);
         }
@@ -52,7 +57,7 @@ const Favorites = () => {
     return (
         <>
             <Header showSearchBar={false} />
-            <div className='favorites flex flex-col'>
+            <div className={`favorites flex flex-col ${isRemovedFromFavorites ? 'opaque' : ''}`}> 
                 <h1 className='title self-center'>FAVORITOS</h1>
                 <div className='favorites__container flex'>
                     <Sidebar />
@@ -93,6 +98,11 @@ const Favorites = () => {
                     </div>
                 </div>
             </div>
+            {isRemovedFromFavorites && (
+                <div className="favorite-added-message">
+                    Se eliminó de favorios
+                </div>
+            )}
         </>
     );
 };

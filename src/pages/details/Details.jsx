@@ -9,7 +9,6 @@ import { addToFavorites, removeFromFavorites } from '../../redux/store/favorites
 import { addToCart } from '../../redux/store/cart/cartSlice';
 import heart from '../../assets/heart.png';
 import like from '../../assets/like.png';
-import Swal from 'sweetalert2';
 import { collection, doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { fireStore } from '../../firebase/firebaseConfig';
 
@@ -23,12 +22,17 @@ const Details = () => {
   const userFavorites = useSelector((state) => state.favorites.userFavorites) || [];
   const favorite = userFavorites.some((item) => item.id === product.id);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavoriteAdded, setIsFavoriteAdded] = useState(false);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [isLoginRequiredVisible, setIsLoginRequiredVisible] = useState(false);
+  const [isLoginRequired, setIsLoginRequired] = useState(false);
+
 
   useEffect(() => {
     if (userLogged) {
       const userFavoritesCollection = collection(fireStore, 'users', userLogged.id, 'favorites');
       const productDocRef = doc(userFavoritesCollection, product.id.toString());
-        getDoc(productDocRef)
+      getDoc(productDocRef)
         .then((docSnapshot) => {
           if (docSnapshot.exists()) {
             dispatch(addToFavorites(product));
@@ -39,7 +43,7 @@ const Details = () => {
         });
     }
   }, [userLogged, product, dispatch]);
-  
+
   useEffect(() => {
     if (products.length === 0) {
       dispatch(fetchItems());
@@ -57,34 +61,39 @@ const Details = () => {
 
   const toggleFavoriteInFirestore = async () => {
     if (!userLogged) {
-      Swal.fire({
-        icon: 'info',
-        title: 'Inicia sesión',
-        text: 'Para agregar a favoritos debes registrarte o iniciar sesión',
-      });
+      setIsLoginRequiredVisible(true);
+      setTimeout(() => {
+        setIsLoginRequiredVisible(false);
+      }, 2000);
       return;
     }
 
-   const userFavoritesCollection = collection(fireStore, 'users', userLogged.id, 'favorites');
-   const productDocRef = doc(userFavoritesCollection, product.id.toString());
-    
-  try {
-    if (favorite) {
-      await deleteDoc(productDocRef);
-      dispatch(removeFromFavorites(product));
-      setIsFavorite(false); 
-    } else {
-      await setDoc(productDocRef, {
-        id: product.id,
-        name: product.name,
-      });
-      setIsFavorite(true);
-      dispatch(addToFavorites(product));
+    const userFavoritesCollection = collection(fireStore, 'users', userLogged.id, 'favorites');
+    const productDocRef = doc(userFavoritesCollection, product.id.toString());
+
+    try {
+      if (favorite) {
+        await deleteDoc(productDocRef);
+        dispatch(removeFromFavorites(product));
+        setIsFavorite(false);
+        setIsFavoriteAdded('Se ha eliminado de favoritos');
+      } else {
+        await setDoc(productDocRef, {
+          id: product.id,
+          name: product.name,
+        });
+        setIsFavorite(true);
+        dispatch(addToFavorites(product));
+        setIsFavoriteAdded('Se ha agregado a favoritos');
+      }
+
+      setTimeout(() => {
+        setIsFavoriteAdded('');
+      }, 1000);
+    } catch (error) {
+      console.error('Error al agregar/quitar de favoritos en Firestore:', error);
     }
-  } catch (error) {
-    console.error('Error al agregar/quitar de favoritos en Firestore:', error);
-  }
-};
+  };
 
   const handleToggleFavorite = () => {
     toggleFavoriteInFirestore();
@@ -92,14 +101,18 @@ const Details = () => {
 
   const handleAddToCart = () => {
     if (!userLogged) {
-      Swal.fire({
-        icon: 'info',
-        title: 'Inicia sesión',
-        text: 'Para agregar un producto al carrito, debes iniciar sesión.',
-      });
+      setIsLoginRequired(true);
+      setTimeout(() => {
+        setIsLoginRequired(false);
+      }, 2000);
       return;
     }
+
     dispatch(addToCart(product));
+    setIsAddedToCart(true);
+    setTimeout(() => {
+      setIsAddedToCart(false);
+    }, 1000);
   };
 
   const handleThumbnailClick = (image) => {
@@ -113,7 +126,7 @@ const Details = () => {
   return (
     <>
       <Header showSearchBar={false} />
-      <div className="details">
+      <div className={`details ${isFavoriteAdded || isLoginRequiredVisible || isAddedToCart || isLoginRequired ? 'opaque' : ''}`}>
         <Sidebar />
         <div className="details__container">
           <div className="paragraph">
@@ -165,7 +178,7 @@ const Details = () => {
                     className='heart-icon'
                   />
                 )}
-            </div>
+              </div>
             </div>
             <p className="fontGreen">{product.title}</p>
 
@@ -180,6 +193,26 @@ const Details = () => {
           </div>
         </div>
       </div>
+      {isFavoriteAdded && (
+        <div className="favorite-added-message">
+          {isFavoriteAdded}
+        </div>
+      )}
+      {isAddedToCart && (
+        <div className="favorite-added-message">
+          Se ha agregado al carrito
+        </div>
+      )}
+      {isLoginRequiredVisible && (
+        <div className="favorite-added-message">
+          Para agregar a favoritos debes iniciar sesión
+        </div>
+      )}
+      {isLoginRequired && (
+        <div className="favorite-added-message">
+          Para agregar al carrito debes iniciar sesión
+        </div>
+      )}
     </>
   );
 };

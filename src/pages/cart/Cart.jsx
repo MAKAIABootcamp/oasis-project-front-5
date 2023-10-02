@@ -15,6 +15,7 @@ const Cart = () => {
     const user = auth.currentUser;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isRemovedFromCart, setIsRemovedFromCart] = useState(false);
 
     useEffect(() => {
         const fetchCartProducts = async () => {
@@ -46,6 +47,10 @@ const Cart = () => {
             setCartProducts((prevCart) => prevCart.filter((item) => item.id !== productId));
 
             dispatch(removeFromCart({ id: productId }));
+            setIsRemovedFromCart(true);
+            setTimeout(() => {
+                setIsRemovedFromCart('');
+              }, 1000);
         } catch (error) {
             console.error("Error al eliminar el producto del carrito en Firestore:", error);
         }
@@ -62,7 +67,7 @@ const Cart = () => {
     return (
         <>
             <Header showSearchBar={false} />
-            <div className="cart flex flex-col">
+            <div className={`cart flex flex-col ${isRemovedFromCart ? 'opaque' : ''}`}> 
                 <h1 className="title self-center">CARRITO</h1>
                 <div className="cart__container">
                     <Sidebar />
@@ -124,6 +129,11 @@ const Cart = () => {
                     )}
                 </div>
             </div>
+            {isRemovedFromCart && (
+                <div className="favorite-added-message">
+                    Se eliminó del carrito
+                </div>
+            )}
         </>
     );
 };
