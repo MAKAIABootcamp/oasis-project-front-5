@@ -44,12 +44,10 @@ const Orders = () => {
     return (
         <div className="profile relative flex flex-col items-center">
             <div className="container__login">
-                <div className="back">
-                    <img className="backArrow " onClick={() => navigate(-1)} src={back} alt="" />
+            <img className="backArrow back " onClick={() => navigate(-1)} src={back} alt="" />
                     <div>
                         <h1> MIS COMPRAS </h1>
                     </div>
-                </div>
                 {userOrders.length === 0 ? (
                     <div className='flex gap-5 items-center'>
                         <img className="w-20 object-contain" src={bag} alt="" />
