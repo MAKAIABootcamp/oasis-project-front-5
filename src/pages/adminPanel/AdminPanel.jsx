@@ -10,6 +10,7 @@ import { setSelectedProfileView } from "../../redux/store/admin/adminActions";
 import { setUserLogged } from "../../redux/store/auth/authReducer";
 
 const AdminPanel = () => {
+
     const dispatch = useDispatch();
     const selectedCategory = useSelector((state) => state.products.selectedCategory);
     const selectedProfileView = useSelector((state) => state.admin.selectedProfileView);
@@ -133,6 +134,7 @@ const AdminPanel = () => {
                         {selectedProfileView === "agregar" && <h1> Agregrar producto </h1>}
 
                         {selectedProfileView === "solicitudes" && <h1> Solicitudes </h1>}
+
 
                     </div>
                 </div>

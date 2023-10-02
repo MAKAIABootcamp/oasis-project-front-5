@@ -12,16 +12,15 @@ import Details from "../pages/details/Details";
 import Profile from "../pages/profile/Profile";
 import PersonalData from "../pages/personalData/PersonalData";
 import Cart from "../pages/cart/Cart";
-import Payment from "../pages/payment/Payment";
 import Confirmation from "../pages/confirmation/Confirmation";
 import Favorites from "../pages/favorites/Favorites";
 import Blog from "../pages/blog/Blog";
 import { setError } from "../redux/store/auth/authReducer";
 import Swal from "sweetalert2";
-import Admin from "../pages/admin/Admin";
 import Footer from "../components/footer/Footer";
 import Orders from "../pages/orders/Orders";
 import AdminPanel from "../pages/adminPanel/AdminPanel";
+import DetailsAdmin from "../pages/detailsAdmin/DetailsAdmin";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -89,6 +88,7 @@ const Router = () => {
         
         {isAdmin && (
           <Route path="admin" element={<AdminPanel />} />
+          <Route path="admin-details/:id" element={<DetailsAdmin />} />
         )}
         
         {isLogged ? (
@@ -111,6 +111,7 @@ const Router = () => {
         
         </Routes>
         <Footer />
+
     </>
   );
 };

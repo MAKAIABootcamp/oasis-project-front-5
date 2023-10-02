@@ -1,2 +1,23 @@
+.adminProduct {
 
-  
+    &__container {
+        display: flex;
+        width: 100%;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 2rem;
+    }
+
+    &__item {
+        width: 100%;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+}
+
