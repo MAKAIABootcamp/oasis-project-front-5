@@ -10,85 +10,95 @@ import { fireStore } from '../../firebase/firebaseConfig';
 
 
 const DetailsAdmin = () => {
-  const { id } = useParams();
-  console.log('ID from URL:', id);
-  const products = useSelector((state) => state.products.items);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const product = products.find((p) => p.id === parseInt(id));
-  const dispatch = useDispatch();
+    const { id } = useParams();
+    console.log('ID from URL:', id);
+    const products = useSelector((state) => state.products.items);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const product = products.find((p) => p.id === parseInt(id));
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (products.length === 0) {
-      dispatch(fetchItems());
+    useEffect(() => {
+        if (products.length === 0) {
+            dispatch(fetchItems());
+        }
+    }, [dispatch, products]);
+
+    useEffect(() => {
+        if (id) {
+            const existingProduct = products.find((p) => p.id === parseInt(id));
+            if (!existingProduct) {
+                dispatch(fetchItems());
+            }
+        }
+    }, [dispatch, id, products]);
+
+    if (!product) {
+        return <p>Un momento...</p>;
     }
-  }, [dispatch, products]);
+    return (
+        <>
+            <Header showSearchBar={false} />
+            <div className='details'>
+                <Sidebar />
+                <div className="details__container">
 
-  useEffect(() => {
-    if (id) {
-      const existingProduct = products.find((p) => p.id === parseInt(id));
-      if (!existingProduct) {
-        dispatch(fetchItems());
-      }
-    }
-  }, [dispatch, id, products]);
+                    <div className="details__photosContainer flex gap-6">
 
-  if (!product) {
-    return <p>Un momento...</p>;
-  }
-  return (
-    <>
-      <Header showSearchBar={false} />
-      <div className='details'>
-        <Sidebar />
-        <div className="details__container">
-          <div className="paragraph">
-            <span className="details__name fontGreen">COMPOSICIÓN</span>
-            <p>{product.text}</p>
-          </div>
-          <div className="details__photosContainer flex gap-6">
-            <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} />
+                        <div>
+                            <p className='fontGreen'>Foto pricipal:</p>
+                            <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} />
+                        </div>
+                        <div className="details__photos">
+                            <span className='fontGreen'>Otras fotos:</span>
+                            <img
+                                className="w-[90px] cursor-pointer"
+                                src={product.gallery.frontPage}
+                                alt={product.name}
+                            />
+                            <img
+                                className="w-[90px]  cursor-pointer"
+                                src={product.gallery.imgTwo}
+                                alt={product.name}
+                            />
+                            <img
+                                className="w-[90px]  cursor-pointer"
+                                src={product.gallery.imgOne}
+                                alt={product.name}
+                            />
+                        </div>
+                    </div>
 
-            <div className="details__photos">
-              <img
-                className="w-[90px] cursor-pointer"
-                src={product.gallery.frontPage}
-                alt={product.name}
-                // onClick={() => handleThumbnailClick(product.gallery.frontPage)}
-              />
-              <img
-                className="w-[90px]  cursor-pointer"
-                src={product.gallery.imgTwo}
-                alt={product.name}
-                // onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
-              />
-              <img
-                className="w-[90px]  cursor-pointer"
-                src={product.gallery.imgOne}
-                alt={product.name}
-                // onClick={() => handleThumbnailClick(product.gallery.imgOne)}
-              />
+                    <div className="paragraph">
+                        <span className="details__name fontGreen">Composición</span>
+                        <p>{product.text}</p>
+                    </div>
+
+                    <div className="details__info flex flex-col gap-10">
+                        <div>
+                            <span className='fontGreen'>Nombre:</span>
+                            <h2 className="details__name font-semibold">{product.name}</h2>
+                        </div>
+                        <div>
+                            <span className='fontGreen'>Título:</span>
+                            <p >{product.title}</p>
+                        </div>
+
+                        <div>
+                            <span className='fontGreen'>Descripcion:</span>
+                            <p>{product.description}</p>
+                        </div>
+
+                        <div>
+                            <p className='fontGreen'>Talla:</p>
+                            <p>{product.size}</p>
+                        </div>
+
+                        <button className="button__page px-6 py-1.5 w-[100%]" >Guardar cambios</button>
+                    </div>
+                </div>
             </div>
-          </div>
-
-          <div className="details__info flex flex-col gap-10">
-            <div>
-              <h2 className="details__name font-semibold">{product.name}</h2>
-            </div>
-            <p className="fontGreen">{product.title}</p>
-
-            <p>{product.description}</p>
-
-            <div>
-              <p>Talla</p>
-              <p className="details__size rounded-md p-1 w-8">{product.size}</p>
-            </div>
-
-            <button className="button__page px-6 py-1.5 w-[100%]" >Añadir a la bolsa</button>
-          </div>
-        </div>
-      </div>
-    </>
-  )
+        </>
+    )
 }
 
 export default DetailsAdmin
