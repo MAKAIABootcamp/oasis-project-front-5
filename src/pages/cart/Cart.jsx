@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../../redux/store/cart/cartSlice';
 import del from '../../assets/delete.png';
+import empty from '../../assets/empty.png';
 import './cart.scss';
 import Header from '../../components/header/Header';
 import Sidebar from '../../components/sidebar/Sidebar';
@@ -41,7 +42,7 @@ const Cart = () => {
             const userCartCollection = collection(fireStore, 'users', user.uid, 'cart');
             const productDoc = doc(userCartCollection, productId.toString());
             await deleteDoc(productDoc);
-            
+
             setCartProducts((prevCart) => prevCart.filter((item) => item.id !== productId));
 
             dispatch(removeFromCart({ id: productId }));
@@ -60,14 +61,19 @@ const Cart = () => {
 
     return (
         <>
-           <Header showSearchBar={false} />
+            <Header showSearchBar={false} />
             <div className="cart flex flex-col">
                 <h1 className="title self-center">CARRITO</h1>
                 <div className="cart__container">
                     <Sidebar />
-                    <div className='cart__card'>
+                    <div className={`cart__card ${cartProducts.length === 0 ? 'full-width' : 'forty-percent-width'}`}>
                         {cartProducts.length === 0 ? (
-                            <p>Tu carrito está vacío</p>
+                            <div className='cart__info cart__infoEmpty flex flex-col items-center gap-4'>
+                                <img className='cart__empty flex self-center' src={empty} alt="" />
+                                <p className='font-bold'>Tu carrito está vacío </p>
+                                <p className='flex text-center'>¡Aprovecha! Tenemos miles de productos y oportunidades únicas.</p>
+                                <button className='button__page cart__button' onClick={() => navigate('/products')}>Ver productos</button>
+                            </div>
                         ) : (
                             <div className='cart__item'>
                                 {cartProducts.map((item) => (

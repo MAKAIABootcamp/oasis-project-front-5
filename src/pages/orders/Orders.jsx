@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { collection, query, getDocs, where } from 'firebase/firestore';
+import { collection, query, getDocs } from 'firebase/firestore';
 import { fireStore, auth } from "../../firebase/firebaseConfig";
-import back from "../../assets/back.png";
 import bag from "../../assets/bag.png";
-import cash from "../../assets/cash.png";
 import Header from '../../components/header/Header';
 import Sidebar from "../../components/sidebar/Sidebar";
 import './orders.scss'
-import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
-    const navigate = useNavigate();
+
     const userLogged = useSelector((state) => state.auth.userLogged);
     const [userOrders, setUserOrders] = useState([]);
 

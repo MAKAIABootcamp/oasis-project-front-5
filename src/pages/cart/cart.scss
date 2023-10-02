@@ -28,6 +28,22 @@
         flex-direction: column;
         gap: 4rem;
     }
+
+    &__button {
+        padding: 4px 15px;
+    }
+
+    &__empty {
+        width: 30%;
+    }
+}
+
+.full-width {
+    width: 80%;
+}
+
+.forty-percent-width {
+    width: 40%;
 }
 
 @media (max-width:650px) { 
@@ -44,5 +60,14 @@
         &__card {
             width: 100%;
         }
+
+    &__empty {
+        width: 60%;
+    }
+
+    &__infoEmpty {
+        font-size: 14px;
+    }
+
     }
 }
