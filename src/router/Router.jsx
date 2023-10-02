@@ -14,7 +14,6 @@ import Details from "../pages/details/Details";
 import Profile from "../pages/profile/Profile";
 import PersonalData from "../pages/personalData/PersonalData";
 import Cart from "../pages/cart/Cart";
-import Payment from "../pages/payment/Payment";
 import Confirmation from "../pages/confirmation/Confirmation";
 import Favorites from "../pages/favorites/Favorites";
 import Blog from "../pages/blog/Blog";
