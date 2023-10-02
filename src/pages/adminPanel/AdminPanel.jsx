@@ -103,6 +103,7 @@ const AdminPanel = () => {
                         <span className="w-[150px]">{product.status}</span>
                         <p className="fontGreen w-[150px]">${product.price}</p>
                         <p className="w-[150px]">{product.genre}</p>
+                        <p className="w-[150px]">{product.state}</p>
                       </Link>
                     </div>
                   )}
