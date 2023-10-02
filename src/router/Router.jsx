@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
-import PublicRouter from "./PrivateRouter";
-import PrivateRouter from "./PublicRouter";
 import { auth } from "../firebase/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
@@ -25,11 +23,12 @@ import Footer from "../components/footer/Footer";
 import Orders from "../pages/orders/Orders";
 import AdminPanel from "../pages/adminPanel/AdminPanel";
 
-
 const Router = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLogged, userLogged, error } = useSelector((store) => store.auth);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -38,27 +37,23 @@ const Router = () => {
         if (!userLogged?.id) {
           dispatch(getUserActionFromCollection(uid));
         }
+        setIsAdmin(userLogged?.role === "admin");
       } else {
         console.log("No hay sesión activa");
+        setIsAdmin(false);
       }
     });
   }, [dispatch, userLogged]);
+
   console.log("en este momento el usuario está: ", isLogged);
-  console.log(
-    "en este momento este usuario es el que esta logeado: ",
-    userLogged
-  );
+  console.log("en este momento este usuario es el que esta logeado: ", userLogged);
 
   if (error) {
     Swal.fire(
       "Oops!",
-      "Ha occurrido un error " + error.login,
+      "Ha ocurrido un error " + error.login,
       "error"
     );
-  }
-
-  if (userLogged && userLogged.role === "admin") {
-    navigate("/admin");
   }
 
   if (error === false) {
@@ -68,45 +63,54 @@ const Router = () => {
       "success"
     ).then(() => {
       dispatch(setError(null));
-      navigate("/profile");
+      
+      if (userLogged?.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/profile");
+      }
     });
   }
+  
 
-
+ 
   return (
     <>
       <Routes>
-        <Route path="/">
-          <Route index element={<Blog />} />
-          <Route path="details/:id" element={<Details />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="products" element={<Products />} />
-          {/* <Route path="profile" element={<Profile />} /> */}
-          <Route path="login" element={<Login />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="confirmation" element={<Confirmation />} />
-          <Route path="favorites" element={<Favorites />} />
+        <Route path="/" element={<Blog />} />
+        <Route path="details/:id" element={<Details />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="products" element={<Products />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="confirmation" element={<Confirmation />} />
+        <Route path="favorites" element={<Favorites />} />
+        <Route path="location" element={<Location />} />
+        
+        {isAdmin && (
           <Route path="admin" element={<AdminPanel />} />
-          <Route path="location" element={<Location />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="personal" element={<PersonalData />} />
-          {isLogged ? (
-           <Route> 
-           <Route path="profile" element={<Profile />} /> 
-           <Route path="orders" element={<Orders />} /> 
+        )}
+        
+        {isLogged ? (
+          <>
+            <Route path="profile" element={<Profile />} />
+            <Route path="personal" element={<PersonalData />} />
+            <Route path="orders" element={<Orders />} />
 
-           <Route path="personal" element={<PersonalData />} /> 
-           </Route> 
-           ) : ( 
-           <Route> 
-           <Route path="login" element={<Login />} /> 
-           <Route path="register" element={<Register />} />
-            </Route> 
-           )} 
-           </Route>
-      </Routes>
-      <Footer />
+            {isAdmin ? (
+              <Route path="orders" element={<Orders />} />
+              
+            ) : null}
+          </>
+        ) : (
+          <>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </>
+        )}
+        
+        </Routes>
+        <Footer />
     </>
   );
 };

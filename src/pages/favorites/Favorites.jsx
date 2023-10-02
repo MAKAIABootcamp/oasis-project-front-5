@@ -17,9 +17,14 @@ const Favorites = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isRemovedFromFavorites, setIsRemovedFromFavorites] = useState(false);
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
 
     const addToCartHandler = (product) => {
         dispatch(addToCart(product));
+        setIsAddedToCart(true);
+        setTimeout(() => {
+            setIsAddedToCart(false);
+        }, 1000);
     };
     useEffect(() => {
         const fetchFavoriteProducts = async () => {
@@ -47,7 +52,7 @@ const Favorites = () => {
             setIsRemovedFromFavorites(true);
             setTimeout(() => {
                 setIsRemovedFromFavorites('');
-              }, 1000);
+            }, 1000);
         } catch (error) {
             console.error("Error al eliminar de favoritos en Firestore:", error);
         }
@@ -57,7 +62,7 @@ const Favorites = () => {
     return (
         <>
             <Header showSearchBar={false} />
-            <div className={`favorites flex flex-col ${isRemovedFromFavorites ? 'opaque' : ''}`}> 
+            <div className={`favorites flex flex-col ${isRemovedFromFavorites ? 'opaque' : ''}`}>
                 <h1 className='title self-center'>FAVORITOS</h1>
                 <div className='favorites__container flex'>
                     <Sidebar />
@@ -101,6 +106,11 @@ const Favorites = () => {
             {isRemovedFromFavorites && (
                 <div className="favorite-added-message">
                     Se eliminó de favorios
+                </div>
+            )}
+            {isAddedToCart && (
+                <div className="favorite-added-message">
+                    Se ha agregado al carrito
                 </div>
             )}
         </>

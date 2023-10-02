@@ -25,10 +25,16 @@ const Profile = () => {
   return (
     <div className="profile relative flex flex-col items-center">
       <div className="container__login">
-      <img className="backArrow back" onClick={() => navigate('/products')} src={back} alt="" />
-          <div>
-            <h1 className="text-[18px] flex self-center">{userLogged.displayName}</h1>
-          </div>
+        <img className="backArrow back" onClick={() => {
+          if (userLogged && userLogged.role === "admin") {
+            navigate('/admin');
+          } else {
+            navigate('/products');
+          }
+        }} src={back} alt="" />
+        <div>
+          <h1 className="text-[18px] flex self-center">{userLogged.displayName}</h1>
+        </div>
         <div className='w-20 h-20 rounded-full overflow-hidden'>
           <img
             src={userLogged.photoURL}
@@ -59,7 +65,7 @@ const Profile = () => {
 
           <hr />
 
-          <div className="flex justify-between cursor-pointer" onClick={() => navigate("/")}>
+          <div className="flex justify-between cursor-pointer" onClick={() => navigate("/products")}>
             <div className="flex gap-2">
               <img className="w-4 object-contain" src={home} alt="" />
               <p>Home</p>
