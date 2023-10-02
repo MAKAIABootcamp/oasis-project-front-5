@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import home from '../../assets/home.png'
 import comunity from '../../assets/comunity.png'
 import user from '../../assets/user.png'
@@ -11,16 +11,16 @@ import requests from '../../assets/requests.png';
 import admin from '../../assets/adminProfile.png'
 import out from "../../assets/logout.png";
 import exit from "../../assets/exit.png";
+import stock from '../../assets/stock.png'
 import { logout } from '../../redux/store/auth/authActions'
-
+import { setSelectedProfileView } from '../../redux/store/admin/adminActions';
 
 const sidebar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const { isLogged, userLogged } = useSelector((state) => state.auth);
 
-    const handlePerfilClick = () => {
+    const handlePerfilClick = (view) => {
         if (isLogged) {
 
             navigate('/profile');
@@ -28,6 +28,10 @@ const sidebar = () => {
 
             navigate('/login');
         }
+    };
+
+    const handleMenuItemClick = (view) => {
+        dispatch(setSelectedProfileView(view)); 
     };
 
     return (
@@ -54,19 +58,23 @@ const sidebar = () => {
 
                     {isLogged && userLogged && userLogged.role === 'admin' && (
                         <>
-                            <li className="flex gap-2" onClick={handlePerfilClick}>
+                            <li className="flex gap-2"  onClick={() => handleMenuItemClick("perfil")}>
                                 <img className="w-6 object-contain" src={admin} alt="" />
                                 <p className="products__li"> Perfil</p>
                             </li>
-                            <li className="flex gap-2" onClick={() => navigate('/ventas')}>
+                            <li className="flex gap-2"  onClick={() => handleMenuItemClick("stock")}>
+                                <img className="w-6 object-contain" src={stock} alt="" />
+                                <p className="products__li"> Productos</p>
+                            </li>
+                            <li className="flex gap-2" onClick={() => handleMenuItemClick("ventas")}>
                                 <img className="w-6 object-contain" src={sales} alt="" />
                                 <p className="products__li"> Ventas</p>
                             </li>
-                            <li className="flex gap-2" onClick={() => navigate('/agregar')}>
+                            <li className="flex gap-2"  onClick={() => handleMenuItemClick("agregar")}>
                                 <img className="w-6 object-contain" src={add} alt="" />
                                 <p className="products__li"> Agregar</p>
                             </li>
-                            <li className="flex gap-2" onClick={() => navigate('/solicitudes')}>
+                            <li className="flex gap-2"onClick={() => handleMenuItemClick("solicitudes")}>
                                 <img className="w-6 object-contain" src={requests} alt="" />
                                 <p className="products__li"> Solicitudes</p>
                             </li>
@@ -108,4 +116,5 @@ const sidebar = () => {
         </div>
     );
 };
+
 export default sidebar;
