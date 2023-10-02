@@ -7,7 +7,7 @@ import user from "../../assets/user.png";
 import next from "../../assets/next.png";
 import bag from "../../assets/bag.png";
 import out from "../../assets/logout.png";
-import sale from "../../assets/sale.png";
+import home from "../../assets/home.png";
 import "./profile.scss";
 
 const Profile = () => {
@@ -59,10 +59,10 @@ const Profile = () => {
 
           <hr />
 
-          <div className="flex justify-between cursor-pointer">
+          <div className="flex justify-between cursor-pointer" onClick={() => navigate("/")}>
             <div className="flex gap-2">
-              <img className="w-4 object-contain" src={sale} alt="" />
-              <p>Mis ventas</p>
+              <img className="w-4 object-contain" src={home} alt="" />
+              <p>Home</p>
             </div>
             <img className="icons" src={next} alt="" />
           </div>
