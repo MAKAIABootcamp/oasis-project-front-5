@@ -15,17 +15,6 @@ const AdminPanel = () => {
   const userLogged = useSelector((state) => state.auth.userLogged);
 
 
-  const dispatch = useDispatch();
-  const selectedCategory = useSelector(
-    (state) => state.products.selectedCategory
-  );
-  const selectedProfileView = useSelector(
-    (state) => state.admin.selectedProfileView
-  );
-  const [localSelectedCategory, setLocalSelectedCategory] =
-    useState(selectedCategory);
-  const userLogged = useSelector((state) => state.auth.userLogged);
-
   const [localSearchTerm, setLocalSearchTerm] = useState("");
   const products = useSelector((state) => state.products.items);
 
@@ -148,7 +137,6 @@ const AdminPanel = () => {
                 </div>
               </>
             )}
->>>>>>>>> Temporary merge branch 2
           </div>
         </div>
         <Footer />
