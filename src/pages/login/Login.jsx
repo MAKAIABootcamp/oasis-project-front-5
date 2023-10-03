@@ -52,6 +52,7 @@ const Login = () => {
               <input
                 className="border-b border-gray-300 mb-2 outline-none"
                 {...register("password")}
+                type="password"
               />
             </div>
           </div>

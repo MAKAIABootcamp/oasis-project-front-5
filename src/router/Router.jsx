@@ -31,6 +31,8 @@ const Router = () => {
   const navigate = useNavigate();
   const { isLogged, userLogged, error } = useSelector((store) => store.auth);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -51,29 +53,29 @@ const Router = () => {
   console.log("en este momento el usuario está: ", isLogged);
   console.log("en este momento este usuario es el que esta logeado: ", userLogged);
 
-  if (error) {
-    Swal.fire(
-      "Oops!",
-      "Ha ocurrido un error " + error.login,
-      "error"
-    );
-  }
+  useEffect(() => {
+    if (error === false) {
+      setShowWelcomeMessage(true);
 
-  if (error === false) {
-    Swal.fire(
-      "Excelente",
-      "Haz iniciado sesión correctamente",
-      "success"
-    ).then(() => {
-      dispatch(setError(null));
-      
-      if (userLogged?.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/profile");
-      }
-    });
-  }
+      setTimeout(() => {
+        setShowWelcomeMessage(false);
+        dispatch(setError(null));
+
+        if (userLogged?.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/profile");
+        }
+      }, 1000); // El mensaje de bienvenida desaparecerá después de 3 segundos (puedes ajustar este valor según tus preferencias).
+    } else if (error) {
+      setShowErrorMessage(true);
+      dispatch(setError(null)); // Limpiar el error después de mostrarlo
+
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 1000); // El mensaje de error desaparecerá después de 3 segundos (puedes ajustar este valor según tus preferencias).
+    }
+  }, [error, dispatch, navigate, userLogged]);
   
 
  
@@ -120,8 +122,18 @@ const Router = () => {
         )}
         
         </Routes>
-        <Footer />
+        {showWelcomeMessage && (
+        <div className="login-message">
+          <p>Bienvenido</p>
+        </div>
+      )}
 
+      {showErrorMessage && (
+        <div className="login-message">
+          <p>Los datos ingresados no coinciden</p>
+        </div>
+      )}
+        <Footer />
     </>
   );
 };
