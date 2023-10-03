@@ -58,7 +58,7 @@ const sidebar = () => {
 
                     {isLogged && userLogged && userLogged.role === 'admin' && (
                         <>
-                            <li className="flex gap-2" onClick={() => navigate('/profile')}>
+                            <li className="flex gap-2" onClick={() => navigate('/adminProfile')}>
                                 <img className="w-6 object-contain" src={admin} alt="" />
                                 <p className="products__li"> Perfil</p>
                             </li>
