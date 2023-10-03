@@ -6,16 +6,19 @@ import { fetchItems } from '../../redux/store/products/productsActions';
 import Sidebar from '../../components/sidebar/Sidebar';
 import edite from '../../assets/edit.png';
 import './detailsAdmin.scss'
-import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getFirestore, query, updateDoc, where } from 'firebase/firestore';
+import fileUpload from '../../service/fileUpload';
+import { fireStore } from '../../firebase/firebaseConfig';
 
 
 const DetailsAdmin = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
     console.log('ID from URL:', id);
     const products = useSelector((state) => state.products.items);
     const [selectedImage, setSelectedImage] = useState(null);
     const product = products.find((p) => p.id === parseInt(id));
-    const dispatch = useDispatch();
+    const [selectedImageFile, setSelectedImageFile] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [editedProduct, setEditedProduct] = useState({
         name: products.name || '',
@@ -29,7 +32,7 @@ const DetailsAdmin = () => {
         state: products.state || '',
         status: products.status || '',
     });
-    
+
 
     const [editingField, setEditingField] = useState(null);
 
@@ -65,7 +68,7 @@ const DetailsAdmin = () => {
                 const itemsCollectionRef = collection(firestore, 'items');
                 const querySnapshot = await getDocs(itemsCollectionRef);
 
-                
+
                 let productDocRef;
                 querySnapshot.forEach((doc) => {
                     if (doc.data().id === parseInt(id)) {
@@ -75,7 +78,7 @@ const DetailsAdmin = () => {
 
                 if (productDocRef) {
                     const updatedFields = {};
-                    
+
                     if (editingField === 'name') {
                         updatedFields.name = editedProduct.name;
                     }
@@ -109,9 +112,9 @@ const DetailsAdmin = () => {
                     setIsEditing(false);
                     setEditingField(null);
                     setEditedProduct((prevProduct) => ({
-                    ...prevProduct,
-                    ...updatedFields,
-                }));
+                        ...prevProduct,
+                        ...updatedFields,
+                    }));
                 } else {
                     console.error('Documento no encontrado en Firestore.');
                 }
@@ -121,33 +124,53 @@ const DetailsAdmin = () => {
         }
     };
 
+    const handleThumbnailClick = (image) => {
+        setSelectedImage(image);
+    };
+
+      
+
     return (
         <>
             <Header showSearchBar={false} />
             <div className='details detailsAdmin'>
                 <Sidebar />
                 <div className="detailsAdmin__container">
-                    <div className="detailsAdmin__photosContainer gap-6">
-                        <div>
-                            <p className='fontGreen flex gap-2 justify-between'>Fotos: <img className='icons' src={edite} alt="" /></p>
-                            <img className="detailsAdmin__photoShow" src={selectedImage || product.gallery.poster} alt={product.name} />
-                        </div>
-                        <div className="detailsAdmin__photos">
-                            <img
-                                className="w-[70px] cursor-pointer"
-                                src={product.gallery.frontPage}
-                                alt={product.name}
-                            />
-                            <img
-                                className="w-[70px]  cursor-pointer"
-                                src={product.gallery.imgTwo}
-                                alt={product.name}
-                            />
-                            <img
-                                className="w-[70px]  cursor-pointer"
-                                src={product.gallery.imgOne}
-                                alt={product.name}
-                            />
+                                <div className="detailsAdmin__photosContainer flex gap-6">
+                        <div className=' flex flex-col gap-2 justify-between'>
+
+                            <div className='fontGreen flex justify-between' >Galería <img className='icons'
+                                src={edite}
+                                alt=""
+                                onClick={() => handleEdit('gallery')} />
+
+                            </div>
+                            <div className="detailsAdmin__photoShow flex gap-2" >
+                            <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} /> </div>
+
+                            <div className="detailsAdmin__photos">
+                                <img
+                                    className="w-[70px] cursor-pointer"
+                                    src={product.gallery.frontPage}
+                                    alt={product.name}
+                                    onClick={() => handleThumbnailClick(product.gallery.frontPage)}
+                               
+                                />
+                                <img
+                                    className="w-[70px]  cursor-pointer"
+                                    src={product.gallery.imgTwo}
+                                    alt={product.name}
+                                    onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
+                                  
+                                />
+                                <img
+                                    className="w-[70px]  cursor-pointer"
+                                    src={product.gallery.imgOne}
+                                    alt={product.name}
+                                    onClick={() => handleThumbnailClick(product.gallery.imgOne)}
+                                   
+                                />
+                            </div>
                         </div>
                     </div>
 
