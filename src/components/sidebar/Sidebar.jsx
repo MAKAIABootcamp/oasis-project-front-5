@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import sales from '../../assets/sales.png';
 import add from '../../assets/addProducts.png';
-import requests from '../../assets/requests.png';
 import admin from '../../assets/adminProfile.png'
 import out from "../../assets/logout.png";
 import exit from "../../assets/exit.png";
@@ -73,10 +72,6 @@ const sidebar = () => {
                             <li className="flex gap-2"  onClick={() => navigate('/adminProducts')}>
                                 <img className="w-6 object-contain" src={add} alt="" />
                                 <p className="products__li"> Agregar</p>
-                            </li>
-                            <li className="flex gap-2" onClick={() => navigate('/adminRequests')}>
-                                <img className="w-6 object-contain" src={requests} alt="" />
-                                <p className="products__li"> Solicitudes</p>
                             </li>
                             <li className="flex gap-2" onClick={() => {
                                 dispatch(logout());
