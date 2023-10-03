@@ -26,8 +26,6 @@ const Sales = () => {
         }, 0);
 
         console.log("Total de ventas:", totalSalesAmount);
-
-        // Asegúrate de que los datos en salesData son correctos
         console.log("Datos para las gráficas:", sales);
 
         setSalesData(sales);
