@@ -1,0 +1,47 @@
+.text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.sales-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .charts {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .chart {
+    margin: 20px;
+  }
+  
+  .sales-history {
+    margin-top: 40px;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #8884d8;
+  }
+  
