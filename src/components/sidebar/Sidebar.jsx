@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import home from '../../assets/home.png'
 import comunity from '../../assets/comunity.png'
 import user from '../../assets/user.png'
