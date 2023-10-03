@@ -64,6 +64,7 @@
 .icons {
     width: 15px;
     object-fit: contain;
+    cursor: pointer;
 }
 
 @media (max-width:650px) {

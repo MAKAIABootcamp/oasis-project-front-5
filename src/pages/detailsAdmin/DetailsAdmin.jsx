@@ -4,9 +4,11 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems } from '../../redux/store/products/productsActions';
 import Sidebar from '../../components/sidebar/Sidebar';
+import del from '../../assets/delete.png';
+import edite from '../../assets/edit.png';
 import { collection, doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { fireStore } from '../../firebase/firebaseConfig';
-
+import './detailsAdmin.scss'
 
 
 const DetailsAdmin = () => {
@@ -16,6 +18,7 @@ const DetailsAdmin = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const product = products.find((p) => p.id === parseInt(id));
     const dispatch = useDispatch();
+    const [editedItem, setEditedItem] = useState(null);
 
     useEffect(() => {
         if (products.length === 0) {
@@ -38,62 +41,84 @@ const DetailsAdmin = () => {
     return (
         <>
             <Header showSearchBar={false} />
-            <div className='details'>
+            <div className='details detailsAdmin'>
                 <Sidebar />
-                <div className="details__container">
+                <div className="detailsAdmin__container">
 
-                    <div className="details__photosContainer flex gap-6">
-
+                    <div className="detailsAdmin__photosContainer gap-6">
                         <div>
-                            <p className='fontGreen'>Foto pricipal:</p>
-                            <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} />
+                            <p className='fontGreen flex gap-2 justify-between'>Fotos: <img className='icons' src={edite} alt="" /></p>
+                            <img className="detailsAdmin__photoShow" src={selectedImage || product.gallery.poster} alt={product.name} />
                         </div>
-                        <div className="details__photos">
-                            <span className='fontGreen'>Otras fotos:</span>
+                        <div className="detailsAdmin__photos">
                             <img
-                                className="w-[90px] cursor-pointer"
+                                className="w-[70px] cursor-pointer"
                                 src={product.gallery.frontPage}
                                 alt={product.name}
                             />
                             <img
-                                className="w-[90px]  cursor-pointer"
+                                className="w-[70px]  cursor-pointer"
                                 src={product.gallery.imgTwo}
                                 alt={product.name}
                             />
                             <img
-                                className="w-[90px]  cursor-pointer"
+                                className="w-[70px]  cursor-pointer"
                                 src={product.gallery.imgOne}
                                 alt={product.name}
                             />
                         </div>
                     </div>
 
-                    <div className="paragraph">
-                        <span className="details__name fontGreen">Composición</span>
-                        <p>{product.text}</p>
-                    </div>
-
-                    <div className="details__info flex flex-col gap-10">
-                        <div>
-                            <span className='fontGreen'>Nombre:</span>
-                            <h2 className="details__name font-semibold">{product.name}</h2>
+                    <div className="details__info flex flex-col gap-4">
+                        <div className='detailsAdmin__item'>
+                            <span className='fontGreen flex gap-2 justify-between'>Nombre: <img className='icons' src={edite} alt="" /></span>
+                            <p>{product.name}</p>
                         </div>
-                        <div>
-                            <span className='fontGreen'>Título:</span>
+                        <div className='detailsAdmin__item'>
+                            <span className='fontGreen flex gap-2 justify-between'>Título: <img className='icons' src={edite} alt="" /></span>
                             <p >{product.title}</p>
                         </div>
 
-                        <div>
-                            <span className='fontGreen'>Descripcion:</span>
+                        <div className='detailsAdmin__item'>
+                            <span className='fontGreen flex gap-2 justify-between'>Precio: <img className='icons' src={edite} alt="" /></span>
+                            <p>{product.price}</p>
+                        </div>
+
+                        <div className='detailsAdmin__item'>
+                            <p className='fontGreen flex gap-2 justify-between'>Talla: <img className='icons' src={edite} alt="" /></p>
+                            <p>{product.size}</p>
+                        </div>
+                        <div className='detailsAdmin__item'>
+                            <p className='fontGreen flex gap-2 justify-between'>Estado: <img className='icons' src={edite} alt="" /></p>
+                            <p>{product.status}</p>
+                        </div>
+                        <div className='detailsAdmin__item'>
+                            <p className='fontGreen flex gap-2 justify-between'>Género: <img className='icons' src={edite} alt="" /></p>
+                            <p>{product.genre}</p>
+                        </div>
+                        <div className='detailsAdmin__item'>
+                            <p className='fontGreen flex gap-2 justify-between'>Color: <img className='icons' src={edite} alt="" /></p>
+                            <p>{product.color}</p>
+                        </div>
+
+                    </div>
+
+                    <div className="details__info flex flex-col gap-4">
+                    <div className='detailsAdmin__item'>
+                            <p className='fontGreen flex gap-2 justify-between'>Estado: <img className='icons' src={edite} alt="" /></p>
+                            <p>{product.state}</p>
+                        </div>
+                        <div className='detailsAdmin__item flex flex-col gap-2'>
+                            <p className="fontGreen flex gap-2 justify-between">Composición: <img className='icons' src={edite} alt="" /></p>
+                            <p>{product.text}</p>
+                        </div>
+
+                        <div className='detailsAdmin__item flex flex-col gap-2'>
+                            <p className='fontGreen flex gap-2 justify-between'>Descripcion: <img className='icons' src={edite} alt="" /></p>
                             <p>{product.description}</p>
                         </div>
 
-                        <div>
-                            <p className='fontGreen'>Talla:</p>
-                            <p>{product.size}</p>
-                        </div>
-
-                        <button className="button__page px-6 py-1.5 w-[100%]" >Guardar cambios</button>
+                        {/* <button className="button__page px-6 py-1.5 w-[100%]" >Guardar cambios</button> */}
                     </div>
                 </div>
             </div>
@@ -102,3 +127,10 @@ const DetailsAdmin = () => {
 }
 
 export default DetailsAdmin
+
+
+
+
+
+
+
