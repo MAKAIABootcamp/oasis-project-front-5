@@ -58,7 +58,7 @@ const sidebar = () => {
 
                     {isLogged && userLogged && userLogged.role === 'admin' && (
                         <>
-                            <li className="flex gap-2"  onClick={() => handleMenuItemClick("perfil")}>
+                            <li className="flex gap-2" onClick={() => navigate('/adminProfile')}>
                                 <img className="w-6 object-contain" src={admin} alt="" />
                                 <p className="products__li"> Perfil</p>
                             </li>
@@ -66,15 +66,15 @@ const sidebar = () => {
                                 <img className="w-6 object-contain" src={stock} alt="" />
                                 <p className="products__li"> Productos</p>
                             </li>
-                            <li className="flex gap-2" onClick={() => handleMenuItemClick("ventas")}>
+                            <li className="flex gap-2" onClick={() => navigate('/adminSales')}>
                                 <img className="w-6 object-contain" src={sales} alt="" />
                                 <p className="products__li"> Ventas</p>
                             </li>
-                            <li className="flex gap-2"  onClick={() => handleMenuItemClick("agregar")}>
+                            <li className="flex gap-2"  onClick={() => navigate('/adminProducts')}>
                                 <img className="w-6 object-contain" src={add} alt="" />
                                 <p className="products__li"> Agregar</p>
                             </li>
-                            <li className="flex gap-2"onClick={() => handleMenuItemClick("solicitudes")}>
+                            <li className="flex gap-2" onClick={() => navigate('/adminRequests')}>
                                 <img className="w-6 object-contain" src={requests} alt="" />
                                 <p className="products__li"> Solicitudes</p>
                             </li>
