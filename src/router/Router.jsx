@@ -89,6 +89,7 @@ const Router = () => {
         <Route path="confirmation" element={<Confirmation />} />
         <Route path="favorites" element={<Favorites />} />
         <Route path="location" element={<Location />} />
+        <Route path="admin-details/:id" element={<DetailsAdmin />} />
         
         {isAdmin && (
           <Route path="admin" element={<AdminPanel />} />
@@ -101,17 +102,15 @@ const Router = () => {
             <Route path="orders" element={<Orders />} />
 
             {isAdmin ? (
+
               <>
           <Route path="admin-details/:id" element={<DetailsAdmin />} />
           <Route path="adminProfile" element={<AdminProfile />} />
           <Route path="adminSales" element={<Sales />} />
           <Route path="adminProducts" element={<AddProducts />} />
           <Route path="adminRequests" element={<Requests />} />
-
-
-
-
 </>
+
               
             ) : null}
           </>

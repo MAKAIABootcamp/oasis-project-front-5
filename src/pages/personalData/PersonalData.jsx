@@ -13,7 +13,6 @@ const PersonalData = () => {
     const navigate = useNavigate();
     const userLogged = useSelector((state) => state.auth.userLogged);
     const dispatch = useDispatch();
-
     const [isEditing, setIsEditing] = useState(false);
     const [editedUserData, setEditedUserData] = useState({
         displayName: '',

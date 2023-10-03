@@ -1,0 +1,32 @@
+.detailsAdmin {
+
+    &__container {
+        display: flex;
+        margin: 0px 2%;
+        gap: 4rem;
+    }
+
+    &__item {
+        background-color: #f1f0f0;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    &__photoShow {
+        width: 250px;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    &__photos {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__photosContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+}

@@ -6,20 +6,12 @@ import { fetchItems } from "../../redux/store/products/productsActions";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../components/footer/Footer";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { setSelectedProfileView } from "../../redux/store/admin/adminActions";
-import { setUserLogged } from "../../redux/store/auth/authReducer";
 
 const AdminPanel = () => {
-
   const dispatch = useDispatch();
-  const selectedCategory = useSelector(
-    (state) => state.products.selectedCategory
-  );
-  const selectedProfileView = useSelector(
-    (state) => state.admin.selectedProfileView
-  );
-  const [localSelectedCategory, setLocalSelectedCategory] =
-    useState(selectedCategory);
+  const selectedCategory = useSelector((state) => state.products.selectedCategory);
+  const selectedProfileView = useSelector((state) => state.admin.selectedProfileView);
+  const [localSelectedCategory, setLocalSelectedCategory] = useState(selectedCategory);
   const userLogged = useSelector((state) => state.auth.userLogged);
 
   const [localSearchTerm, setLocalSearchTerm] = useState("");
@@ -72,6 +64,7 @@ const AdminPanel = () => {
           <Sidebar />
 
           <div className="product-list">
+
             
             {selectedProfileView === "stock" && (
               <>
@@ -143,6 +136,7 @@ const AdminPanel = () => {
                 </div>
               </>
             )}
+
           </div>
         </div>
         <Footer />
@@ -152,3 +146,4 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+
