@@ -6,6 +6,8 @@ import { fetchItems } from "../../redux/store/products/productsActions";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../components/footer/Footer";
 import Sidebar from "../../components/sidebar/Sidebar";
+import del from '../../assets/delete.png'
+import edite from '../../assets/edit.png'
 
 const AdminPanel = () => {
   const dispatch = useDispatch();
@@ -91,24 +93,23 @@ const AdminPanel = () => {
                               <p className="fontGreen w-[150px]">
                                 {product.title}
                               </p>
-                              <span className="w-[150px]">
+                              <span className="adminProduct__info w-[150px]">
                                 {product.status}
                               </span>
-                              <p className="fontGreen w-[150px]">
+                              <p className="adminProduct__info fontGreen w-[150px]">
                                 ${product.price}
                               </p>
-                              <p className="w-[150px]">{product.genre}</p>
-                            <p className="font-semibold w-[150px] text-red-500">
+                              <p className="adminProduct__info w-[150px]">{product.genre}</p>
+                            <p className="adminProduct__agotado font-semibold w-[150px] text-red-500">
                               AGOTADO
                             </p>
+                            <img className="icons" src={del} alt="" />
+                            <img className="icons" src={edite} alt="" />
 
                           </div>
                         ) : (
-                          <div>
-                            <Link
-                              className="adminProduct__item"
-                              to={`/admin-details/${product.id}`}
-                            >
+                          <div className="adminProduct__item">
+
                               <img
                                 className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer "
                                 src={product.gallery.poster}
@@ -117,15 +118,21 @@ const AdminPanel = () => {
                               <p className="fontGreen w-[150px]">
                                 {product.title}
                               </p>
-                              <span className="w-[150px]">
+                              <span className="adminProduct__info w-[150px]">
                                 {product.status}
                               </span>
-                              <p className="fontGreen w-[150px]">
+                              <p className="adminProduct__info fontGreen w-[150px]">
                                 ${product.price}
                               </p>
-                              <p className="w-[150px]">{product.genre}</p>
-                              <p className="w-[150px]">{product.state}</p>
-                            </Link>
+                              <p className="w-[150px] adminProduct__info">{product.genre}</p>
+                              <p className="w-[150px] adminProduct__info">{product.state}</p>
+                              <img className="icons" src={del} alt="" />
+                              <Link
+                              
+                              to={`/admin-details/${product.id}`}
+                            >
+                              <img className="icons" src={edite} alt="" />
+                              </Link>
                           </div>
                         )}
                       </div>

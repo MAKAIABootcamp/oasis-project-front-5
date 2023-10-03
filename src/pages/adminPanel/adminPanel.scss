@@ -21,3 +21,18 @@
 
 }
 
+@media (max-width:650px) {
+
+    .adminProduct {
+
+        &__info {
+            display: none;
+        }
+
+        &__agotado {
+            position: absolute;
+            left: 30px;
+        }
+    }
+}
+
