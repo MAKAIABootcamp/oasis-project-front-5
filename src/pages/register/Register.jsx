@@ -28,8 +28,14 @@ const Register = () => {
       console.log(newUser);
       dispatch(createAnUser(newUser));
       setSuccessMessage(true);
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 1000); 
     } catch (error) {
       setErrorMessage(true);
+      setTimeout(() => {
+        setErrorMessage(false);
+      }, 1000); 
     }
   };
 
