@@ -102,17 +102,21 @@ const Router = () => {
             <Route path="orders" element={<Orders />} />
 
             {isAdmin ? (
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a6130bb3fe04d8fc3d4aae8aedd3a2e843f0252
               <>
           <Route path="admin-details/:id" element={<DetailsAdmin />} />
           <Route path="adminProfile" element={<AdminProfile />} />
           <Route path="adminSales" element={<Sales />} />
           <Route path="adminProducts" element={<AddProducts />} />
           <Route path="adminRequests" element={<Requests />} />
-
-
-
-
 </>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a6130bb3fe04d8fc3d4aae8aedd3a2e843f0252
               
             ) : null}
           </>

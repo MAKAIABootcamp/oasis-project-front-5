@@ -8,6 +8,12 @@ import Footer from "../../components/footer/Footer";
 import Sidebar from "../../components/sidebar/Sidebar";
 
 const AdminPanel = () => {
+  const dispatch = useDispatch();
+  const selectedCategory = useSelector((state) => state.products.selectedCategory);
+  const selectedProfileView = useSelector((state) => state.admin.selectedProfileView);
+  const [localSelectedCategory, setLocalSelectedCategory] = useState(selectedCategory);
+  const userLogged = useSelector((state) => state.auth.userLogged);
+
 
   const dispatch = useDispatch();
   const selectedCategory = useSelector(
@@ -70,6 +76,7 @@ const AdminPanel = () => {
           <Sidebar />
 
           <div className="product-list">
+
             
             {selectedProfileView === "stock" && (
               <>
@@ -141,6 +148,7 @@ const AdminPanel = () => {
                 </div>
               </>
             )}
+>>>>>>>>> Temporary merge branch 2
           </div>
         </div>
         <Footer />
