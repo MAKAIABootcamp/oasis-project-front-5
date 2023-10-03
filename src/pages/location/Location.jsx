@@ -72,7 +72,10 @@ const Location = () => {
 
         try {
             const salesCollection = collection(fireStore, 'ventas');
-            await addDoc(salesCollection, orderData);
+              await addDoc(salesCollection, {
+                orderData: orderData,
+                timestamp: new Date(),
+            });
             const userId = auth.currentUser.uid;
             const userPurchasesCollection = collection(fireStore, 'users', userId, 'compras');
             await addDoc(userPurchasesCollection, {

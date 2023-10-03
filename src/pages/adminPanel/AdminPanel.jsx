@@ -72,9 +72,11 @@ const AdminPanel = () => {
           <Sidebar />
 
           <div className="product-list">
+            
             {selectedProfileView === "stock" && (
               <>
                 <h1> Productos </h1>
+
                 <div className="adminProduct__list">
                   {localSearchTerm && noResults ? (
                     <div className="no-results-message">
@@ -89,18 +91,26 @@ const AdminPanel = () => {
                         key={index}
                       >
                         {product.sold ? (
-                          <div>
-                            <img
-                              className="w-80 h-80 object-cover rounded-md cursor-not-allowed"
-                              src={product.gallery.poster}
-                              alt={product.name}
-                            />
-                            <p className="font-semibold text-red-500">
+                          <div   className="adminProduct__item">
+                       <img
+                                className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer "
+                                src={product.gallery.poster}
+                                alt={product.name}
+                              />
+                              <p className="fontGreen w-[150px]">
+                                {product.title}
+                              </p>
+                              <span className="w-[150px]">
+                                {product.status}
+                              </span>
+                              <p className="fontGreen w-[150px]">
+                                ${product.price}
+                              </p>
+                              <p className="w-[150px]">{product.genre}</p>
+                            <p className="font-semibold w-[150px] text-red-500">
                               AGOTADO
                             </p>
-                            <p className="fontGreen">{product.name}</p>
-                            <span>{product.status}</span>
-                            <p>${product.price}</p>
+
                           </div>
                         ) : (
                           <div>
