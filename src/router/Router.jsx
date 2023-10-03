@@ -21,6 +21,10 @@ import Footer from "../components/footer/Footer";
 import Orders from "../pages/orders/Orders";
 import AdminPanel from "../pages/adminPanel/AdminPanel";
 import DetailsAdmin from "../pages/detailsAdmin/DetailsAdmin";
+import AdminProfile from "../pages/adminProfile/AdminProfile";
+import Sales from "../pages/sales/Sales";
+import AddProducts from "../pages/addProducts/AddProducts";
+import Requests from "../pages/requests/Requests";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -89,7 +93,6 @@ const Router = () => {
         
         {isAdmin && (
           <Route path="admin" element={<AdminPanel />} />
-          
         )}
         
         {isLogged ? (
@@ -99,7 +102,17 @@ const Router = () => {
             <Route path="orders" element={<Orders />} />
 
             {isAdmin ? (
-              <Route path="admin-details/:id" element={<DetailsAdmin />} />
+              <>
+          <Route path="admin-details/:id" element={<DetailsAdmin />} />
+          <Route path="adminProfile" element={<AdminProfile />} />
+          <Route path="adminSales" element={<Sales />} />
+          <Route path="adminProducts" element={<AddProducts />} />
+          <Route path="adminRequests" element={<Requests />} />
+
+
+
+
+</>
               
             ) : null}
           </>
