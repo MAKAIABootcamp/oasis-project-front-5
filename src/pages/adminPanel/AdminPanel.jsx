@@ -91,14 +91,14 @@ const AdminPanel = () => {
                               <p className="fontGreen w-[150px]">
                                 {product.title}
                               </p>
-                              <span className="w-[150px]">
+                              <span className="adminProduct__info w-[150px]">
                                 {product.status}
                               </span>
-                              <p className="fontGreen w-[150px]">
+                              <p className="adminProduct__info fontGreen w-[150px]">
                                 ${product.price}
                               </p>
-                              <p className="w-[150px]">{product.genre}</p>
-                            <p className="font-semibold w-[150px] text-red-500">
+                              <p className="adminProduct__info w-[150px]">{product.genre}</p>
+                            <p className="adminProduct__agotado font-semibold w-[150px] text-red-500">
                               AGOTADO
                             </p>
 
@@ -117,14 +117,14 @@ const AdminPanel = () => {
                               <p className="fontGreen w-[150px]">
                                 {product.title}
                               </p>
-                              <span className="w-[150px]">
+                              <span className="adminProduct__info w-[150px]">
                                 {product.status}
                               </span>
-                              <p className="fontGreen w-[150px]">
+                              <p className="adminProduct__info fontGreen w-[150px]">
                                 ${product.price}
                               </p>
-                              <p className="w-[150px]">{product.genre}</p>
-                              <p className="w-[150px]">{product.state}</p>
+                              <p className="w-[150px] adminProduct__info">{product.genre}</p>
+                              <p className="w-[150px] adminProduct__info">{product.state}</p>
                             </Link>
                           </div>
                         )}
