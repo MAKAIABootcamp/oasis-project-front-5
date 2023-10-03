@@ -3,11 +3,12 @@ import search from '../../assets/search.png';
 import bag from '../../assets/bag.png';
 import heart from '../../assets/heart.png';
 import admin from '../../assets/adminPanel.png'
-import adminUser from '../../assets/loginAdmin.png'
+import out from '../../assets/logout.png'
 import { useNavigate } from 'react-router-dom';
 import './header.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { setItemsAndCategory } from '../../redux/store/products/productsReducer';
+import { logout } from '../../redux/store/auth/authActions'
 import { useState } from 'react';
 
 const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
@@ -90,8 +91,12 @@ const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
       <div className="flex gap-6">
       {isLogged && userLogged && userLogged.role === 'admin' ? (
       
-          <div className="admin-icon" onClick={() => navigate('/admin')}>
-          <img className="w-7 object-contain cursor-pointer" src={adminUser} alt="Admin Icon" />
+          <div className="admin-icon">
+          <img             onClick={() => {
+              dispatch(logout());
+              navigate("/");
+            }}
+             className="w-6 object-contain cursor-pointer" src={out} alt="Admin Icon" />
           <p> {userLogged.displayName}</p>
           </div>
         ) : (
