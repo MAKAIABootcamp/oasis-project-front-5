@@ -62,7 +62,7 @@ const sidebar = () => {
                                 <img className="w-6 object-contain" src={admin} alt="" />
                                 <p className="products__li"> Perfil</p>
                             </li>
-                            <li className="flex gap-2"  onClick={() => handleMenuItemClick("stock")}>
+                            <li className="flex gap-2"  onClick={() => navigate('/admin')}>
                                 <img className="w-6 object-contain" src={stock} alt="" />
                                 <p className="products__li"> Productos</p>
                             </li>
