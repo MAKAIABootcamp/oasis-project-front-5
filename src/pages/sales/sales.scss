@@ -3,21 +3,13 @@
     flex-direction: column;
     width: 100%;
   }
-  
-  .charts {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-  
-  .chart {
-    margin: 20px;
-  }
-  
+
   .sales-history {
     margin-top: 40px;
     width: 100%;
   }
+
+
   
   
   table, th, td {
@@ -27,9 +19,48 @@
   th, td {
     padding: 10px;
     text-align: left;
+
   }
   
   th {
     background-color: #9acdc1;
   }
+
+  .sales__responsive {
+    display: none;
+  }
+
+  .sales__item {
+    margin-top: 40px;
+    width: 100%;
+    border:#288e7c 2px solid;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: 10px;
+  }
   
+
+  .sales-history-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  strong {
+    color: #288e7c;
+    margin-right:5px;
+  }
+
+
+  @media (max-width: 850px) {
+
+    .sales__desktop {
+      display: none;
+    }
+
+    .sales__responsive {
+      display: flex;
+    }
+
+  }

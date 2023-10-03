@@ -59,6 +59,16 @@ const AdminPanel = () => {
 
   const noResults = filteredProducts.length === 0;
 
+  // const handleDeleteProduct = async (productId) => {
+  //   try {
+  //     const firestore = firebase.firestore();
+  //     await firestore.collection("products").doc(productId).delete();
+  //     dispatch(fetchItems(localSelectedCategory));
+  //   } catch (error) {
+  //     console.error("Error al eliminar el producto:", error);
+  //   }
+  // };
+
   return (
     <>
       <Header showSearchBar={false} />
@@ -103,7 +113,7 @@ const AdminPanel = () => {
                             <p className="adminProduct__agotado font-semibold w-[150px] text-red-500">
                               AGOTADO
                             </p>
-                            <img className="icons" src={del} alt="" />
+                            <img className="icons" src={del} alt="" onClick={() => handleDeleteProduct(product.id)} />
                             <img className="icons" src={edite} alt="" />
 
                           </div>
@@ -126,7 +136,7 @@ const AdminPanel = () => {
                               </p>
                               <p className="w-[150px] adminProduct__info">{product.genre}</p>
                               <p className="w-[150px] adminProduct__info">{product.state}</p>
-                              <img className="icons" src={del} alt="" />
+                              <img className="icons" src={del} alt="" onClick={() => handleDeleteProduct(product.id)} />
                               <Link
                               
                               to={`/admin-details/${product.id}`}
