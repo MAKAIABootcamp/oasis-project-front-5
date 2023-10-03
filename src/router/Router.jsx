@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
+import { Route, Routes, useNavigate} from "react-router-dom";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import { auth } from "../firebase/firebaseConfig";
@@ -16,7 +16,6 @@ import Confirmation from "../pages/confirmation/Confirmation";
 import Favorites from "../pages/favorites/Favorites";
 import Blog from "../pages/blog/Blog";
 import { setError } from "../redux/store/auth/authReducer";
-import Swal from "sweetalert2";
 import Footer from "../components/footer/Footer";
 import Orders from "../pages/orders/Orders";
 import AdminPanel from "../pages/adminPanel/AdminPanel";
@@ -66,14 +65,14 @@ const Router = () => {
         } else {
           navigate("/profile");
         }
-      }, 1000); // El mensaje de bienvenida desaparecerá después de 3 segundos (puedes ajustar este valor según tus preferencias).
+      }, 1000); 
     } else if (error) {
       setShowErrorMessage(true);
-      dispatch(setError(null)); // Limpiar el error después de mostrarlo
+      dispatch(setError(null));
 
       setTimeout(() => {
         setShowErrorMessage(false);
-      }, 1000); // El mensaje de error desaparecerá después de 3 segundos (puedes ajustar este valor según tus preferencias).
+      }, 1000); 
     }
   }, [error, dispatch, navigate, userLogged]);
   

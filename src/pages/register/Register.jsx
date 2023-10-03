@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from '../../assets/logo.jpeg'
 import back from '../../assets/back.png'
 import './register.scss'
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import fileUpload from "../../service/fileUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -14,6 +13,8 @@ const Register = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const { error } = useSelector((store) => store.auth);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
 
   const userRegister = async (data) => {
@@ -26,24 +27,22 @@ const Register = () => {
       };
       console.log(newUser);
       dispatch(createAnUser(newUser));
-      //Swal.fire("Excelente!", "Haz creado tu cuenta!", "success");
+      setSuccessMessage(true);
     } catch (error) {
-      //Swal.fire("Oops!", "Hubo un error en la creación de tu cuenta", "error");
+      setErrorMessage(true);
     }
   };
 
   return (
     <div className="register flex flex-col items-center text-[14px] relative">
-      <div className="container__login">
-
-        <div className="flex flex-col items-center gap-2">
+      <div className="container__login register__form">
+        <div className="flex flex-col items-center">
           <div className="back">
             <img className="backArrow " onClick={() => navigate(-1)} src={back} alt="" />
             <div>
               <h1 className="text-[20px]">CREAR CUENTA</h1>
             </div>
           </div>
-
           <img className="w-[26%]" src={logo} alt="" />
         </div>
         <form className="w-[80%] register__form" onSubmit={handleSubmit(userRegister)}>
@@ -113,6 +112,17 @@ const Register = () => {
             </button>
           </div>
         </form>
+        {successMessage && (
+          <div className="login-message">
+            <p>Bienvenido</p>
+          </div>
+        )}
+
+        {errorMessage && (
+          <div className="login-message">
+            <p>Hubo en error al crear la cuenta</p>
+          </div>
+        )}
       </div>
     </div>
   );
