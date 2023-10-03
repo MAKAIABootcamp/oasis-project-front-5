@@ -4,10 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchItems } from '../../redux/store/products/productsActions';
 import Sidebar from '../../components/sidebar/Sidebar';
-import del from '../../assets/delete.png';
 import edite from '../../assets/edit.png';
-import { collection, doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
-import { fireStore } from '../../firebase/firebaseConfig';
 import './detailsAdmin.scss'
 
 
@@ -18,7 +15,6 @@ const DetailsAdmin = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const product = products.find((p) => p.id === parseInt(id));
     const dispatch = useDispatch();
-    const [editedItem, setEditedItem] = useState(null);
 
     useEffect(() => {
         if (products.length === 0) {

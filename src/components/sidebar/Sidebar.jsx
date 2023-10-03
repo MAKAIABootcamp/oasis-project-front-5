@@ -35,7 +35,7 @@ const sidebar = () => {
     };
 
     return (
-        <div className='w-[20%]'>
+        <div>
             <div className="sidebar flex flex-col gap-6">
                 <h2 className="products__categories text-[20px] font-semibold">Oasis</h2>
                 <ul className="products__ul gap-5">
