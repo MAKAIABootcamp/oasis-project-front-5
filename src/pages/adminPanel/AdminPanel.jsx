@@ -63,14 +63,11 @@ const AdminPanel = () => {
       <div className="products">
         <div className="products__container">
           <Sidebar />
-
+          <div className="flex flex-col justify-center gap-10">
+          <h1 className="flex self-center fontGreen text-[20px]"> PRODUCTOS </h1>
           <div className="product-list">
-
-            
             {selectedProfileView === "stock" && (
               <>
-                <h1> Productos </h1>
-
                 <div className="adminProduct__list">
                   {localSearchTerm && noResults ? (
                     <div className="no-results-message">
@@ -137,6 +134,7 @@ const AdminPanel = () => {
                 </div>
               </>
             )}
+          </div>
           </div>
         </div>
         <Footer />
