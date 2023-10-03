@@ -14,6 +14,7 @@ const AdminPanel = () => {
   const [localSelectedCategory, setLocalSelectedCategory] = useState(selectedCategory);
   const userLogged = useSelector((state) => state.auth.userLogged);
 
+
   const [localSearchTerm, setLocalSearchTerm] = useState("");
   const products = useSelector((state) => state.products.items);
 
@@ -136,7 +137,6 @@ const AdminPanel = () => {
                 </div>
               </>
             )}
-
           </div>
         </div>
         <Footer />

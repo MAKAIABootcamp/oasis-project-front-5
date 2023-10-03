@@ -102,7 +102,6 @@ const Router = () => {
             <Route path="orders" element={<Orders />} />
 
             {isAdmin ? (
-
               <>
           <Route path="admin-details/:id" element={<DetailsAdmin />} />
           <Route path="adminProfile" element={<AdminProfile />} />
@@ -110,7 +109,6 @@ const Router = () => {
           <Route path="adminProducts" element={<AddProducts />} />
           <Route path="adminRequests" element={<Requests />} />
 </>
-
               
             ) : null}
           </>
