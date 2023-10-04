@@ -23,8 +23,6 @@ import DetailsAdmin from "../pages/detailsAdmin/DetailsAdmin";
 import AdminProfile from "../pages/adminProfile/AdminProfile";
 import Sales from "../pages/sales/Sales";
 import AddProducts from "../pages/addProducts/AddProducts";
-import Requests from "../pages/requests/Requests";
-import UserRequests from "../pages/userRequests/UserRequests";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -102,9 +100,7 @@ const Router = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="personal" element={<PersonalData />} />
             <Route path="orders" element={<Orders />} />
-            <Route path="requests" element={<Requests />} />
-            <Route path="userRequests" element={<UserRequests />} />
-
+          
             {isAdmin ? (
               <>
                 <Route path="admin-details/:id" element={<DetailsAdmin />} />
