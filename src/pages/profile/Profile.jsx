@@ -65,8 +65,7 @@ const Profile = () => {
           </div>
 
           <hr />
-
-          <div className="flex justify-between cursor-pointer" onClick={() => navigate("/products")}>
+                  <div className="flex justify-between cursor-pointer" onClick={() => navigate("/products")}>
             <div className="flex gap-2">
               <img className="w-4 object-contain" src={home} alt="" />
               <p>Home</p>
