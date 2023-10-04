@@ -38,7 +38,7 @@ const Sales = () => {
   }, []);
 
   return (
-    <div>
+    <div className="sales">
       <Header showSearchBar={false} />
       <div className="products">
         <div className="products__container">
@@ -46,7 +46,7 @@ const Sales = () => {
           <div className="sales-container sales__desktop">
             <h2 className="fontGreen title flex self-center mb-8">HISTORIAL DE VENTAS</h2>
             <div className="flex justify-between">
-              <p className="text"> Ingreso Total: ${totalSales}</p>
+              <p className="text"> Ingreso Total: $ {totalSales}</p>
               <p className="text">Total de Ventas: {salesData.length}</p>
             </div>
             <table className="sales-history">
@@ -68,7 +68,7 @@ const Sales = () => {
                       {new Date(sale.timestamp.toDate()).toLocaleString()}
                     </td>
                     <td>{sale.orderData.cartData[0].name}</td>
-                    <td>${sale.orderData.total}</td>
+                    <td>$ {sale.orderData.total}</td>
                     <td>{sale.orderData.selectedAddress}</td>
                     <td>{sale.orderData.nombre}</td>
                     <td>{sale.orderData.correo}</td>
@@ -84,7 +84,7 @@ const Sales = () => {
               <p className="text"> Ingreso Total: ${totalSales}</p>
               <p className="text">Total de Ventas: {salesData.length}</p>
             </div>
-            <div className="sales-history-container">
+            <div className="sales-history-container mb-[120px]">
               {salesData.map((sale, index) => (
                 <div key={index} className="sales__item">
                   <div>
@@ -94,7 +94,7 @@ const Sales = () => {
                     <strong>Productos:</strong> <span>{sale.orderData.cartData[0].name} </span><br />
                   </div>
                   <div>
-                    <strong>Valor total:</strong> <span>${sale.orderData.total}</span> <br />
+                    <strong>Valor total:</strong> <span>$ {sale.orderData.total}</span> <br />
                   </div>
                   <div>
                     <strong>Nombre de usuario:</strong> <span>{sale.orderData.nombre} </span><br />
