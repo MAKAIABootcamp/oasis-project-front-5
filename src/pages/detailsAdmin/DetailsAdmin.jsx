@@ -208,7 +208,7 @@ const DetailsAdmin = () => {
                                                 id="poster"
                                                 onChange={(e) => handleImageUpload(e, 'poster')}
                                             />
-                                            <img className="photoShow"
+                                            <img 
                                                 src={product.gallery.poster}
                                                 alt='Imagen de poster'
                                             />
@@ -218,7 +218,7 @@ const DetailsAdmin = () => {
                                 <br />
                                 <form className="detailsAdmin__photos">
 
-                                    <div className=" photoShow cursor-pointer">
+                                    <div className="cursor-pointer">
                                         <label htmlFor="frontPage">
                                             <input
                                                 type="file"
@@ -233,7 +233,7 @@ const DetailsAdmin = () => {
                                             />
                                         </label>
                                     </div>
-                                    <div className=" photoShow cursor-pointer">
+                                    <div className="cursor-pointer">
                                         <label htmlFor="imgOne">
                                             <input
                                                 type="file"
@@ -248,7 +248,7 @@ const DetailsAdmin = () => {
                                             />
                                         </label>
                                     </div>
-                                    <div className=" photoShow cursor-pointer">
+                                    <div className="cursor-pointer">
                                         <label htmlFor="imgTwo">
                                             <input
                                                 type="file"
