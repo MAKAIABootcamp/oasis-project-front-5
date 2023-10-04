@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "../../redux/store/products/productsActions";
 import Sidebar from "../../components/sidebar/Sidebar";
 import edite from "../../assets/edit.png";
+import load from "../../assets/loading.svg";
 import "./detailsAdmin.scss";
 import {
     collection,
@@ -18,6 +19,7 @@ import {
 import fileUpload from "../../service/fileUpload";
 import { useNavigate } from "react-router-dom";
 import { reload } from "firebase/auth";
+import Loading from "../../components/loading/Loading";
 
 
 const DetailsAdmin = () => {
@@ -72,7 +74,7 @@ const DetailsAdmin = () => {
     }, [dispatch, id, products]);
 
     if (!product) {
-        return <p>Un momento...</p>;
+        return <Loading/>;
     }
 
     const handleEdit = (field) => {
@@ -202,7 +204,6 @@ const DetailsAdmin = () => {
             }
         }
     };
-
 
     const handleDelete = async () => {
         if (product && product.id) {

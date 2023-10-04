@@ -7,6 +7,7 @@ import Header from '../../components/header/Header';
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useNavigate} from 'react-router-dom';
 import './orders.scss'
+import Loading from "../../components/loading/Loading";
 
 const Orders = () => {
 
@@ -38,7 +39,7 @@ const Orders = () => {
     if (!userLogged) {
         return (
             <div>
-                <p>Espere un momento...</p>
+                <Loading/>
             </div>
         );
     }

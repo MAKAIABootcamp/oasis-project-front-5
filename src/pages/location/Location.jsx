@@ -12,6 +12,7 @@ import { clearCartInFirestore } from '../../redux/store/cart/cart'
 import { collection, addDoc, query, getDocs, where, doc, updateDoc } from 'firebase/firestore';
 import { fireStore, auth } from "../../firebase/firebaseConfig.js";
 import { useSelector } from "react-redux";
+import Loading from '../../components/loading/Loading';
 
 const Location = () => {
     const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Location = () => {
     if (!userLogged) {
         return (
           <div>
-            <p>Espere un momento...</p>
+            <Loading/>
           </div>
         );
       }

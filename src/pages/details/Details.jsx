@@ -11,6 +11,7 @@ import heart from '../../assets/heart.png';
 import like from '../../assets/like.png';
 import { collection, doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
 import { fireStore } from '../../firebase/firebaseConfig';
+import Loading from '../../components/loading/Loading';
 
 const Details = () => {
   const { id } = useParams();
@@ -120,7 +121,7 @@ const Details = () => {
   };
 
   if (!product) {
-    return <p>Un momento...</p>;
+    return <Loading/>;
   }
 
   return (
