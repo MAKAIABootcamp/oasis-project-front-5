@@ -128,15 +128,13 @@ const DetailsAdmin = () => {
         setSelectedImage(image);
     };
 
-      
-
     return (
         <>
             <Header showSearchBar={false} />
             <div className='details detailsAdmin'>
                 <Sidebar />
                 <div className="detailsAdmin__container">
-                                <div className="detailsAdmin__photosContainer flex gap-6">
+                    <div className="detailsAdmin__photosContainer flex gap-6">
                         <div className=' flex flex-col gap-2 justify-between'>
 
                             <div className='fontGreen flex justify-between' >Galería <img className='icons'
@@ -146,7 +144,7 @@ const DetailsAdmin = () => {
 
                             </div>
                             <div className="detailsAdmin__photoShow flex gap-2" >
-                            <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} /> </div>
+                                <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} /> </div>
 
                             <div className="detailsAdmin__photos">
                                 <img
@@ -154,21 +152,21 @@ const DetailsAdmin = () => {
                                     src={product.gallery.frontPage}
                                     alt={product.name}
                                     onClick={() => handleThumbnailClick(product.gallery.frontPage)}
-                               
+
                                 />
                                 <img
                                     className="w-[70px]  cursor-pointer"
                                     src={product.gallery.imgTwo}
                                     alt={product.name}
                                     onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
-                                  
+
                                 />
                                 <img
                                     className="w-[70px]  cursor-pointer"
                                     src={product.gallery.imgOne}
                                     alt={product.name}
                                     onClick={() => handleThumbnailClick(product.gallery.imgOne)}
-                                   
+
                                 />
                             </div>
                         </div>

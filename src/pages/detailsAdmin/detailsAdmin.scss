@@ -30,3 +30,15 @@
     }
 
 }
+
+@media (max-width:650px) {
+
+    .detailsAdmin {
+
+        &__container {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    
+}
