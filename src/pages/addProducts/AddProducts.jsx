@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import './addProducts.scss'
 import Header from '../../components/header/Header'
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -8,46 +8,55 @@ import { useForm } from 'react-hook-form';
 import './addProducts.scss'
 import Swal from 'sweetalert2';
 import photo from '../../assets/photo.png'
+import { addDoc, collection, getDocs, getFirestore, query } from '@firebase/firestore';
+import filesUpload from '../../service/fileUpload';
 
 
 const AddProducts
     = () => {
         const dispatch = useDispatch();
         const navigate = useNavigate();
-        const { register, handleSubmit } = useForm();
+        const { register, handleSubmit, reset } = useForm();
         const { error } = useSelector((store) => store.auth);
-        const [fileNames, setFileNames] = useState({
-            poster: 'Elige una foto',
-            frontPage: 'Elige una foto',
-            imgOne: 'Elige una foto',
-            imgTwo: 'Elige una foto',
-          });
+        const db = getFirestore();
+        const itemsCollection = collection(db, 'items');
+   
+        const onSubmit = async (data) => {
 
-
-        const itemRegister = async (data) => {
+            const querySnapshot = await getDocs(query(itemsCollection));
+            const itemCount = querySnapshot.size; 
+            const nextItemId = itemCount + 1; 
+            const state = 'Disponible'
             try {
-                const imageFile = data.photoURL[0];
-                const avatar = await fileUpload(imageFile);
+        
                 const newItem = {
                     ...data,
-                    photoURL: avatar,
+                    id: nextItemId,
+                    sold: false,
+                    state: state,
+                    name: data.name,
+                    status: data.status,
+                    category: data.category,
+                    size: data.size,
+                    price: parseFloat(data.price),
+                    title: data.title,
+                    genre: data.genre,
+                    color: data.color,
+                    description: data.description,
+                    text: data.text,
+                    
                 };
-                console.log(newItem);
-                dispatch(createAnItem(newItem));
-                Swal.fire("Excelente!", "Haz envíado los datos de tu producto!", "success");
+
+                const docRef = await addDoc(itemsCollection, newItem);
+                console.log('ID del nuevo documento:', docRef.id);
+
+                Swal.fire("¡Excelente!", "Has agregado un nuevo producto", "success");
+       reset();
             } catch (error) {
-                Swal.fire("Oops!", "Hubo un error en el envío de los datos de tu producto", "error");
+                Swal.fire("¡Oops!", "Hubo un error al agregar el producto", "error");
+                console.error('Error al agregar el producto:', error);
             }
         };
-
-        const handleFileChange = (event, fieldName) => {
-            const fileName = event.target.files[0]?.name || '';
-            setFileNames((prevFileNames) => ({
-              ...prevFileNames,
-              [fieldName]: fileName,
-            }));
-          };
-
         return (
             <div className='addProduct'>
                 <Header showSearchBar={false} />
@@ -56,7 +65,7 @@ const AddProducts
                         <Sidebar />
                         <div className="flex flex-col items-center text-[14px] relative formAdd">
                             <h1 className='title fontGreen mb-10'>NUEVO PRODUCTO</h1>
-                            <form className="w-[80%]" onSubmit={handleSubmit(itemRegister)}>
+                            <form className="w-[80%]" onSubmit={handleSubmit(onSubmit)}>
                                 <div className="addProduct__dates">
                                     <div className='addProduct__divForm'>
                                         <div className=" flex gap-4">
@@ -64,25 +73,37 @@ const AddProducts
                                                 Nombre:
                                             </label>
                                             <input
-                                                type="text"
-                                                className="addProduct__input"
+                                              type="text"
+                                              id="name"
+                                              name="name"
+                                              required 
+                                              className="addProduct__input"
                                                 {...register("name")}
+                                         
                                             />
                                         </div>
                                         <div className=" flex gap-4">
                                             <label className=" fontGreen w-[150px]">
                                                 Estado:
                                             </label>
-                                            <input
-                                                type="text"
-                                                className="border-b addProduct__input "
-                                                {...register("status")}
-                                            />
+                                            <select
+                                            id="status"
+                                            name="status"
+                                            required 
+                                                className="border-b addProduct__input"
+                                                {...register('status')}
+                                            >
+                                                <option value="Nuevo">Nuevo</option>
+                                                <option value="Usado">Usado</option>
+                                            </select>
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className=" fontGreen w-[150px]">Categoría:</label>
+                                            <label className=" fontGreen w-[150px]">Tipo:</label>
                                             <input
                                                 type="text"
+                                                id="category"
+                                                name="category"
+                                                required 
                                                 className="border-b addProduct__input"
                                                 {...register("category")}
                                             />
@@ -91,9 +112,13 @@ const AddProducts
                                             <label className=" fontGreen w-[150px]">Precio:</label>
                                             <input
                                                 type="number"
+                                                id="price"
+                                                name="price"
+                                                required 
                                                 className="border-b addProduct__input"
                                                 {...register("price")}
                                             />
+                                            
                                         </div>
                                         <div className="flex gap-4">
                                             <label className="  fontGreen w-[150px]">
@@ -101,6 +126,9 @@ const AddProducts
                                             </label>
                                             <input
                                                 type="text"
+                                                id="color"
+                                                name="color"
+                                                required 
                                                 className="border-b addProduct__input"
                                                 {...register("color")}
                                             />
@@ -108,13 +136,21 @@ const AddProducts
 
                                         <div className="flex gap-4">
                                             <label className="  fontGreen w-[150px]">
-                                                Género:
+                                                Categoría:
                                             </label>
-                                            <input
-                                                type="text"
+                                            <select
+                                                  type="text"
+                                                  id="genre"
+                                                  name="genre"
+                                                  required 
                                                 className="border-b addProduct__input"
                                                 {...register("genre")}
-                                            />
+                                            >
+                                             <option value="Hombre">Hombre</option>
+                                                <option value="Mujer">Mujer</option>
+                                                <option value="Niños">Niños</option>
+                                                <option value="Accesorios">Accesorios</option>
+                                            </select>
                                         </div>
 
                                         <div className="flex gap-4">
@@ -122,7 +158,10 @@ const AddProducts
                                                 Talla:
                                             </label>
                                             <input
-                                                type="text"
+                                                  type="text"
+                                                  id="size"
+                                                  name="size"
+                                                  required 
                                                 className="border-b addProduct__input"
                                                 {...register("size")}
                                             />
@@ -135,7 +174,10 @@ const AddProducts
                                                 Descripción:
                                             </label>
                                             <input
-                                                type="text"
+                                             type="text"
+                                             id="description"
+                                             name="description"
+                                             required 
                                                 className="border-b addProduct__input"
                                                 {...register("description")}
                                             />
@@ -146,7 +188,10 @@ const AddProducts
                                                 Composición:
                                             </label>
                                             <input
-                                                type="text"
+                                                  type="text"
+                                                  id="text"
+                                                  name="text"
+                                                  required 
                                                 className="border-b addProduct__input"
                                                 {...register("text")}
                                             />
@@ -156,65 +201,15 @@ const AddProducts
                                                 Título:
                                             </label>
                                             <input
-                                                type="text"
+                                                  type="text"
+                                                  id="title"
+                                                  name="title"
+                                                  required 
                                                 className="border-b addProduct__input"
                                                 {...register("title")}
                                             />
                                         </div>
-                                        <div className="file flex gap-4">
-                                            <label className="  fontGreen w-[300px] flex gap-4">
-                                                Foto galeria 1:
-                                                <input
-                                                    style={{ display: 'none' }}
-                                                    type="file"
-                                                    {...register("poster")}
-                                                    onChange={(e) => handleFileChange(e, 'poster')}
-                                                />
-                                                <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span className='text-gray-500'>{fileNames.poster}</span>
-                                            </label>
-
-                                        </div>
-                                        <div className="file flex gap-4">
-                                            <label className="  fontGreen w-[300px] flex gap-4">
-                                                Foto galeria 2:
-                                                <input
-                                                    style={{ display: 'none' }}
-                                                    type="file"
-                                                    {...register("frontPage")}
-                                                    onChange={(e) => handleFileChange(e, 'frontPage')}
-                                                />
-                                                <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span className='text-gray-500'>{fileNames.frontPage}</span>
-                                            </label>
-                                        </div>
-                                        <div className="file flex gap-4">
-                                            <label className="fontGreen w-[300px] flex gap-4">
-                                                Foto galeria 3:
-                                                <input
-                                                    style={{ display: 'none' }}
-                                                    type="file"
-                                                    {...register("imgOne")}
-                                                    onChange={(e) => handleFileChange(e, 'imgOne')}
-                                                />
-                                                <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span className='text-gray-500'>{fileNames.imgOne}</span>
-                                            </label>
-
-                                        </div>
-                                        <div className="file flex gap-4">
-                                            <label className="fontGreen w-[300px] flex gap-4">
-                                                Foto galeria 4:
-                                                <input
-                                                    style={{ display: 'none' }}
-                                                    type="file"
-                                                    {...register("imgTwo")}
-                                                    onChange={(e) => handleFileChange(e, 'imgTwo')}
-                                                />
-                                                <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span className='text-gray-500'>{fileNames.imgTwo}</span>
-                                            </label>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div className="flex flex-col w-[100%] mt-8 items-center">
@@ -231,4 +226,4 @@ const AddProducts
         )
     }
 
-export default AddProducts
+export default AddProducts; 

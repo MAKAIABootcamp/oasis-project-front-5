@@ -1,4 +1,3 @@
-
 const fileUpload = async (file) => {
     const cloudName = "dgypgggoq";
     const uploadPreset = "delivery-app-photos";
@@ -26,4 +25,4 @@ const fileUpload = async (file) => {
     }
 }
 
-export default fileUpload;
+export default fileUpload; 
