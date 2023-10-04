@@ -1,1 +1,48 @@
+.addProduct {
+    background-image: url('../../assets/ground.png');
+    background-position-x: right;
+    background-size: cover;
 
+    &__dates {
+        display: flex;
+        gap: 4rem;
+    }
+
+    &__divForm {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 50%;
+    }
+
+    &__div {
+        width: 20%;
+    }
+
+    &__input {
+        border: none;
+        border-bottom: 1px solid rgb(208, 207, 207);
+        outline: none;
+        width: 100%;
+    }
+
+}
+
+@media (max-width:850px) {
+
+    .addProduct {
+
+        background-image: none;
+        
+        &__dates {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &__divForm {
+            width: 100%;
+
+        }
+    }
+}

@@ -3,6 +3,7 @@ import './footer.scss';
 import homeWhite from "../../assets/homeWhite.png";
 import userWhite from "../../assets/userWhite.png";
 import comun from "../../assets/comun.png";
+import add from "../../assets/addwhite.png";
 import history from "../../assets/history.jpg";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -49,13 +50,25 @@ const Footer = () => {
     }
   };
 
+  const handleBlogClick = () => {
+    if (userRole === 'admin') {
+      navigate('/adminProducts');
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className='footer'>
       <div className='footer__container'>
         <img className='w-5 object-contain' onClick={handleHomeClick} src={homeWhite} alt="" />
         <img className='w-6 object-contain' onClick={handleUserClick} src={userWhite} alt="" />
         <img className='w-4 object-contain' onClick={handleOrderClick} src={history} alt="" />
-        <img className='w-5 object-contain' onClick={() => navigate('/')} src={comun} alt="" />
+        {userRole === 'admin' ? (
+          <img className='w-4 object-contain' onClick={handleBlogClick} src={add} alt="" />
+        ) : (
+          <img className='w-4 object-contain' onClick={handleBlogClick} src={comun} alt="" />
+        )}
       </div>
       {isLoggedOrders && (
         <div className="favorite-added-message">
