@@ -19,6 +19,8 @@ const AddProducts
         const { error } = useSelector((store) => store.auth);
         const db = getFirestore();
         const itemsCollection = collection(db, 'items');
+        const [successMessage, setSuccessMessage] = useState('');
+        const [errorMessage, setErrorMessage] = useState('');
 
         const [fileNames, setFileNames] = useState({
             poster: 'Elige una foto',
@@ -78,6 +80,12 @@ const AddProducts
             }
         };
 
+        const hideMessageAfterTimeout = (messageSetter) => {
+            setTimeout(() => {
+              messageSetter('');
+            }, 1000); 
+          };
+
         const onSubmit = async (data) => {
 
             const querySnapshot = await getDocs(query(itemsCollection));
@@ -107,22 +115,20 @@ const AddProducts
                     frontPage: frontPageUrl,
                     imgOne: imgOneUrl,
                     imgTwo: imgTwoUrl,
-
-
                 };
-
 
                 const newDocRef = doc(itemsCollection);
 
                 await setDoc(newDocRef, newItem);
 
                 console.log('ID del nuevo documento:', newDocRef.id);
-
-                Swal.fire("¡Excelente!", "Has agregado un nuevo producto", "success");
+                setSuccessMessage('¡Excelente! Has agregado un nuevo producto');
                 reset();
+                hideMessageAfterTimeout(setSuccessMessage);
             } catch (error) {
-                Swal.fire("¡Oops!", "Hubo un error al agregar el producto", "error");
+                setErrorMessage('¡Oops! Hubo un error al agregar el producto');
                 console.error('Error al agregar el producto:', error);
+                hideMessageAfterTimeout(setErrorMessage);
             }
         };
 
@@ -346,6 +352,17 @@ const AddProducts
                     </div>
 
                 </div>
+                {successMessage && (
+                    <div className="favorite-added-message">
+                        {successMessage}
+                    </div>
+                )}
+
+                {errorMessage && (
+                    <div className="favorite-added-message">
+                        {errorMessage}
+                    </div>
+                )}
             </>
         )
     }
