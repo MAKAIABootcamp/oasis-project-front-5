@@ -15,10 +15,10 @@ const AddProducts
         const { register, handleSubmit } = useForm();
         const { error } = useSelector((store) => store.auth);
         const [fileNames, setFileNames] = useState({
-            poster: '',
-            frontPage: '',
-            imgOne: '',
-            imgTwo: '',
+            poster: 'Elige una foto',
+            frontPage: 'Elige una foto',
+            imgOne: 'Elige una foto',
+            imgTwo: 'Elige una foto',
           });
 
 
@@ -169,7 +169,7 @@ const AddProducts
                                                     onChange={(e) => handleFileChange(e, 'poster')}
                                                 />
                                                 <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span>{fileNames.poster}</span>
+                                                <span className='text-gray-500'>{fileNames.poster}</span>
                                             </label>
 
                                         </div>
@@ -183,7 +183,7 @@ const AddProducts
                                                     onChange={(e) => handleFileChange(e, 'frontPage')}
                                                 />
                                                 <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span>{fileNames.frontPage}</span>
+                                                <span className='text-gray-500'>{fileNames.frontPage}</span>
                                             </label>
                                         </div>
                                         <div className="file flex gap-4">
@@ -196,7 +196,7 @@ const AddProducts
                                                     onChange={(e) => handleFileChange(e, 'imgOne')}
                                                 />
                                                 <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span>{fileNames.imgOne}</span>
+                                                <span className='text-gray-500'>{fileNames.imgOne}</span>
                                             </label>
 
                                         </div>
@@ -210,7 +210,7 @@ const AddProducts
                                                     onChange={(e) => handleFileChange(e, 'imgTwo')}
                                                 />
                                                 <img className='w-5 object-contain' src={photo} alt="" />
-                                                <span>{fileNames.imgTwo}</span>
+                                                <span className='text-gray-500'>{fileNames.imgTwo}</span>
                                             </label>
                                         </div>
                                     </div>
