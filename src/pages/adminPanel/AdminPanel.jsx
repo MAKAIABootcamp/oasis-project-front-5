@@ -97,7 +97,7 @@ const AdminPanel = () => {
                           <div   className="adminProduct__item">
                        <img
                                 className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer "
-                                src={product.gallery.poster}
+                                src={product.poster}
                                 alt={product.name}
                               />
                               <p className="fontGreen w-[150px]">
@@ -122,7 +122,7 @@ const AdminPanel = () => {
 
                               <img
                                 className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer "
-                                src={product.gallery.poster}
+                                src={product.poster}
                                 alt={product.name}
                               />
                               <p className="fontGreen w-[150px]">

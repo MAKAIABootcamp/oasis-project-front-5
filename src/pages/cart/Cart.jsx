@@ -84,7 +84,7 @@ const Cart = () => {
                                 {cartProducts.map((item) => (
                                     <div key={item.id} className="cart__info">
                                         <Link to={`/details/${item.id}`} className="product-image-link">
-                                            <img className="w-[150px] h-[200px]" src={item.gallery.poster} alt={item.name} />
+                                            <img className="w-[150px] h-[200px]" src={item.poster} alt={item.name} />
                                         </Link>
                                         <div className="flex flex-col gap-14">
                                             <div className="flex flex-col gap-4">

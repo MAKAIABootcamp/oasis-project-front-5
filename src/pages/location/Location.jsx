@@ -146,15 +146,15 @@ const Location = () => {
         <>
             <Header showSearchBar={false} />
             <div className='location flex flex-col'>
-                <h1 className='title self-center'>CONFIRMAR PEDIDO</h1>
+                <h1 className='title fontGreen self-center'>CONFIRMAR PEDIDO</h1>
                 <div className='location__container'>
                     <Sidebar />
                     <Paragraph />
-                    <div className='flex flex-col gap-8'>
-                        <h2 className='fontGreen'>Elige la dirección de entrega</h2>
+                    <div className='location__choose'>
+                        <h2 className='fontGreen'>Elige dirección de entrega</h2>
                         <div
                             onClick={() => handleAddress(userLogged.address)}
-                            className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === userLogged.address ? 'selectedAddress' : ''}`}
+                            className={`container__options p-2 rounded-md flex gap-2 cursor-pointer ${selectedAddress === userLogged.address ? 'selectedAddress' : ''}`}
                         >
                             <img className='w-4 object-contain' src={loc} alt='' />
                             {userLogged.address}
@@ -163,7 +163,7 @@ const Location = () => {
                             <div
                                 key={index}
                                 onClick={() => handleAddress(address)}
-                                className={`container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer ${selectedAddress === address ? 'selectedAddress' : ''}`}
+                                className={`container__options p-2 rounded-md flex gap-2 cursor-pointer ${selectedAddress === address ? 'selectedAddress' : ''}`}
                             >
                                 <img className='w-4 object-contain' src={loc} alt='' />
                                 {address}
@@ -182,18 +182,18 @@ const Location = () => {
                         ) : (
                             <div
                                 onClick={() => setShowAddAddressForm(true)}
-                                className="container__options py-2 px-5 rounded-md flex gap-2 cursor-pointer"
+                                className="container__options p-2 rounded-md flex gap-2 cursor-pointer"
                             >
                                 <img className='w-4 object-contain' src={add} alt='' />
-                                Agregar otra dirección
+                                Agregar dirección
                             </div>
                         )}
                     </div>
 
-                    <div className='flex flex-col gap-8'>
+                    <div className='location__choose'>
                         <h2 className='fontGreen'>Elige un medio de pago</h2>
                         <div
-                            className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Efectivo' ? 'selectedPayment' : ''}`}
+                            className={`container__options p-2 rounded-md cursor-pointer flex gap-2 ${selectedPayment === 'Efectivo' ? 'selectedPayment' : ''}`}
                             onClick={() => handlePayment('Efectivo')}
                         >
                             <img className='w-4 object-contain' src={cash} alt='' />Efectivo
@@ -201,7 +201,7 @@ const Location = () => {
                         {savedCreditCard && (
                             <div
                                 onClick={() => handlePayment(`Tarjeta de crédito - **** ${savedCreditCard}`)}
-                                className={`container__options py-2 px-5 rounded-md cursor-pointer flex gap-2 ${selectedPayment === `Tarjeta de crédito - **** ${savedCreditCard}` ? 'selectedPayment' : ''
+                                className={`container__options p-2 rounded-md cursor-pointer flex gap-2 ${selectedPayment === `Tarjeta de crédito - **** ${savedCreditCard}` ? 'selectedPayment' : ''
                                     }`}
                             >
                                 <img className='w-4 object-contain' src={creditCardIcon} alt='' />
@@ -220,7 +220,7 @@ const Location = () => {
 
                     <div className='flex flex-col gap-20'>
                         <div className='flex flex-col gap-2'>
-                            <p>El tiempo de entrega es de 4 a 5 días hábiles</p>
+                            <p className='mb-6'>El tiempo de entrega es de 4 a 5 días hábiles</p>
                             <div className='flex justify-between'>
                                 <p>Envío</p>
                                 <p>$ {5000}</p>

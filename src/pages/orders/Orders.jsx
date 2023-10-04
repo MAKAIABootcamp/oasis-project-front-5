@@ -65,7 +65,7 @@ const Orders = () => {
                                 <div key={index} className='favorites__info flex-wrap'>
                                     {order.orderData.cartData.map((item, itemIndex) => (
                                         <div key={itemIndex} className='flex gap-4'>
-                                            <img className='orders__image rounded-md' src={item.gallery.poster} alt="" />
+                                            <img className='orders__image rounded-md' src={item.poster} alt="" />
                                             <div className='flex flex-col gap-4'>
                                                 <span className=' font-semibold'>{item.name}</span>
                                                 <div>
