@@ -1,3 +1,9 @@
+.sales {
+  background-image: url('../../assets/ground.png');
+  height: 100vh;
+  background-size: cover;
+}
+
 .sales-container {
     display: flex;
     flex-direction: column;
@@ -9,9 +15,6 @@
     width: 100%;
   }
 
-
-  
-  
   table, th, td {
     border: 1px solid #ddd;
   }
@@ -54,6 +57,10 @@
 
 
   @media (max-width: 850px) {
+
+    .sales {
+      background-image: none;
+    }
 
     .sales__desktop {
       display: none;

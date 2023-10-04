@@ -76,7 +76,7 @@ const AdminPanel = () => {
         <div className="products__container">
           <Sidebar />
           <div className="flex flex-col justify-center gap-10">
-          <h1 className="flex self-center fontGreen text-[20px]"> PRODUCTOS </h1>
+          <h1 className="flex self-center fontGreen title"> PRODUCTOS </h1>
           <div className="product-list">
             {selectedProfileView === "stock" && (
               <>

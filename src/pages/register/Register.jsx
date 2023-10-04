@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import logo from '../../assets/logo.jpeg'
 import back from '../../assets/back.png'
 import './register.scss'
@@ -15,7 +15,16 @@ const Register = () => {
   const { error } = useSelector((store) => store.auth);
   const [successMessage, setSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [selectedFileName, setSelectedFileName] = useState("");
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setSelectedFileName(selectedFile.name);
+    } else {
+      setSelectedFileName("");
+    }
+  };
 
   const userRegister = async (data) => {
     try {
@@ -30,12 +39,12 @@ const Register = () => {
       setSuccessMessage(true);
       setTimeout(() => {
         setSuccessMessage(false);
-      }, 1000); 
+      }, 1000);
     } catch (error) {
       setErrorMessage(true);
       setTimeout(() => {
         setErrorMessage(false);
-      }, 1000); 
+      }, 1000);
     }
   };
 
@@ -52,7 +61,7 @@ const Register = () => {
           <img className="w-[26%]" src={logo} alt="" />
         </div>
         <form className="w-[80%] register__form" onSubmit={handleSubmit(userRegister)}>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
             <div className="flex flex-col">
               <label className="text-gray-400 text-[14px]  login__label">
                 Nombre
@@ -104,12 +113,16 @@ const Register = () => {
             <div className="flex flex-col">
               <label className="text-gray-400 text-[14px]  login__label">
                 Foto
+                <input
+                  type="file"
+                  style={{ display: 'none' }}
+                  {...register("photoURL")}
+                  onChange={handleFileChange}
+                />
+                <p className="fontGreen border-b border-gray-300 ">
+                  {selectedFileName || "Selecciona una foto"}
+                </p>
               </label>
-              <input
-                type="file"
-                className="border-b border-gray-300 mb-2 outline-none"
-                {...register("photoURL")}
-              />
             </div>
           </div>
           <div className="flex flex-col w-[100%] mt-8 items-center">
