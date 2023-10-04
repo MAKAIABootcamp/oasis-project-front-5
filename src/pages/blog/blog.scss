@@ -2,7 +2,7 @@
 
     &__header {
         background-color: #9acdc1;
-        padding: 5px 0px 5px 40px;
+        padding: 0px 100px 0px 50px;
         display: flex;
         justify-content: space-between;
     }
@@ -15,12 +15,7 @@
     }
 
     &__title {
-        font-size: 50px;
-    }
-
-    &__option:hover {
-        color: #288e7c;
-        text-decoration: underline;
+        font-size: 35px;
     }
 
     &__container {
@@ -48,7 +43,7 @@
     }
 
     &__buttonText {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     &__item {
@@ -184,7 +179,7 @@
             }
 
             &__option {
-                font-size: 16px;
+                display: none !important;
             }
 
             &__icon {
@@ -218,6 +213,11 @@
 
             &__icons {
                 display: none !important;
+            }
+
+            &__header {
+                padding: 0px 40px 0px 0px;
+                justify-content: center;
             }
         }
 

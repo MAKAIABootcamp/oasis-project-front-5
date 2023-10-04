@@ -111,8 +111,8 @@ const Blog = () => {
                     <h1 className="blog__title">OASIS</h1>
                 </div>
 
-                <div className="flex blog__icons">
-                    <div className="blog__option  flex items-center gap-2 w-[200px]">
+                <div className="flex gap-8">
+                    <div className="blog__option  flex items-center gap-2 ">
                         <button onClick={() => navigate("/products")}>
                             <img className="blog__icon" src={bag} alt="" />
                         </button>
@@ -123,7 +123,7 @@ const Blog = () => {
                             Nuestra tienda
                         </p>
                     </div>
-                    <div className="blog__option flex items-center gap-2 w-[200px]">
+                    <div className="blog__option flex items-center gap-2">
                         <button onClick={handlePerfilClick}>
                             <img className="blog__icon" src={user} alt="" />
                         </button>
