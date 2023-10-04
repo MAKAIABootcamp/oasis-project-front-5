@@ -25,7 +25,11 @@ const Blog = () => {
 
     const handlePerfilClick = () => {
         if (isLogged) {
-            navigate("/profile");
+            if (userLogged?.role === "admin") {
+                navigate("/admin");
+            } else {
+                navigate("/profile");
+            }
         } else {
             navigate("/login");
         }
@@ -47,6 +51,7 @@ const Blog = () => {
         };
 
         getArticles();
+        
     }, []);
 
     const handleCommentSubmit = async (e, index) => {
