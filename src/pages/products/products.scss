@@ -23,11 +23,6 @@
         cursor: pointer;
     }
 
-    &__li:hover {
-        color: #288e7c;
-        text-decoration: underline;
-    }
-
     &__container {
         display: flex;
         gap: 6rem;
