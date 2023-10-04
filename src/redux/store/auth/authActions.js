@@ -25,13 +25,11 @@ export const loginWithCode = (code) => {
                     address: user.address, 
                     accessToken: user.accessToken
                 }
-                console.log(user);
                 dispatch(setUserLogged(authUser));
                 dispatch(setIsLogged(true));
                 dispatch(setError(false));
             })
         } catch (error) {
-            console.log(error);
             dispatch(setError({
                 error: true,
                 code: error.code,
@@ -47,7 +45,6 @@ export const login = () => {
     return async (dispatch) => {
         try {
             const userCredential = await signInWithPopup(auth, provider);
-            console.log("respuesta de google", userCredential);
             const { user } = userCredential;
             const { user: userLogged, error } = await loginFromFirestore(user);
             if (userLogged) {
@@ -103,8 +100,6 @@ export const createAnUser = (newUser) => {
                 displayName: newUser.displayName, photoURL: newUser.photoURL,
             });
             const createdUser = await createAnUserInCollection(user.uid, {...newUser, role:'client'});
-            console.log("respuesta firebase", user);
-            console.log("respuesta firestore", createdUser);
             dispatch(setUserLogged(createdUser.user));
             dispatch(setIsLogged(true));
             dispatch(setError(false));
@@ -125,8 +120,6 @@ export const loginWithEmailAndPassword = (loggedUser) => {
         try {
             const { user } = await signInWithEmailAndPassword(auth, loggedUser.email, loggedUser.password)
             const foundUser = await getUserFromCollection(user.uid);
-            console.log("respuesta firebase", user);
-            console.log("respuesta firestore", foundUser);
             dispatch(setError(false));
             dispatch(setUserLogged(foundUser));
             dispatch(setIsLogged(true));
@@ -146,7 +139,6 @@ export const getUserActionFromCollection = (uid) => {
     return async (dispatch) => {
         try {
             const userLogged = await getUserFromCollection(uid);
-            console.log(userLogged);
             dispatch(setUserLogged(userLogged));
             dispatch(setIsLogged(true));
             dispatch(setError(null));

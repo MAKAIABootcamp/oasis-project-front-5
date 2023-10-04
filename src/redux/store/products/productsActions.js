@@ -17,10 +17,7 @@ export const fetchItems = (category) => {
     try {
       const querySnapshot = await getDocs(q);
       const items = querySnapshot.docs.map((doc) => doc.data());
-
-      console.log('Productos cargados:', items);
-      console.log('Categoría seleccionada', category);
-   
+  
    
     dispatch(setItemsAndCategory({ items, selectedCategory: category }));
     dispatch(setSelectedCategory(category));

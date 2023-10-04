@@ -36,20 +36,16 @@ const Router = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        console.log(user);
         if (!userLogged?.id) {
           dispatch(getUserActionFromCollection(uid));
         }
         setIsAdmin(userLogged?.role === "admin");
       } else {
-        console.log("No hay sesión activa");
         setIsAdmin(false);
       }
     });
   }, [dispatch, userLogged]);
 
-  console.log("en este momento el usuario está: ", isLogged);
-  console.log("en este momento este usuario es el que esta logeado: ", userLogged);
 
   useEffect(() => {
     if (error === false) {
