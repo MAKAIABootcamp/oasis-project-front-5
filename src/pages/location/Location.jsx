@@ -12,6 +12,7 @@ import { clearCartInFirestore } from '../../redux/store/cart/cart'
 import { collection, addDoc, query, getDocs, where, doc, updateDoc } from 'firebase/firestore';
 import { fireStore, auth } from "../../firebase/firebaseConfig.js";
 import { useSelector } from "react-redux";
+import ButtonEpayco from '../../components/buttonEpayco/ButtonEpayco';
 
 const Location = () => {
     const navigate = useNavigate();
@@ -238,7 +239,8 @@ const Location = () => {
                             disabled={isButtonDisabled}
                         >
                             Confirmar pedido
-                        </button>
+                        </button> 
+                        {/* <ButtonEpayco/> */}
                     </div>
                 </div>
             </div>

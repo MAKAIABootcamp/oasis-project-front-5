@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useNavigate} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import { auth } from "../firebase/firebaseConfig";
@@ -24,6 +24,7 @@ import AdminProfile from "../pages/adminProfile/AdminProfile";
 import Sales from "../pages/sales/Sales";
 import AddProducts from "../pages/addProducts/AddProducts";
 import Requests from "../pages/requests/Requests";
+import UserRequests from "../pages/userRequests/UserRequests";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -65,19 +66,19 @@ const Router = () => {
         } else {
           navigate("/profile");
         }
-      }, 1000); 
+      }, 1000);
     } else if (error) {
       setShowErrorMessage(true);
       dispatch(setError(null));
 
       setTimeout(() => {
         setShowErrorMessage(false);
-      }, 1000); 
+      }, 1000);
     }
   }, [error, dispatch, navigate, userLogged]);
-  
 
- 
+
+
   return (
     <>
       <Routes>
@@ -91,26 +92,27 @@ const Router = () => {
         <Route path="favorites" element={<Favorites />} />
         <Route path="location" element={<Location />} />
         <Route path="admin-details/:id" element={<DetailsAdmin />} />
-        
+
         {isAdmin && (
           <Route path="admin" element={<AdminPanel />} />
         )}
-        
+
         {isLogged ? (
           <>
             <Route path="profile" element={<Profile />} />
             <Route path="personal" element={<PersonalData />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="requests" element={<Requests />} />
+            <Route path="userRequests" element={<UserRequests />} />
 
             {isAdmin ? (
               <>
-          <Route path="admin-details/:id" element={<DetailsAdmin />} />
-          <Route path="adminProfile" element={<AdminProfile />} />
-          <Route path="adminSales" element={<Sales />} />
-          <Route path="adminProducts" element={<AddProducts />} />
-          <Route path="adminRequests" element={<Requests />} />
-</>
-              
+                <Route path="admin-details/:id" element={<DetailsAdmin />} />
+                <Route path="adminProfile" element={<AdminProfile />} />
+                <Route path="adminSales" element={<Sales />} />
+                <Route path="adminProducts" element={<AddProducts />} />
+              </>
+
             ) : null}
           </>
         ) : (
@@ -119,9 +121,9 @@ const Router = () => {
             <Route path="register" element={<Register />} />
           </>
         )}
-        
-        </Routes>
-        {showWelcomeMessage && (
+
+      </Routes>
+      {showWelcomeMessage && (
         <div className="login-message">
           <p>Bienvenido</p>
         </div>
@@ -132,7 +134,7 @@ const Router = () => {
           <p>Los datos ingresados no coinciden</p>
         </div>
       )}
-        <Footer />
+      <Footer />
     </>
   );
 };
