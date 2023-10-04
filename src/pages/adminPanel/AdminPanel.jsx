@@ -105,7 +105,7 @@ const AdminPanel = () => {
                               AGOTADO
                             </p>
                             
-                            <img className="icons" src={edite} alt="" />
+                            <img className="adminProduct__edite" src={edite} alt="" />
 
                           </div>
                         ) : (
@@ -132,7 +132,7 @@ const AdminPanel = () => {
                               
                               to={`/admin-details/${product.id}`}
                             >
-                              <img className="icons" src={edite} alt="" />
+                              <img className="adminProduct__edite" src={edite} alt="" />
                               </Link>
                           </div>
                         )}

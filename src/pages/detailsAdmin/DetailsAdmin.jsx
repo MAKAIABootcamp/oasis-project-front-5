@@ -8,8 +8,7 @@ import edite from "../../assets/edit.png";
 import "./detailsAdmin.scss";
 import {
     collection,
-    doc,
-    getDoc,
+    deleteDoc,
     getDocs,
     getFirestore,
     query,
@@ -17,6 +16,7 @@ import {
     where,
 } from "firebase/firestore";
 import fileUpload from "../../service/fileUpload";
+import { useNavigate } from "react-router-dom";
 
 
 const DetailsAdmin = () => {
@@ -28,6 +28,17 @@ const DetailsAdmin = () => {
     const product = products.find((p) => p.id === parseInt(id));
     const [isEditing, setIsEditing] = useState(false);
     const [isEditingGallery, setIsEditingGallery] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false);
+    const navigate = useNavigate();
+
+    const showDeleteDialog = () => {
+        setIsDialogOpen(true);
+    };
+
+    const closeDeleteDialog = () => {
+        setIsDialogOpen(false);
+    };
     const [editedProduct, setEditedProduct] = useState({
         name: products.name || "",
         title: products.title || "",
@@ -74,6 +85,7 @@ const DetailsAdmin = () => {
                 const firestore = getFirestore();
                 const itemsCollectionRef = collection(firestore, "items");
                 const querySnapshot = await getDocs(itemsCollectionRef);
+
 
                 let productDocRef;
                 querySnapshot.forEach((doc) => {
@@ -153,7 +165,7 @@ const DetailsAdmin = () => {
                         const productDocRef = querySnapshot.docs[0].ref;
                         const updateField = `gallery.${field}`;
                         await updateDoc(productDocRef, {
-                            [field]: imageUrl, 
+                            [field]: imageUrl,
                         });
                         cancelEditGallery();
                     } else {
@@ -165,13 +177,39 @@ const DetailsAdmin = () => {
             }
         }
     };
-      const cancelEditGallery = () => {
+    const cancelEditGallery = () => {
         setIsEditingGallery(false);
     };
 
     const handleEditGallery = () => {
         setIsEditingGallery(true);
     };
+
+
+    const handleDelete = async () => {
+        if (product && product.id) {
+
+            try {
+                const firestore = getFirestore();
+                const itemsCollectionRef = collection(firestore, "items");
+                const querySnapshot = await getDocs(
+                    query(itemsCollectionRef, where("id", "==", parseInt(id)))
+                );
+                if (!querySnapshot.empty) {
+                    const productDocRef = querySnapshot.docs[0].ref;
+                    await deleteDoc(productDocRef);
+                    setIsDeleteConfirmed(true);
+                    closeDeleteDialog();
+                    navigate('/admin')
+                } else {
+                    console.error("Documento no encontrado en Firestore.");
+                }
+            } catch (error) {
+                console.error("Error al eliminar el producto en Firestore:", error);
+            }
+        }
+    };
+
     return (
         <>
             <Header showSearchBar={false} />
@@ -206,15 +244,15 @@ const DetailsAdmin = () => {
                                                 id="poster"
                                                 onChange={(e) => handleImageUpload(e, 'poster')}
                                             />
-                                            <img 
-                                            className="w-[300px] h-[500px] object-cover"
+                                            <img
+                                                className="w-[300px] h-[500px] object-cover"
                                                 src={product.poster}
                                                 alt='Imagen de poster'
                                             />
                                         </label>
                                     </div>
                                 </form>
-   
+
                                 <form className="detailsAdmin__photos">
 
                                     <div className="cursor-pointer">
@@ -618,7 +656,29 @@ const DetailsAdmin = () => {
                         >
                             Guardar cambios
                         </button>
+                        <button
+                            className="button__page px-6 py-1.5 w-[100%]"
+                            onClick={showDeleteDialog}
+                        >
+                            Eliminar producto
+                        </button>
                     </div>
+                    {isDialogOpen && (
+                        <div className="favorite-added-message">
+                            <div className="flex flex-col gap-4">
+                                <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                                <div className="flex gap-6 justify-center">
+                                    <button className="detailsAdmin__button" onClick={handleDelete}>Sí</button>
+                                    <button className="detailsAdmin__button" onClick={closeDeleteDialog}>Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {isDeleteConfirmed && (
+                        <div className="favorite-added-message">
+                            El producto ha sido eliminado.
+                        </div>
+                    )}
                 </div>
             </div>
         </>

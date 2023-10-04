@@ -28,6 +28,13 @@
         width: 300px;
     }
 
+    &__button {
+        border: 1px solid #288e7c;
+        border-radius: 10px;
+        padding: 5px;
+        width: 100px;
+    }
+
 }
 
 @media (max-width:850px) {
