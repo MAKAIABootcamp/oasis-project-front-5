@@ -8,6 +8,7 @@ import { setUserLogged } from '../../redux/store/auth/authReducer';
 import { auth, fireStore } from '../../firebase/firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import fileUpload from '../../service/fileUpload';
+import Loading from '../../components/loading/Loading';
 
 const PersonalData = () => {
     const navigate = useNavigate();
@@ -103,7 +104,7 @@ const PersonalData = () => {
     if (!userLogged) {
         return (
             <div>
-                <p>Espere un momento...</p>
+                <Loading/>
             </div>
         );
     }

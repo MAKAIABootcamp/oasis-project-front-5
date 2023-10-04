@@ -9,6 +9,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import fileUpload from '../../service/fileUpload';
 import edit from '../../assets/edit.png';
 import './adminProfile.scss'
+import Loading from '../../components/loading/Loading';
 
 const AdminProfile = () => {
     const navigate = useNavigate();
@@ -105,7 +106,7 @@ const AdminProfile = () => {
     if (!userLogged) {
         return (
             <div>
-                <p>Espere un momento...</p>
+                <Loading/>
             </div>
         );
     }

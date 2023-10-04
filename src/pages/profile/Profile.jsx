@@ -9,6 +9,7 @@ import bag from "../../assets/bag.png";
 import out from "../../assets/logout.png";
 import home from "../../assets/home.png";
 import "./profile.scss";
+import Loading from "../../components/loading/Loading";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Profile = () => {
   if (!userLogged) {
     return (
       <div>
-        <p>Espere un momento...</p>
+        <Loading/>
       </div>
     );
   }

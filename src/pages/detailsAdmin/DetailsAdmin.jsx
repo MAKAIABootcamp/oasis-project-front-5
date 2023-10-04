@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "../../redux/store/products/productsActions";
 import Sidebar from "../../components/sidebar/Sidebar";
 import edite from "../../assets/edit.png";
+import load from "../../assets/loading.svg";
 import "./detailsAdmin.scss";
 import {
     collection,
@@ -17,6 +18,8 @@ import {
 } from "firebase/firestore";
 import fileUpload from "../../service/fileUpload";
 import { useNavigate } from "react-router-dom";
+import { reload } from "firebase/auth";
+import Loading from "../../components/loading/Loading";
 
 
 const DetailsAdmin = () => {
@@ -31,6 +34,7 @@ const DetailsAdmin = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false);
     const navigate = useNavigate();
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const showDeleteDialog = () => {
         setIsDialogOpen(true);
@@ -70,7 +74,7 @@ const DetailsAdmin = () => {
     }, [dispatch, id, products]);
 
     if (!product) {
-        return <p>Un momento...</p>;
+        return <Loading/>;
     }
 
     const handleEdit = (field) => {
@@ -127,12 +131,20 @@ const DetailsAdmin = () => {
 
                     await updateDoc(productDocRef, updatedFields);
 
+
+
                     setIsEditing(false);
                     setEditingField(null);
                     setEditedProduct((prevProduct) => ({
                         ...prevProduct,
                         ...updatedFields,
                     }));
+
+                    setShowSuccessMessage(true);
+                    setTimeout(() => {
+                        setShowSuccessMessage(false);
+                    }, 1000);
+
                 } else {
                     console.error("Documento no encontrado en Firestore.");
                 }
@@ -145,9 +157,18 @@ const DetailsAdmin = () => {
         }
     };
 
+    const cancelEditGallery = () => {
+        setIsEditingGallery(false);
+    };
+
+    const handleEditGallery = () => {
+        setIsEditingGallery(true);
+    };
+
     const handleThumbnailClick = (image) => {
         setSelectedImage(image);
     };
+
     const handleImageUpload = async (e, field) => {
         const newImageFile = e.target.files[0];
         if (newImageFile) {
@@ -168,6 +189,12 @@ const DetailsAdmin = () => {
                             [field]: imageUrl,
                         });
                         cancelEditGallery();
+
+                        setShowSuccessMessage(true);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                        reload()
                     } else {
                         console.error("Documento no encontrado en Firestore.");
                     }
@@ -177,14 +204,6 @@ const DetailsAdmin = () => {
             }
         }
     };
-    const cancelEditGallery = () => {
-        setIsEditingGallery(false);
-    };
-
-    const handleEditGallery = () => {
-        setIsEditingGallery(true);
-    };
-
 
     const handleDelete = async () => {
         if (product && product.id) {
@@ -680,6 +699,11 @@ const DetailsAdmin = () => {
                         </div>
                     )}
                 </div>
+                {showSuccessMessage && (
+                    <div className="favorite-added-message">
+                        Cambio realizado con éxito
+                    </div>
+                )}
             </div>
         </>
     );
