@@ -59,23 +59,14 @@ const AdminPanel = () => {
 
   const noResults = filteredProducts.length === 0;
 
-  // const handleDeleteProduct = async (productId) => {
-  //   try {
-  //     const firestore = firebase.firestore();
-  //     await firestore.collection("products").doc(productId).delete();
-  //     dispatch(fetchItems(localSelectedCategory));
-  //   } catch (error) {
-  //     console.error("Error al eliminar el producto:", error);
-  //   }
-  // };
 
   return (
     <>
       <Header showSearchBar={false} />
-      <div className="products">
-        <div className="products__container">
+      <div className="adminProduct">
+        <div className="adminProduct__all">
           <Sidebar />
-          <div className="flex flex-col justify-center gap-10">
+          <div className="adminProduct__container">
           <h1 className="flex self-center fontGreen title"> PRODUCTOS </h1>
           <div className="product-list">
             {selectedProfileView === "stock" && (
@@ -96,7 +87,7 @@ const AdminPanel = () => {
                         {product.sold ? (
                           <div   className="adminProduct__item">
                        <img
-                                className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer "
+                                className="w-[100px] h-[100px] object-cover rounded-md cursor-pointer relative "
                                 src={product.poster}
                                 alt={product.name}
                               />
@@ -113,7 +104,7 @@ const AdminPanel = () => {
                             <p className="adminProduct__agotado font-semibold w-[150px] text-red-500">
                               AGOTADO
                             </p>
-                            <img className="icons" src={del} alt="" onClick={() => handleDeleteProduct(product.id)} />
+                            
                             <img className="icons" src={edite} alt="" />
 
                           </div>
@@ -136,7 +127,7 @@ const AdminPanel = () => {
                               </p>
                               <p className="w-[150px] adminProduct__info">{product.genre}</p>
                               <p className="w-[150px] adminProduct__info">{product.state}</p>
-                              <img className="icons" src={del} alt="" onClick={() => handleDeleteProduct(product.id)} />
+                              
                               <Link
                               
                               to={`/admin-details/${product.id}`}
