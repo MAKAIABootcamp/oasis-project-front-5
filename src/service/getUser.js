@@ -8,13 +8,12 @@ export const getUserFromCollection = async (uid) => {
         const userRef = doc(fireStore, collectionName, uid);
         const user = await getDoc(userRef);
         if (user.exists()) {
-            console.log("Document data:", user.data());
             return {
                 id: user.id,
                 ...user.data()
             }
         } else {
-            console.log("No such document!");
+
             return null;
         }
     } catch (error) {

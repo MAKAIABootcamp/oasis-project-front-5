@@ -53,9 +53,8 @@ export const clearCartInFirestore = async () => {
 
       await Promise.all(deletePromises);
 
-      console.log("Carrito del usuario eliminado con éxito.");
   } catch (error) {
-      console.error("Error al eliminar el carrito del usuario en Firestore:", error);
+      console.error(error);
   }
 };
 

@@ -18,7 +18,6 @@ const uploadFile = async (file) => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('URL de la imagen cargada a Cloudinary:', data.secure_url);
             return data.secure_url;
           } else {
             console.error('Error al cargar la imagen a Cloudinary:', response.status, response.statusText);
