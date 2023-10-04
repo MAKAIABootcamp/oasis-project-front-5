@@ -92,7 +92,7 @@ const DetailsAdmin = () => {
                         updatedFields.title = editedProduct.title;
                     }
                     if (editingField === "price") {
-                        updatedFields.price = editedProduct.price;
+                        updatedFields.price = parseFloat(editedProduct.price);
                     }
                     if (editingField === "size") {
                         updatedFields.size = editedProduct.size;
