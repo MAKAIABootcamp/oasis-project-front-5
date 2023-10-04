@@ -28,6 +28,10 @@
 
 }
 
+.formAdd {
+    margin-left: 40px;
+}
+
 @media (max-width:850px) {
 
     .addProduct {
@@ -44,5 +48,9 @@
             width: 100%;
 
         }
+    }
+
+    .formAdd {
+        margin-left: 0;
     }
 }

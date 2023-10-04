@@ -52,7 +52,7 @@ const AddProducts
                 <div className="products">
                     <div className="products__container">
                         <Sidebar />
-                        <div className="flex flex-col items-center text-[14px] relative">
+                        <div className="flex flex-col items-center text-[14px] relative formAdd">
                             <h1 className='title fontGreen mb-10'>NUEVO PRODUCTO</h1>
                             <form className="w-[80%]" onSubmit={handleSubmit(itemRegister)}>
                                 <div className="addProduct__dates">
