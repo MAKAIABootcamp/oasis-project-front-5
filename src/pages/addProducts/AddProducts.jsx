@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState} from 'react'
 import './addProducts.scss'
 import Header from '../../components/header/Header'
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import './addProducts.scss'
 import Swal from 'sweetalert2';
+import photo from '../../assets/photo.png'
+
 
 const AddProducts
     = () => {
@@ -14,6 +16,12 @@ const AddProducts
         const navigate = useNavigate();
         const { register, handleSubmit } = useForm();
         const { error } = useSelector((store) => store.auth);
+        const [fileNames, setFileNames] = useState({
+            poster: 'Elige una foto',
+            frontPage: 'Elige una foto',
+            imgOne: 'Elige una foto',
+            imgTwo: 'Elige una foto',
+          });
 
 
         const itemRegister = async (data) => {
@@ -32,6 +40,14 @@ const AddProducts
             }
         };
 
+        const handleFileChange = (event, fieldName) => {
+            const fileName = event.target.files[0]?.name || '';
+            setFileNames((prevFileNames) => ({
+              ...prevFileNames,
+              [fieldName]: fileName,
+            }));
+          };
+
         return (
             <div className='addProduct'>
                 <Header showSearchBar={false} />
@@ -44,7 +60,7 @@ const AddProducts
                                 <div className="addProduct__dates">
                                     <div className='addProduct__divForm'>
                                         <div className=" flex gap-4">
-                                            <label className=" fontGreen w-[100px]">
+                                            <label className=" fontGreen w-[150px]">
                                                 Nombre:
                                             </label>
                                             <input
@@ -54,7 +70,7 @@ const AddProducts
                                             />
                                         </div>
                                         <div className=" flex gap-4">
-                                            <label className=" fontGreen w-[100px]">
+                                            <label className=" fontGreen w-[150px]">
                                                 Estado:
                                             </label>
                                             <input
@@ -64,7 +80,7 @@ const AddProducts
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className=" fontGreen w-[100px]">Categoría:</label>
+                                            <label className=" fontGreen w-[150px]">Categoría:</label>
                                             <input
                                                 type="text"
                                                 className="border-b addProduct__input"
@@ -72,7 +88,7 @@ const AddProducts
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className=" fontGreen w-[100px]">Precio:</label>
+                                            <label className=" fontGreen w-[150px]">Precio:</label>
                                             <input
                                                 type="number"
                                                 className="border-b addProduct__input"
@@ -80,7 +96,7 @@ const AddProducts
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
+                                            <label className="  fontGreen w-[150px]">
                                                 Color:
                                             </label>
                                             <input
@@ -91,7 +107,7 @@ const AddProducts
                                         </div>
 
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
+                                            <label className="  fontGreen w-[150px]">
                                                 Género:
                                             </label>
                                             <input
@@ -102,7 +118,7 @@ const AddProducts
                                         </div>
 
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
+                                            <label className="  fontGreen w-[150px]">
                                                 Talla:
                                             </label>
                                             <input
@@ -115,7 +131,7 @@ const AddProducts
 
                                     <div className='addProduct__divForm'>
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
+                                            <label className="  fontGreen w-[150px]">
                                                 Descripción:
                                             </label>
                                             <input
@@ -126,7 +142,7 @@ const AddProducts
                                         </div>
 
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
+                                            <label className="  fontGreen w-[150px]">
                                                 Composición:
                                             </label>
                                             <input
@@ -136,7 +152,7 @@ const AddProducts
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
+                                            <label className="  fontGreen w-[150px]">
                                                 Título:
                                             </label>
                                             <input
@@ -146,44 +162,58 @@ const AddProducts
                                             />
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
-                                                Foto 1
+                                            <label className="  fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 1:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    {...register("poster")}
+                                                    onChange={(e) => handleFileChange(e, 'poster')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.poster}</span>
                                             </label>
-                                            <input
-                                                type="file"
-                                                className=""
-                                                {...register("poster")}
-                                            />
+
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="  fontGreen w-[100px]">
-                                                Foto 2
+                                            <label className="  fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 2:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    {...register("frontPage")}
+                                                    onChange={(e) => handleFileChange(e, 'frontPage')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.frontPage}</span>
                                             </label>
-                                            <input
-                                                type="file"
-                                                className=""
-                                                {...register("frontPage")}
-                                            />
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="fontGreen w-[100px]">
-                                                Foto 3
+                                            <label className="fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 3:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    {...register("imgOne")}
+                                                    onChange={(e) => handleFileChange(e, 'imgOne')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.imgOne}</span>
                                             </label>
-                                            <input
-                                                type="file"
-                                                className=""
-                                                {...register("imgOne")}
-                                            />
+
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="fontGreen w-[100px]">
-                                                Foto 4
+                                            <label className="fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 4:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    {...register("imgTwo")}
+                                                    onChange={(e) => handleFileChange(e, 'imgTwo')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.imgTwo}</span>
                                             </label>
-                                            <input
-                                                type="file"
-                                                className=""
-                                                {...register("imgTwo")}
-                                            />
                                         </div>
                                     </div>
                                 </div>
