@@ -8,9 +8,8 @@ import { useForm } from 'react-hook-form';
 import './addProducts.scss'
 import Swal from 'sweetalert2';
 import photo from '../../assets/photo.png'
-import { addDoc, collection, getDocs, getFirestore, query } from '@firebase/firestore';
-import filesUpload from '../../service/fileUpload';
-
+import { addDoc, collection, doc, getDocs, getFirestore, query, setDoc } from '@firebase/firestore';
+import uploadFile from '../../service/uploadFile';
 
 const AddProducts
     = () => {
@@ -20,15 +19,75 @@ const AddProducts
         const { error } = useSelector((store) => store.auth);
         const db = getFirestore();
         const itemsCollection = collection(db, 'items');
-   
+
+        const [fileNames, setFileNames] = useState({
+            poster: 'Elige una foto',
+            frontPage: 'Elige una foto',
+            imgOne: 'Elige una foto',
+            imgTwo: 'Elige una foto',
+        });
+
+
+        const [imageSelected, setImageSelected] = useState({
+            poster: false,
+            frontPage: false,
+            imgOne: false,
+            imgTwo: false,
+        });
+
+        const [imageUrls, setImageUrls] = useState({
+            poster: '',
+            frontPage: '',
+            imgOne: '',
+            imgTwo: '',
+        });
+
+        const posterUrl = imageUrls.poster;
+        const frontPageUrl = imageUrls.frontPage;
+        const imgOneUrl = imageUrls.imgOne;
+        const imgTwoUrl = imageUrls.imgTwo;
+
+        const handleImageUpload = async (fieldName, imageFile) => {
+            try {
+                const imageUrl = await uploadFile(imageFile);
+                setImageUrls((prevImageUrls) => ({
+                    ...prevImageUrls,
+                    [fieldName]: imageUrl,
+                }));
+                setImageSelected((prevImageSelected) => ({
+                    ...prevImageSelected,
+                    [fieldName]: true,
+                }));
+                return imageUrl;
+            } catch (error) {
+                console.log(error);
+                alert('Error loading images');
+                return null;
+            }
+        };
+
+        const handleFileChange = async (event, fieldName) => {
+            const imageFile = event.target.files[0];
+            const fileName = imageFile?.name || '';
+            setFileNames((prevFileNames) => ({
+                ...prevFileNames,
+                [fieldName]: fileName,
+            }));
+            if (imageFile) {
+                await handleImageUpload(fieldName, imageFile);
+            }
+        };
+
         const onSubmit = async (data) => {
 
             const querySnapshot = await getDocs(query(itemsCollection));
-            const itemCount = querySnapshot.size; 
-            const nextItemId = itemCount + 1; 
+            const itemCount = querySnapshot.size;
+            const nextItemId = itemCount + 1;
             const state = 'Disponible'
             try {
-        
+
+                console.log('URLs de las imágenes:', imageUrls);
+
                 const newItem = {
                     ...data,
                     id: nextItemId,
@@ -44,19 +103,30 @@ const AddProducts
                     color: data.color,
                     description: data.description,
                     text: data.text,
-                    
+                    poster: posterUrl,
+                    frontPage: frontPageUrl,
+                    imgOne: imgOneUrl,
+                    imgTwo: imgTwoUrl,
+
+
                 };
 
-                const docRef = await addDoc(itemsCollection, newItem);
-                console.log('ID del nuevo documento:', docRef.id);
+
+                const newDocRef = doc(itemsCollection);
+
+                await setDoc(newDocRef, newItem);
+
+                console.log('ID del nuevo documento:', newDocRef.id);
 
                 Swal.fire("¡Excelente!", "Has agregado un nuevo producto", "success");
-       reset();
+                reset();
             } catch (error) {
                 Swal.fire("¡Oops!", "Hubo un error al agregar el producto", "error");
                 console.error('Error al agregar el producto:', error);
             }
         };
+
+     
         return (
             <div className='addProduct'>
                 <Header showSearchBar={false} />
@@ -73,13 +143,13 @@ const AddProducts
                                                 Nombre:
                                             </label>
                                             <input
-                                              type="text"
-                                              id="name"
-                                              name="name"
-                                              required 
-                                              className="addProduct__input"
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                                required
+                                                className="addProduct__input"
                                                 {...register("name")}
-                                         
+
                                             />
                                         </div>
                                         <div className=" flex gap-4">
@@ -87,9 +157,9 @@ const AddProducts
                                                 Estado:
                                             </label>
                                             <select
-                                            id="status"
-                                            name="status"
-                                            required 
+                                                id="status"
+                                                name="status"
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register('status')}
                                             >
@@ -103,7 +173,7 @@ const AddProducts
                                                 type="text"
                                                 id="category"
                                                 name="category"
-                                                required 
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("category")}
                                             />
@@ -114,11 +184,11 @@ const AddProducts
                                                 type="number"
                                                 id="price"
                                                 name="price"
-                                                required 
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("price")}
                                             />
-                                            
+
                                         </div>
                                         <div className="flex gap-4">
                                             <label className="  fontGreen w-[150px]">
@@ -128,7 +198,7 @@ const AddProducts
                                                 type="text"
                                                 id="color"
                                                 name="color"
-                                                required 
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("color")}
                                             />
@@ -139,14 +209,14 @@ const AddProducts
                                                 Categoría:
                                             </label>
                                             <select
-                                                  type="text"
-                                                  id="genre"
-                                                  name="genre"
-                                                  required 
+                                                type="text"
+                                                id="genre"
+                                                name="genre"
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("genre")}
                                             >
-                                             <option value="Hombre">Hombre</option>
+                                                <option value="Hombre">Hombre</option>
                                                 <option value="Mujer">Mujer</option>
                                                 <option value="Niños">Niños</option>
                                                 <option value="Accesorios">Accesorios</option>
@@ -158,10 +228,10 @@ const AddProducts
                                                 Talla:
                                             </label>
                                             <input
-                                                  type="text"
-                                                  id="size"
-                                                  name="size"
-                                                  required 
+                                                type="text"
+                                                id="size"
+                                                name="size"
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("size")}
                                             />
@@ -174,10 +244,10 @@ const AddProducts
                                                 Descripción:
                                             </label>
                                             <input
-                                             type="text"
-                                             id="description"
-                                             name="description"
-                                             required 
+                                                type="text"
+                                                id="description"
+                                                name="description"
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("description")}
                                             />
@@ -188,10 +258,10 @@ const AddProducts
                                                 Composición:
                                             </label>
                                             <input
-                                                  type="text"
-                                                  id="text"
-                                                  name="text"
-                                                  required 
+                                                type="text"
+                                                id="text"
+                                                name="text"
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("text")}
                                             />
@@ -201,15 +271,71 @@ const AddProducts
                                                 Título:
                                             </label>
                                             <input
-                                                  type="text"
-                                                  id="title"
-                                                  name="title"
-                                                  required 
+                                                type="text"
+                                                id="title"
+                                                name="title"
+                                                required
                                                 className="border-b addProduct__input"
                                                 {...register("title")}
                                             />
                                         </div>
-                                        
+                                        <div className="file flex gap-4">
+                                            <label className="  fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 1:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    {...register("poster")}
+                                                    onChange={(e) => handleFileChange(e, 'poster')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.poster}</span>
+                                            </label>
+                                        </div>
+                                        <div className="file flex gap-4">
+                                            <label className="  fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 2:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    {...register("frontPage")}
+                                                    onChange={(e) => handleFileChange(e, 'frontPage')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.frontPage}</span>
+                                            </label>
+                                        </div>
+                                        <div className="file flex gap-4">
+                                            <label className="fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 3:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    {...register("imgOne")}
+                                                    onChange={(e) => handleFileChange(e, 'imgOne')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.imgOne}</span>
+                                            </label>
+                                        </div>
+                                        <div className="file flex gap-4">
+                                            <label className="fontGreen w-[300px] flex gap-4">
+                                                Foto galeria 4:
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    {...register("imgTwo")}
+                                                    onChange={(e) => handleFileChange(e, 'imgTwo')}
+                                                />
+                                                <img className='w-5 object-contain' src={photo} alt="" />
+                                                <span className='text-gray-500'>{fileNames.imgTwo}</span>
+                                            </label>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className="flex flex-col w-[100%] mt-8 items-center">
@@ -226,4 +352,5 @@ const AddProducts
         )
     }
 
-export default AddProducts; 
+export default AddProducts
+
