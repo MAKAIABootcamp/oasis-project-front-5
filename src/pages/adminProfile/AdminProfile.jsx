@@ -111,184 +111,182 @@ const AdminProfile = () => {
     }
 
     return (
-        <div className='adminProfile'>
+        <>
             <Header showSearchBar={false} />
-            <div className="products">
-                <div className="products__container">
-                    <Sidebar />
-                    <div className='adminProfile__form'>
-                        <div className='profileContainer'>
-                            <div>
-                                <h1 className='adminProfile__title'>DATOS PERSONALES</h1>
-                            </div>
-                            <div className='w-20 h-20 rounded-full overflow-hidden mt-2'>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    style={{ display: 'none' }}
-                                    onChange={handleProfilePictureChange}
-                                    id="profilePictureInput"
+            <div className='adminProfile'>
+                <Sidebar />
+                <div className='adminProfile__form'>
+                    <div className='profileContainer'>
+                        <div>
+                            <h1 className='adminProfile__title'>DATOS PERSONALES</h1>
+                        </div>
+                        <div className='w-20 h-20 rounded-full overflow-hidden mt-2'>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                                onChange={handleProfilePictureChange}
+                                id="profilePictureInput"
+                            />
+                            <label htmlFor="profilePictureInput">
+                                <img
+                                    src={userLogged.photoURL}
+                                    alt='Foto de perfil'
+                                    className='w-full h-full object-cover cursor-pointer'
                                 />
-                                <label htmlFor="profilePictureInput">
-                                    <img
-                                        src={userLogged.photoURL}
-                                        alt='Foto de perfil'
-                                        className='w-full h-full object-cover cursor-pointer'
+                            </label>
+                        </div>
+                        <div className='flex flex-col gap-8 p-10'>
+                            {isEditing && editingField === 'displayName' ? (
+                                <form>
+                                    <input
+                                        type='text'
+                                        value={editedUserData.displayName}
+                                        onChange={(e) =>
+                                            setEditedUserData({
+                                                ...editedUserData,
+                                                displayName: e.target.value,
+                                            })
+                                        }
                                     />
-                                </label>
-                            </div>
-                            <div className='flex flex-col gap-8 p-10'>
-                                {isEditing && editingField === 'displayName' ? (
-                                    <form>
-                                        <input
-                                            type='text'
-                                            value={editedUserData.displayName}
-                                            onChange={(e) =>
-                                                setEditedUserData({
-                                                    ...editedUserData,
-                                                    displayName: e.target.value,
-                                                })
-                                            }
-                                        />
-                                        <button type='submit' onClick={handleSave}>Guardar</button>
-                                    </form>
-                                ) : (
-                                    <div className='flex justify-between w-72'>
-                                        <div className='flex gap-2'>
-                                            <p className='fontGreen'>Nombre:</p>
-                                            {isEditing && editingField === 'displayName' ? (
-                                                <input
-                                                    type='text'
-                                                    value={editedUserData.displayName}
-                                                    onChange={(e) =>
-                                                        setEditedUserData({
-                                                            ...editedUserData,
-                                                            displayName: e.target.value,
-                                                        })
-                                                    }
-                                                />
-                                            ) : (
-                                                <p>{userLogged.displayName}</p>
-                                            )}
-                                        </div>
-                                        {isEditing && editingField === 'displayName' ? (
-                                            <button type='submit' onClick={handleSave}>Guardar</button>
-                                        ) : (
-                                            <img
-                                                className='w-4 object-contain cursor-pointer'
-                                                src={edit}
-                                                alt=''
-                                                onClick={() => handleEdit('displayName')}
-                                            />
-                                        )}
-                                    </div>
-                                )}
-                                <hr />
+                                    <button type='submit' onClick={handleSave}>Guardar</button>
+                                </form>
+                            ) : (
                                 <div className='flex justify-between w-72'>
                                     <div className='flex gap-2'>
-                                        <p className='fontGreen' >Correo:</p>
-                                        <p>{userLogged.email}</p>
+                                        <p className='fontGreen'>Nombre:</p>
+                                        {isEditing && editingField === 'displayName' ? (
+                                            <input
+                                                type='text'
+                                                value={editedUserData.displayName}
+                                                onChange={(e) =>
+                                                    setEditedUserData({
+                                                        ...editedUserData,
+                                                        displayName: e.target.value,
+                                                    })
+                                                }
+                                            />
+                                        ) : (
+                                            <p>{userLogged.displayName}</p>
+                                        )}
                                     </div>
+                                    {isEditing && editingField === 'displayName' ? (
+                                        <button type='submit' onClick={handleSave}>Guardar</button>
+                                    ) : (
+                                        <img
+                                            className='w-4 object-contain cursor-pointer'
+                                            src={edit}
+                                            alt=''
+                                            onClick={() => handleEdit('displayName')}
+                                        />
+                                    )}
                                 </div>
-                                <hr />
-                                {isEditing && editingField === 'phoneNumber' ? (
-                                    <form>
-                                        <input
-                                            type='tel'
-                                            value={editedUserData.phoneNumber}
-                                            onChange={(e) =>
-                                                setEditedUserData({
-                                                    ...editedUserData,
-                                                    phoneNumber: e.target.value,
-                                                })
-                                            }
-                                        />
-                                        <button type='submit' onClick={handleSave}>Guardar</button>
-                                    </form>
-                                ) : (
-                                    <div className='flex justify-between w-72'>
-                                        <div className='flex gap-2'>
-                                            <p className='fontGreen' >Celular:</p>
-                                            {isEditing && editingField === 'phoneNumber' ? (
-                                                <input
-                                                    type='tel'
-                                                    value={editedUserData.phoneNumber}
-                                                    onChange={(e) =>
-                                                        setEditedUserData({
-                                                            ...editedUserData,
-                                                            phoneNumber: e.target.value,
-                                                        })
-                                                    }
-                                                />
-                                            ) : (
-                                                <p>{userLogged.phoneNumber}</p>
-                                            )}
-                                        </div>
-                                        {isEditing && editingField === 'phoneNumber' ? (
-                                            <button type='submit' onClick={handleSave}>Guardar</button>
-                                        ) : (
-                                            <img
-                                                className='w-4 object-contain cursor-pointer'
-                                                src={edit}
-                                                alt=''
-                                                onClick={() => handleEdit('phoneNumber')}
-                                            />
-                                        )}
-                                    </div>
-                                )}
-                                <hr />
-                                {isEditing && editingField === 'address' ? (
-                                    <form>
-                                        <input
-                                            type='text'
-                                            value={editedUserData.address}
-                                            onChange={(e) =>
-                                                setEditedUserData({
-                                                    ...editedUserData,
-                                                    address: e.target.value,
-                                                })
-                                            }
-                                        />
-                                        <button type='submit' onClick={handleSave}>Guardar</button>
-                                    </form>
-                                ) : (
-                                    <div className='flex justify-between w-72'>
-                                        <div className='flex gap-2'>
-                                            <p className='fontGreen'>Dirección:</p>
-                                            {isEditing && editingField === 'address' ? (
-                                                <input
-                                                    type='text'
-                                                    value={editedUserData.address}
-                                                    onChange={(e) =>
-                                                        setEditedUserData({
-                                                            ...editedUserData,
-                                                            address: e.target.value,
-                                                        })
-                                                    }
-                                                />
-                                            ) : (
-                                                <p>{userLogged.address}</p>
-                                            )}
-                                        </div>
-                                        {isEditing && editingField === 'address' ? (
-                                            <button type='submit' onClick={handleSave}>Guardar</button>
-                                        ) : (
-                                            <img
-                                                className='w-4 object-contain cursor-pointer'
-                                                src={edit}
-                                                alt=''
-                                                onClick={() => handleEdit('address')}
-                                            />
-                                        )}
-                                    </div>
-                                )}
-                                <hr />
+                            )}
+                            <hr />
+                            <div className='flex justify-between w-72'>
+                                <div className='flex gap-2'>
+                                    <p className='fontGreen' >Correo:</p>
+                                    <p>{userLogged.email}</p>
+                                </div>
                             </div>
+                            <hr />
+                            {isEditing && editingField === 'phoneNumber' ? (
+                                <form>
+                                    <input
+                                        type='tel'
+                                        value={editedUserData.phoneNumber}
+                                        onChange={(e) =>
+                                            setEditedUserData({
+                                                ...editedUserData,
+                                                phoneNumber: e.target.value,
+                                            })
+                                        }
+                                    />
+                                    <button type='submit' onClick={handleSave}>Guardar</button>
+                                </form>
+                            ) : (
+                                <div className='flex justify-between w-72'>
+                                    <div className='flex gap-2'>
+                                        <p className='fontGreen' >Celular:</p>
+                                        {isEditing && editingField === 'phoneNumber' ? (
+                                            <input
+                                                type='tel'
+                                                value={editedUserData.phoneNumber}
+                                                onChange={(e) =>
+                                                    setEditedUserData({
+                                                        ...editedUserData,
+                                                        phoneNumber: e.target.value,
+                                                    })
+                                                }
+                                            />
+                                        ) : (
+                                            <p>{userLogged.phoneNumber}</p>
+                                        )}
+                                    </div>
+                                    {isEditing && editingField === 'phoneNumber' ? (
+                                        <button type='submit' onClick={handleSave}>Guardar</button>
+                                    ) : (
+                                        <img
+                                            className='w-4 object-contain cursor-pointer'
+                                            src={edit}
+                                            alt=''
+                                            onClick={() => handleEdit('phoneNumber')}
+                                        />
+                                    )}
+                                </div>
+                            )}
+                            <hr />
+                            {isEditing && editingField === 'address' ? (
+                                <form>
+                                    <input
+                                        type='text'
+                                        value={editedUserData.address}
+                                        onChange={(e) =>
+                                            setEditedUserData({
+                                                ...editedUserData,
+                                                address: e.target.value,
+                                            })
+                                        }
+                                    />
+                                    <button type='submit' onClick={handleSave}>Guardar</button>
+                                </form>
+                            ) : (
+                                <div className='flex justify-between w-72'>
+                                    <div className='flex gap-2'>
+                                        <p className='fontGreen'>Dirección:</p>
+                                        {isEditing && editingField === 'address' ? (
+                                            <input
+                                                type='text'
+                                                value={editedUserData.address}
+                                                onChange={(e) =>
+                                                    setEditedUserData({
+                                                        ...editedUserData,
+                                                        address: e.target.value,
+                                                    })
+                                                }
+                                            />
+                                        ) : (
+                                            <p>{userLogged.address}</p>
+                                        )}
+                                    </div>
+                                    {isEditing && editingField === 'address' ? (
+                                        <button type='submit' onClick={handleSave}>Guardar</button>
+                                    ) : (
+                                        <img
+                                            className='w-4 object-contain cursor-pointer'
+                                            src={edit}
+                                            alt=''
+                                            onClick={() => handleEdit('address')}
+                                        />
+                                    )}
+                                </div>
+                            )}
+                            <hr />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
