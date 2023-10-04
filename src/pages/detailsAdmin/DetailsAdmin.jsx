@@ -136,7 +136,6 @@ const DetailsAdmin = () => {
     const handleThumbnailClick = (image) => {
         setSelectedImage(image);
     };
-
     const handleImageUpload = async (e, field) => {
         const newImageFile = e.target.files[0];
         if (newImageFile) {
@@ -154,7 +153,7 @@ const DetailsAdmin = () => {
                         const productDocRef = querySnapshot.docs[0].ref;
                         const updateField = `gallery.${field}`;
                         await updateDoc(productDocRef, {
-                            [updateField]: imageUrl,
+                            [field]: imageUrl, 
                         });
                         cancelEditGallery();
                     } else {
@@ -166,8 +165,7 @@ const DetailsAdmin = () => {
             }
         }
     };
-
-    const cancelEditGallery = () => {
+      const cancelEditGallery = () => {
         setIsEditingGallery(false);
     };
 
@@ -295,7 +293,7 @@ const DetailsAdmin = () => {
                                     className="w-[70px] cursor-pointer"
                                     src={product.imgOne}
                                     alt={product.name}
-                                    onClick={() => handleThumbnailClick(product.gallery.imgOne)}
+                                    onClick={() => handleThumbnailClick(product.imgOne)}
                                 />
                             </div>
                         )}
