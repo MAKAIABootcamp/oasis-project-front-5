@@ -8,7 +8,6 @@ import next from "../../assets/next.png";
 import bag from "../../assets/bag.png";
 import out from "../../assets/logout.png";
 import home from "../../assets/home.png";
-import request from '../../assets/addProducts.png'
 import "./profile.scss";
 
 const Profile = () => {
@@ -65,15 +64,7 @@ const Profile = () => {
           </div>
 
           <hr />
-          <div className="flex justify-between cursor-pointer" onClick={() => navigate("/userRequests")}>
-            <div className="flex gap-2">
-              <img className="w-4 object-contain" src={request} alt="" />
-              <p>Mis Solicitudes</p>
-            </div>
-            <img className="icons" src={next} alt="" />
-          </div>
-          <hr />
-          <div className="flex justify-between cursor-pointer" onClick={() => navigate("/products")}>
+                  <div className="flex justify-between cursor-pointer" onClick={() => navigate("/products")}>
             <div className="flex gap-2">
               <img className="w-4 object-contain" src={home} alt="" />
               <p>Home</p>
