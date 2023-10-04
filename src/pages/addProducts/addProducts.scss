@@ -1,1 +1,35 @@
+.addProduct {
+    background-image: url('../../assets/ground.png');
+    background-position-x: right;
+    background-size: cover;
 
+    &__dates {
+        display: flex;
+        gap: 4rem;
+    }
+
+    &__divForm {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &__div {
+        width: 20%;
+    }
+
+}
+
+@media (max-width:850px) {
+
+    .addProduct {
+
+        background-image: none;
+        
+        &__dates {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+}
