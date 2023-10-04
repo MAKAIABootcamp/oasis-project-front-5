@@ -91,13 +91,13 @@ const Header = ({ showSearchBar = true, searchTerm, onSearchChange }) => {
       <div className="flex gap-6">
       {isLogged && userLogged && userLogged.role === 'admin' ? (
       
-          <div className="admin-icon">
+          <div className="flex gap-2">
+            <p> {userLogged.displayName}</p>
           <img             onClick={() => {
               dispatch(logout());
               navigate("/");
             }}
-             className="w-6 object-contain cursor-pointer" src={out} alt="Admin Icon" />
-          <p> {userLogged.displayName}</p>
+             className="w-5 object-contain cursor-pointer" src={out} alt="Admin Icon" />
           </div>
         ) : (
           <>
