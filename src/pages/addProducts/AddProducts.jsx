@@ -42,71 +42,71 @@ const AddProducts
                             <form className="w-[80%]" onSubmit={handleSubmit(itemRegister)}>
                                 <div className="addProduct__dates">
                                     <div className='addProduct__divForm'>
-                                        <div className="flex gap-4">
-                                            <label className=" fontGreen fontGreen">
+                                        <div className=" flex gap-4">
+                                            <label className=" fontGreen w-[100px]">
                                                 Nombre:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="addProduct__input"
                                                 {...register("name")}
                                             />
                                         </div>
-                                        <div className="flex gap-4">
-                                            <label className=" fontGreen">
+                                        <div className=" flex gap-4">
+                                            <label className=" fontGreen w-[100px]">
                                                 Estado:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="border-b addProduct__input "
                                                 {...register("status")}
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className=" fontGreen">Categoría:</label>
+                                            <label className=" fontGreen w-[100px]">Categoría:</label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none "
+                                                className="border-b addProduct__input"
                                                 {...register("category")}
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className=" fontGreen">Precio:</label>
+                                            <label className=" fontGreen w-[100px]">Precio:</label>
                                             <input
                                                 type="number"
-                                                className="border-b border-gray-300 mb-2 outline-none "
+                                                className="border-b addProduct__input"
                                                 {...register("price")}
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Color:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="border-b addProduct__input"
                                                 {...register("color")}
                                             />
                                         </div>
 
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Género:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="border-b addProduct__input"
                                                 {...register("genre")}
                                             />
                                         </div>
 
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Talla:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="border-b addProduct__input"
                                                 {...register("size")}
                                             />
                                         </div>
@@ -114,74 +114,74 @@ const AddProducts
 
                                     <div className='addProduct__divForm'>
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Descripción:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="border-b addProduct__input"
                                                 {...register("description")}
                                             />
                                         </div>
 
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Composición:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="border-b addProduct__input"
                                                 {...register("text")}
                                             />
                                         </div>
                                         <div className="flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Título:
                                             </label>
                                             <input
                                                 type="text"
-                                                className="border-b border-gray-300 mb-2 outline-none"
+                                                className="border-b addProduct__input"
                                                 {...register("title")}
                                             />
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Foto 1
                                             </label>
                                             <input
                                                 type="file"
                                                 className=""
-                                                {...register("photoURL")}
+                                                {...register("poster")}
                                             />
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="  fontGreen">
+                                            <label className="  fontGreen w-[100px]">
                                                 Foto 2
                                             </label>
                                             <input
                                                 type="file"
                                                 className=""
-                                                {...register("photoURL")}
+                                                {...register("frontPage")}
                                             />
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="fontGreen">
+                                            <label className="fontGreen w-[100px]">
                                                 Foto 3
                                             </label>
                                             <input
                                                 type="file"
                                                 className=""
-                                                {...register("photoURL")}
+                                                {...register("imgOne")}
                                             />
                                         </div>
                                         <div className="file flex gap-4">
-                                            <label className="fontGreen">
+                                            <label className="fontGreen w-[100px]">
                                                 Foto 4
                                             </label>
                                             <input
                                                 type="file"
                                                 className=""
-                                                {...register("photoURL")}
+                                                {...register("imgTwo")}
                                             />
                                         </div>
                                     </div>

@@ -11,11 +11,19 @@
     &__divForm {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 1rem;
+        width: 50%;
     }
 
     &__div {
         width: 20%;
+    }
+
+    &__input {
+        border: none;
+        border-bottom: 1px solid rgb(208, 207, 207);
+        outline: none;
+        width: 100%;
     }
 
 }
@@ -29,7 +37,12 @@
         &__dates {
             display: flex;
             flex-direction: column;
-            gap: 0;
+            gap: 1rem;
+        }
+
+        &__divForm {
+            width: 100%;
+
         }
     }
 }
