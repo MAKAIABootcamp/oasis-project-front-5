@@ -81,7 +81,7 @@ const Favorites = () => {
                                         <p className='favorites__description'>{product.description}</p>
                                         <div className='favorites__dates'>
                                             <Link to={`/details/${product.id}`}>
-                                                <img className='w-[150px] h-[200px] rounded-md' src={product.gallery.poster} alt={product.name} />
+                                                <img className='w-[150px] h-[200px] rounded-md' src={product.poster} alt={product.name} />
                                             </Link>
                                             <div className='product-details flex flex-col justify-between'>
                                                 <div className='flex flex-col gap-2'>
@@ -105,7 +105,7 @@ const Favorites = () => {
             </div>
             {isRemovedFromFavorites && (
                 <div className="favorite-added-message">
-                    Se eliminó de favorios
+                    Se eliminó de favoritos
                 </div>
             )}
             {isAddedToCart && (

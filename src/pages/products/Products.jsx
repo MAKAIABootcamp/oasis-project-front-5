@@ -84,7 +84,7 @@ const Products = () => {
                     <div>
                       <img
                         className="w-80 h-80 object-cover rounded-md cursor-not-allowed"
-                        src={product.gallery.poster}
+                        src={product.poster}
                         alt={product.name}
                       />
                       <p className="font-semibold text-red-500">AGOTADO</p>
@@ -97,7 +97,7 @@ const Products = () => {
                       <Link to={`/details/${product.id}`}>
                         <img
                           className="w-80 h-80 object-cover rounded-md cursor-pointer "
-                          src={product.gallery.poster}
+                          src={product.poster}
                           alt={product.name}
                         />
                         <p className="fontGreen">{product.name}</p>

@@ -31,7 +31,7 @@ const Confirmation = () => {
                             <h2 className='fontGreen mb-6'>Detalles de tu compra</h2>
                             {cartData.map((item) => (
                                 <div key={item.id} className='flex gap-6'>
-                                    <img className='w-20 rounded-md' src={item.gallery.poster} alt="" />
+                                    <img className='w-20 rounded-md' src={item.poster} alt="" />
                                     <div className='flex flex-col gap-2'>
                                         <p className='text-[18px]'>$ {item.price}</p>
                                         <p>{item.name}</p>

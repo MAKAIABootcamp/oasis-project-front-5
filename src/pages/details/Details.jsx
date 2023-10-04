@@ -134,26 +134,26 @@ const Details = () => {
             <p>{product.text}</p>
           </div>
           <div className="details__photosContainer flex gap-6">
-            <img className="photoShow" src={selectedImage || product.gallery.poster} alt={product.name} />
+            <img className="photoShow" src={selectedImage || product.poster} alt={product.name} />
 
             <div className="details__photos">
               <img
                 className="w-[90px] cursor-pointer"
-                src={product.gallery.frontPage}
+                src={product.frontPage}
                 alt={product.name}
-                onClick={() => handleThumbnailClick(product.gallery.frontPage)}
+                onClick={() => handleThumbnailClick(product.frontPage)}
               />
               <img
                 className="w-[90px]  cursor-pointer"
-                src={product.gallery.imgTwo}
+                src={product.imgTwo}
                 alt={product.name}
-                onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
+                onClick={() => handleThumbnailClick(product.imgTwo)}
               />
               <img
                 className="w-[90px]  cursor-pointer"
-                src={product.gallery.imgOne}
+                src={product.imgOne}
                 alt={product.name}
-                onClick={() => handleThumbnailClick(product.gallery.imgOne)}
+                onClick={() => handleThumbnailClick(product.imgOne)}
               />
             </div>
           </div>

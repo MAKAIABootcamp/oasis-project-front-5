@@ -209,7 +209,7 @@ const DetailsAdmin = () => {
                                                 onChange={(e) => handleImageUpload(e, 'poster')}
                                             />
                                             <img 
-                                                src={product.gallery.poster}
+                                                src={product.poster}
                                                 alt='Imagen de poster'
                                             />
                                         </label>
@@ -228,7 +228,7 @@ const DetailsAdmin = () => {
                                                 onChange={(e) => handleImageUpload(e, 'frontPage')}
                                             />
                                             <img className="w-[70px]  cursor-pointer"
-                                                src={product.gallery.frontPage}
+                                                src={product.frontPage}
                                                 alt='Imagen de frontPage'
                                             />
                                         </label>
@@ -243,7 +243,7 @@ const DetailsAdmin = () => {
                                                 onChange={(e) => handleImageUpload(e, 'imgOne')}
                                             />
                                             <img className="w-[70px]  cursor-pointer"
-                                                src={product.gallery.imgOne}
+                                                src={product.imgOne}
                                                 alt='Imagen de imgOne'
                                             />
                                         </label>
@@ -258,7 +258,7 @@ const DetailsAdmin = () => {
                                                 onChange={(e) => handleImageUpload(e, 'imgTwo')}
                                             />
                                             <img className="w-[70px]  cursor-pointer"
-                                                src={product.gallery.imgTwo}
+                                                src={product.imgTwo}
                                                 alt='Imagen de imgTwo'
                                             />
                                         </label>
@@ -269,7 +269,7 @@ const DetailsAdmin = () => {
                             <div className="detailsAdmin__photoShow flex gap-2">
                                 <img
                                     className="photoShow"
-                                    src={selectedImage || product.gallery.poster}
+                                    src={selectedImage || product.poster}
                                     alt={product.name}
                                 />
                             </div>
@@ -279,21 +279,21 @@ const DetailsAdmin = () => {
                             <div className="detailsAdmin__photos">
                                 <img
                                     className="w-[70px] cursor-pointer"
-                                    src={product.gallery.frontPage}
+                                    src={product.frontPage}
                                     alt={product.name}
                                     onClick={() =>
-                                        handleThumbnailClick(product.gallery.frontPage)
+                                        handleThumbnailClick(product.frontPage)
                                     }
                                 />
                                 <img
                                     className="w-[70px] cursor-pointer"
-                                    src={product.gallery.imgTwo}
+                                    src={product.imgTwo}
                                     alt={product.name}
-                                    onClick={() => handleThumbnailClick(product.gallery.imgTwo)}
+                                    onClick={() => handleThumbnailClick(product.imgTwo)}
                                 />
                                 <img
                                     className="w-[70px] cursor-pointer"
-                                    src={product.gallery.imgOne}
+                                    src={product.imgOne}
                                     alt={product.name}
                                     onClick={() => handleThumbnailClick(product.gallery.imgOne)}
                                 />

@@ -5,7 +5,6 @@
     align-items: center;
     border: solid 1px #288e7c;
     gap: 10px;
-    padding: 10px;
     border-radius: 20px;
     background-color: white;
 }
@@ -14,6 +13,9 @@
     background-image: url('../../assets/ground.png');
     background-size: cover;
     height: 100vh;
+    display: flex;
+    padding: 50px 120px 50px 120px;
+
 
     &__form {
         flex: 1;
@@ -21,7 +23,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-right: 16%;
+        margin-right: 8%;
+        margin-bottom: 60px;
     }
 
     &__title {
@@ -34,6 +37,7 @@
 
     .adminProfile {
         background-image: none;
+        padding: 0;
 
         &__form {
             margin-right: 0;

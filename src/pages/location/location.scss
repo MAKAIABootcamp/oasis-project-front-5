@@ -4,8 +4,15 @@
     &__container {
         display: flex;
         justify-content: space-between;
-        margin: 100px 80px;
-        gap: 6rem;
+        margin: 60px 80px;
+        gap: 3rem;
+    }
+
+    &__choose {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 25%;
     }
 }
 
@@ -58,7 +65,7 @@
 
 
 
-@media (max-width:650px) { 
+@media (max-width:850px) { 
     
     .location {
         margin: 20px 20px 100px 20px;
@@ -68,6 +75,10 @@
             flex-direction: column;
             margin: 40px 20px 20px 20px;
             gap: 4rem;
+        }
+
+        &__choose {
+            width: 100%;
         }
     }
 }
