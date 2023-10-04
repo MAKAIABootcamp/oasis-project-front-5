@@ -90,7 +90,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
-    width: 200px;
+    width: 100px;
 }
 
 @media (max-width:650px) {
