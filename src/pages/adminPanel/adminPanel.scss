@@ -1,0 +1,62 @@
+.adminProduct {
+    padding: 50px 120px 50px 120px;
+    display: flex;
+    gap: 8rem;
+
+    &__container {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 6rem;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    &__item {
+        width: 80%;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    &__edite {
+        width: 20px;
+    }
+
+    &__title {
+        margin-right: 15rem;
+    }
+
+}
+
+@media (max-width:850px) {
+
+    .adminProduct {
+        padding: 20px;
+        gap: 0;
+
+        &__info {
+            display: none;
+        }
+
+        &__agotado {
+            display: none;
+        }
+
+        &__item {
+            justify-content: center;
+            width: 100%;
+        }
+
+        &__title {
+            margin-right: 0;
+        }
+
+    }
+}
+

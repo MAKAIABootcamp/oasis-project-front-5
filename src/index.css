@@ -1,0 +1,118 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+}
+
+
+.button__login {
+    border: solid 1px #288e7c;
+    border-radius: 50px;
+    padding: 4px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.fontGreen {
+    color: #288e7c;
+}
+
+.container__login {
+    border: solid 1px #288e7c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.container__options {
+    border: solid 1px #288e7c;
+    justify-content: center;
+}
+
+.button__page {
+    background-color: #9acdc1;
+    border-radius: 50px;
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+}
+
+.backArrow {
+    width: 20px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.icons {
+    width: 15px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.login-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 60px;
+    border: 1px solid #cccccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    color: #288e7c;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    width: 40%;
+}
+
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 100px;
+}
+
+@media (max-width:650px) {
+    .backArrow {
+        width: 15px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .container__login {
+        border: none;
+        margin-top: 0;
+    }
+
+    .icons {
+        width: 12px;
+    }
+
+    .login-message {
+        width: 300px;
+    }
+}
+

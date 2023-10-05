@@ -1,0 +1,25 @@
+.footer {
+    display: none;
+
+    &__container {
+        background-color: #9acdc1;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+        position: fixed;
+        z-index: 1000;
+    }
+}
+
+@media (max-width:650px) {
+
+    .footer {
+        display: block;
+    }
+}
+
+

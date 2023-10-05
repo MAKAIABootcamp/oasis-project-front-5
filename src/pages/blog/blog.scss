@@ -1,0 +1,228 @@
+.blog {
+
+    &__header {
+        background-color: #9acdc1;
+        padding: 0px 100px 0px 50px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__transform {
+        color: #288e7c;
+        font-weight: bold;
+        font-size: 25px;
+        align-self: center;
+    }
+
+    &__title {
+        font-size: 35px;
+    }
+
+    &__container {
+        padding: 20px;
+        margin: 40px 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    &__option {
+        cursor: pointer;
+    }
+
+    &__button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    &__icon {
+        width: 22px;
+    }
+
+    &__buttonText {
+        font-size: 18px;
+    }
+
+    &__item {
+        display: flex;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        &:last-child {
+            margin-bottom: 10;
+        }
+    }
+
+    &__subtitle {
+        color: #288e7c !important;
+    }
+
+    &__titleImage {
+        border-radius: 8px;
+        margin-bottom: 4rem;
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    &__a {
+        display: flex;
+        gap: 4rem;
+    }
+
+    &__paragraph {
+        line-height: 1.5;
+        color: #333;
+
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #333;
+
+    }
+
+    &__comments {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__image {
+        width: 30%;
+        height: 200px;
+        cursor: pointer;
+        object-fit: cover;
+    }
+    
+    &__iconsResp {
+        display: none;
+    }
+}
+
+.comment {
+    display: flex;
+    gap: 5px;
+}
+
+.comment-user {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.comment-text {
+    font-size: 14px;
+}
+
+.comment-image {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.input {
+    border-radius: 50px;
+    padding: 2px 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+@media (max-width: 650px) {
+
+        .blog {
+
+            &__container {
+                margin: 10px 10px 60px 10px;
+            }
+
+            &__item {
+                display: flex;
+                flex-direction: column;
+            }
+
+            &__titleImage {
+                width: 100%;
+            }
+
+            &__title {
+                font-size: 30px;
+            }
+
+            &__paragraph {
+                width: 100%;
+            }
+
+            &__button {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            &__transform {
+                font-size: 18px;
+            }
+
+            &__option {
+                display: none !important;
+            }
+
+            &__icon {
+                width: 20px;
+                position: absolute;
+                top: 2px;
+                right: 20px;
+                width: 20px;
+            }
+
+            &__a {
+                display: flex;
+                flex-direction: column;
+            }
+
+            &__buttonText {
+                display: none;
+            }
+
+            &__paragraph {
+                font-size: 16px;
+            }
+
+            &__image {
+                width: 100%;
+            }
+
+            &__comments {
+                width: 100%;
+            }
+
+            &__icons {
+                display: none !important;
+            }
+
+            &__header {
+                padding: 0px 40px 0px 0px;
+                justify-content: center;
+            }
+        }
+
+        h2 {
+            font-size: 18px !important;
+        }
+
+    }

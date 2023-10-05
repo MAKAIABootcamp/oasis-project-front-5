@@ -1,0 +1,62 @@
+.favorites {
+    margin: 40px;
+
+    &__container {
+        margin: 80px 120px;
+        display: flex;
+        gap: 8rem;
+    }
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        width: 100%;
+    }
+
+    &__info{
+        display: flex;
+        gap: 2rem;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    &__description {
+        width: 30%;
+    }
+
+    &__dates{
+        display: flex;
+        gap: 1rem;
+        width: 60%;
+    }
+}
+
+@media (max-width:650px) {
+
+    .favorites {
+        margin: 20px 20px;
+
+        &__container {
+            margin: 0 auto 60px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        &__description {
+            display: none;
+        }
+
+        &__dates {
+            width: 100%;
+        }
+
+        &__card {
+            gap: 2rem;
+        }
+
+    }
+}

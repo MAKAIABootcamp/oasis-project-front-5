@@ -1,0 +1,19 @@
+.header {
+
+    background-color: #9acdc1;
+    padding: 20px 30px;
+
+    &__input {
+        width: 20%;
+    }
+}
+
+@media (max-width:650px) {
+    .header {
+
+
+        &__input {
+            width: 50%;
+        }
+    }
+ }
